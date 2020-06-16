@@ -1,0 +1,8 @@
+/home/jack/Code/Incapacidades/Dominio/bin/Debug/netcoreapp3.1/Dominio.deps.json
+/home/jack/Code/Incapacidades/Dominio/bin/Debug/netcoreapp3.1/Dominio.dll
+/home/jack/Code/Incapacidades/Dominio/bin/Debug/netcoreapp3.1/Dominio.pdb
+/home/jack/Code/Incapacidades/Dominio/obj/Debug/netcoreapp3.1/Dominio.AssemblyInfoInputs.cache
+/home/jack/Code/Incapacidades/Dominio/obj/Debug/netcoreapp3.1/Dominio.AssemblyInfo.cs
+/home/jack/Code/Incapacidades/Dominio/obj/Debug/netcoreapp3.1/Dominio.csproj.CoreCompileInputs.cache
+/home/jack/Code/Incapacidades/Dominio/obj/Debug/netcoreapp3.1/Dominio.dll
+/home/jack/Code/Incapacidades/Dominio/obj/Debug/netcoreapp3.1/Dominio.pdb

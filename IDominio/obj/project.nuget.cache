@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "XBg2cWB/p4ihMg4b7ZXhsg5IB0O2mkRq/mQyHPA1i8f75AqJMMAZNi5m9OnBPJzOQEvqqUwk9+WSIzRltmAbbA==",
+  "success": true,
+  "projectFilePath": "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj",
+  "expectedPackageFiles": [
+    "/home/jack/.nuget/packages/microsoft.aspnetcore.app.ref/3.1.2/microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
+  ],
+  "logs": []
+}
