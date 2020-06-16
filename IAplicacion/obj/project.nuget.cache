@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "WsLifVqVe3zVqH5zwkiXATT5OeOqd4jIgm62aXerDEuMUosDvSXAyzST+ZsTSL4OAnxSAe5/0pn3dBGjlwivzA==",
+  "success": true,
+  "projectFilePath": "/home/jack/Code/Incapacidades/IAplicacion/IAplicacion.csproj",
+  "expectedPackageFiles": [
+    "/home/jack/.nuget/packages/microsoft.aspnetcore.app.ref/3.1.2/microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
+  ],
+  "logs": []
+}

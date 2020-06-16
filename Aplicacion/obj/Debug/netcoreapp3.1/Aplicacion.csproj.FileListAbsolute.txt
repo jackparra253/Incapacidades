@@ -1,0 +1,8 @@
+/home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/Aplicacion.deps.json
+/home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/Aplicacion.dll
+/home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/Aplicacion.pdb
+/home/jack/Code/Incapacidades/Aplicacion/obj/Debug/netcoreapp3.1/Aplicacion.AssemblyInfoInputs.cache
+/home/jack/Code/Incapacidades/Aplicacion/obj/Debug/netcoreapp3.1/Aplicacion.AssemblyInfo.cs
+/home/jack/Code/Incapacidades/Aplicacion/obj/Debug/netcoreapp3.1/Aplicacion.csproj.CoreCompileInputs.cache
+/home/jack/Code/Incapacidades/Aplicacion/obj/Debug/netcoreapp3.1/Aplicacion.dll
+/home/jack/Code/Incapacidades/Aplicacion/obj/Debug/netcoreapp3.1/Aplicacion.pdb
