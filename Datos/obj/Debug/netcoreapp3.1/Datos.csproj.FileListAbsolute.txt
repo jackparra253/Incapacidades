@@ -7,3 +7,6 @@
 /home/jack/Code/Incapacidades/Datos/obj/Debug/netcoreapp3.1/Datos.csproj.CoreCompileInputs.cache
 /home/jack/Code/Incapacidades/Datos/obj/Debug/netcoreapp3.1/Datos.dll
 /home/jack/Code/Incapacidades/Datos/obj/Debug/netcoreapp3.1/Datos.pdb
+/home/jack/Code/Incapacidades/Datos/bin/Debug/netcoreapp3.1/Datos.runtimeconfig.json
+/home/jack/Code/Incapacidades/Datos/bin/Debug/netcoreapp3.1/Datos.runtimeconfig.dev.json
+/home/jack/Code/Incapacidades/Datos/obj/Debug/netcoreapp3.1/Datos.genruntimeconfig.cache

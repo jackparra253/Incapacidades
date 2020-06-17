@@ -6,3 +6,4 @@
 /home/jack/Code/Incapacidades/IDatos/obj/Debug/netcoreapp3.1/IDatos.csproj.CoreCompileInputs.cache
 /home/jack/Code/Incapacidades/IDatos/obj/Debug/netcoreapp3.1/IDatos.dll
 /home/jack/Code/Incapacidades/IDatos/obj/Debug/netcoreapp3.1/IDatos.pdb
+/home/jack/Code/Incapacidades/IDatos/obj/Debug/netcoreapp3.1/IDatos.csprojAssemblyReference.cache
