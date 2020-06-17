@@ -6,3 +6,4 @@
 /home/jack/Code/Incapacidades/IDominio/obj/Debug/netcoreapp3.1/IDominio.csproj.CoreCompileInputs.cache
 /home/jack/Code/Incapacidades/IDominio/obj/Debug/netcoreapp3.1/IDominio.dll
 /home/jack/Code/Incapacidades/IDominio/obj/Debug/netcoreapp3.1/IDominio.pdb
+/home/jack/Code/Incapacidades/IDominio/obj/Debug/netcoreapp3.1/IDominio.csprojAssemblyReference.cache

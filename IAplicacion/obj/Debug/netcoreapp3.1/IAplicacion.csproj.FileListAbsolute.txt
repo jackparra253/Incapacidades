@@ -6,3 +6,4 @@
 /home/jack/Code/Incapacidades/IAplicacion/obj/Debug/netcoreapp3.1/IAplicacion.csproj.CoreCompileInputs.cache
 /home/jack/Code/Incapacidades/IAplicacion/obj/Debug/netcoreapp3.1/IAplicacion.dll
 /home/jack/Code/Incapacidades/IAplicacion/obj/Debug/netcoreapp3.1/IAplicacion.pdb
+/home/jack/Code/Incapacidades/IAplicacion/obj/Debug/netcoreapp3.1/IAplicacion.csprojAssemblyReference.cache
