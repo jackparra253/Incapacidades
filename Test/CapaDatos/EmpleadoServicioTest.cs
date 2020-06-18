@@ -1,15 +1,14 @@
 using System.Collections.Generic;
-using Datos;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Modelos.Constantes;
 using Modelos.Entidades;
 using Modelos.ValueObjects;
+using Modelos.Enumeracion;
 
 namespace Test.CapaDatos
 {
     [TestClass]
-    public class EmpleadoServicioTest: TestBase
+    public class EmpleadoServicioTest : TestBase
     {
         public EmpleadoServicioTest()
         {
@@ -19,10 +18,10 @@ namespace Test.CapaDatos
         [TestMethod]
         public void Debe_ObtenerEmpleados_RetornarListaEmpleados()
         {
-            var context =  GetDbContext();
+            var context = GetDbContext();
 
-            var alan = new Empleado("Alan", "Turing", new Dinero(15_000_000m, Moneda.COP), new Dinero(500_000m, "USD"));
-            var richard = new Empleado("Richard", "Hendricks", new Dinero(3_000_000, Moneda.COP), new Dinero(100_000m, "USD"));
+            var alan = new Empleado(1, "Alan", "Turing", new Dinero(15_000_000m, Moneda.COP), new Dinero(500_000m, "USD"), TipoSalario.Integral);
+            var richard = new Empleado(2, "Richard", "Hendricks", new Dinero(3_000_000, Moneda.COP), new Dinero(100_000m, "USD"), TipoSalario.Ley50);
 
             var empleadosEsperados = new List<Empleado>
             {

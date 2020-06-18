@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Modelos.Constantes;
 using Modelos.Entidades;
 using Modelos.ValueObjects;
+using Modelos.Enumeracion;
+
 
 namespace Datos
 {
@@ -18,8 +20,8 @@ namespace Datos
         {
             return new List<Empleado>()
             {
-                new Empleado("Alan", "Turing", new Dinero(15_000_000m, Moneda.COP), new Dinero(500_000m, Moneda.COP)),
-                new Empleado("Richard", "Hendricks", new Dinero(3_000_000, Moneda.COP), new Dinero(100_000m, Moneda.COP))
+                new Empleado(1, "Alan", "Turing", new Dinero(15_000_000m, Moneda.COP), new Dinero(500_000m, Moneda.COP), TipoSalario.Integral),
+                new Empleado(2, "Richard", "Hendricks", new Dinero(3_000_000, Moneda.COP), new Dinero(100_000m, Moneda.COP), TipoSalario.Ley50)
             };
         }
     }
