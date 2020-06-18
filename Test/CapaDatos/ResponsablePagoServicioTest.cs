@@ -34,7 +34,24 @@ namespace Test.CapaDatos
 
             List<ResponsablePago> responsablesPago = context.ObtenerResponsablesPago();
 
-            Assert.AreEqual(responsablesPagosEsperados.Count ,responsablesPago.Count);
+            Assert.AreEqual(responsablesPagosEsperados.Count, responsablesPago.Count);
+        }
+
+        [TestMethod]
+        public void Debe_ObtenerResponsablePago_RetornarUnResponsable_CuandoIngresaIdResponsablePago()
+        {
+            var context = GetDbContext();
+
+            var responsablePagoEsperado = new ResponsablePago(7, Entidad.ARL, TipoIncapacidad.AccidenteLaboral, 1, 180, 1m);
+
+            ResponsablePago responsablePago = context.ObtenerResponsablePago(responsablePagoEsperado.Id);
+
+            Assert.AreEqual(responsablePagoEsperado.Id, responsablePago.Id);
+            Assert.AreEqual(responsablePagoEsperado.ReconocimientoPorcentaje, responsablePago.ReconocimientoPorcentaje);
+            Assert.AreEqual(responsablePagoEsperado.Responsable, responsablePago.Responsable);
+            Assert.AreEqual(responsablePagoEsperado.TipoIncapacidad, responsablePago.TipoIncapacidad);
+            Assert.AreEqual(responsablePagoEsperado.DiasIncapacidadFinal, responsablePago.DiasIncapacidadFinal);
+            Assert.AreEqual(responsablePagoEsperado.DiasIncapacidadInicial, responsablePago.DiasIncapacidadInicial);
         }
     }
 }

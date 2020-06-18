@@ -8,5 +8,7 @@ namespace IDatos
         List<Empleado>  ObtenerEmpleados();
 
         List<ResponsablePago> ObtenerResponsablesPago();
+
+        ResponsablePago ObtenerResponsablePago(int id);
     }     
 }

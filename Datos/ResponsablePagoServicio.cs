@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using IDatos;
 using Modelos.Entidades;
 using Modelos.Enumeracion;
-
 
 namespace Datos
 {
@@ -23,5 +24,9 @@ namespace Datos
             };
         }
 
-    }
+        public ResponsablePago ObtenerResponsablePago(int id)
+        {
+            return ObtenerResponsablesPago().Where(responsable => responsable.Id == id).FirstOrDefault();
+        }
+    }    
 }
