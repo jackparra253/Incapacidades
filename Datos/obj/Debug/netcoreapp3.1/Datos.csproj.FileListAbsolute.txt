@@ -7,6 +7,7 @@
 /home/jack/Code/Incapacidades/Datos/bin/Debug/netcoreapp3.1/Modelos.dll
 /home/jack/Code/Incapacidades/Datos/bin/Debug/netcoreapp3.1/IDatos.pdb
 /home/jack/Code/Incapacidades/Datos/bin/Debug/netcoreapp3.1/Modelos.pdb
+/home/jack/Code/Incapacidades/Datos/obj/Debug/netcoreapp3.1/Datos.csprojAssemblyReference.cache
 /home/jack/Code/Incapacidades/Datos/obj/Debug/netcoreapp3.1/Datos.AssemblyInfoInputs.cache
 /home/jack/Code/Incapacidades/Datos/obj/Debug/netcoreapp3.1/Datos.AssemblyInfo.cs
 /home/jack/Code/Incapacidades/Datos/obj/Debug/netcoreapp3.1/Datos.csproj.CoreCompileInputs.cache
@@ -14,4 +15,3 @@
 /home/jack/Code/Incapacidades/Datos/obj/Debug/netcoreapp3.1/Datos.dll
 /home/jack/Code/Incapacidades/Datos/obj/Debug/netcoreapp3.1/Datos.pdb
 /home/jack/Code/Incapacidades/Datos/obj/Debug/netcoreapp3.1/Datos.genruntimeconfig.cache
-/home/jack/Code/Incapacidades/Datos/obj/Debug/netcoreapp3.1/Datos.csprojAssemblyReference.cache
