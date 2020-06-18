@@ -6,5 +6,7 @@ namespace IDatos
     public interface IServicioDatos
     {
         List<Empleado>  ObtenerEmpleados();
+
+        List<ResponsablePago> ObtenerResponsablesPago();
     }     
 }
