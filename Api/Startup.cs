@@ -12,7 +12,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Datos;
-
+using IDatos;
+using IAplicacion;
+using Aplicacion;
 
 namespace Api
 {
@@ -28,8 +30,11 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IConsultarEmpleados, ConsultarEmpleados>();
+
             services.AddControllers();
             services.AddDbContext<IncapacidadesContext>(options => options.UseSqlite(Configuration.GetConnectionString("IncapacidadesContext")));
+            services.AddScoped<IServicioDatos>(provider => provider.GetService<IncapacidadesContext>());   
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

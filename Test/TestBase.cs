@@ -9,7 +9,7 @@ namespace Test
 
         public IncapacidadesContext GetDbContext()
         {
-            DbContextOptionsBuilder builder = new DbContextOptionsBuilder();
+            DbContextOptionsBuilder<IncapacidadesContext> builder = new DbContextOptionsBuilder<IncapacidadesContext>();
 
             if (_useSqlite)
             {

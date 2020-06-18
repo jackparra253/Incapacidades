@@ -24,10 +24,13 @@
     ".NETCoreApp,Version=v3.1": {
       "Api/1.0.0": {
         "dependencies": {
+          "Aplicacion": "1.0.0",
           "Datos": "1.0.0",
+          "IAplicacion": "1.0.0",
           "IDatos": "1.0.0",
           "Microsoft.EntityFrameworkCore.Design": "3.1.5",
           "Microsoft.EntityFrameworkCore.Sqlite": "3.1.5",
+          "Modelos": "1.0.0",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -750,9 +753,23 @@
           "lib/netcoreapp3.0/System.Text.Json.dll": {}
         }
       },
+      "Aplicacion/1.0.0": {
+        "dependencies": {
+          "IAplicacion": "1.0.0",
+          "IDatos": "1.0.0"
+        },
+        "runtime": {
+          "Aplicacion.dll": {}
+        },
+        "compile": {
+          "Aplicacion.dll": {}
+        }
+      },
       "Datos/1.0.0": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Sqlite": "3.1.5"
+          "IDatos": "1.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite": "3.1.5",
+          "Modelos": "1.0.0"
         },
         "runtime": {
           "Datos.dll": {}
@@ -761,12 +778,34 @@
           "Datos.dll": {}
         }
       },
+      "IAplicacion/1.0.0": {
+        "dependencies": {
+          "Modelos": "1.0.0"
+        },
+        "runtime": {
+          "IAplicacion.dll": {}
+        },
+        "compile": {
+          "IAplicacion.dll": {}
+        }
+      },
       "IDatos/1.0.0": {
+        "dependencies": {
+          "Modelos": "1.0.0"
+        },
         "runtime": {
           "IDatos.dll": {}
         },
         "compile": {
           "IDatos.dll": {}
+        }
+      },
+      "Modelos/1.0.0": {
+        "runtime": {
+          "Modelos.dll": {}
+        },
+        "compile": {
+          "Modelos.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
@@ -2556,12 +2595,27 @@
       "path": "system.text.json/4.7.2",
       "hashPath": "system.text.json.4.7.2.nupkg.sha512"
     },
+    "Aplicacion/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Datos/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
+    "IAplicacion/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "IDatos/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Modelos/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

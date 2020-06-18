@@ -19,12 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IDominio\IDominio.csproj" />
-    <ProjectReference Include="..\IAplicacion\IAplicacion.csproj" />
+    <ProjectReference Include="..\Datos\Datos.csproj" />    
+    <ProjectReference Include="..\Modelos\Modelos.csproj" />    
     <ProjectReference Include="..\IDatos\IDatos.csproj" />
-    <ProjectReference Include="..\Datos\Datos.csproj" />
-    <ProjectReference Include="..\Aplicacion\Aplicacion.csproj" />
-    <ProjectReference Include="..\Modelos\Modelos.csproj" />
   </ItemGroup>
 
 </Project>

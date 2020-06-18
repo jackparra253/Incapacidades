@@ -2021,57 +2021,32 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "Aplicacion/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
-        "compile": {
-          "bin/placeholder/Aplicacion.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Aplicacion.dll": {}
-        }
-      },
       "Datos/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Sqlite": "3.1.5"
+          "IDatos": "1.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite": "3.1.5",
+          "Modelos": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Datos.dll": {}
         },
         "runtime": {
           "bin/placeholder/Datos.dll": {}
-        }
-      },
-      "IAplicacion/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
-        "compile": {
-          "bin/placeholder/IAplicacion.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/IAplicacion.dll": {}
         }
       },
       "IDatos/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Modelos": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/IDatos.dll": {}
         },
         "runtime": {
           "bin/placeholder/IDatos.dll": {}
-        }
-      },
-      "IDominio/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
-        "compile": {
-          "bin/placeholder/IDominio.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/IDominio.dll": {}
         }
       },
       "Modelos/1.0.0": {
@@ -6783,30 +6758,15 @@
         "system.xml.xdocument.nuspec"
       ]
     },
-    "Aplicacion/1.0.0": {
-      "type": "project",
-      "path": "../Aplicacion/Aplicacion.csproj",
-      "msbuildProject": "../Aplicacion/Aplicacion.csproj"
-    },
     "Datos/1.0.0": {
       "type": "project",
       "path": "../Datos/Datos.csproj",
       "msbuildProject": "../Datos/Datos.csproj"
     },
-    "IAplicacion/1.0.0": {
-      "type": "project",
-      "path": "../IAplicacion/IAplicacion.csproj",
-      "msbuildProject": "../IAplicacion/IAplicacion.csproj"
-    },
     "IDatos/1.0.0": {
       "type": "project",
       "path": "../IDatos/IDatos.csproj",
       "msbuildProject": "../IDatos/IDatos.csproj"
-    },
-    "IDominio/1.0.0": {
-      "type": "project",
-      "path": "../IDominio/IDominio.csproj",
-      "msbuildProject": "../IDominio/IDominio.csproj"
     },
     "Modelos/1.0.0": {
       "type": "project",
@@ -6816,11 +6776,8 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "Aplicacion >= 1.0.0",
       "Datos >= 1.0.0",
-      "IAplicacion >= 1.0.0",
       "IDatos >= 1.0.0",
-      "IDominio >= 1.0.0",
       "MSTest.TestAdapter >= 2.1.0",
       "MSTest.TestFramework >= 2.1.0",
       "Microsoft.EntityFrameworkCore.Design >= 3.1.5",
@@ -6854,20 +6811,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "/home/jack/Code/Incapacidades/Aplicacion/Aplicacion.csproj": {
-              "projectPath": "/home/jack/Code/Incapacidades/Aplicacion/Aplicacion.csproj"
-            },
             "/home/jack/Code/Incapacidades/Datos/Datos.csproj": {
               "projectPath": "/home/jack/Code/Incapacidades/Datos/Datos.csproj"
             },
-            "/home/jack/Code/Incapacidades/IAplicacion/IAplicacion.csproj": {
-              "projectPath": "/home/jack/Code/Incapacidades/IAplicacion/IAplicacion.csproj"
-            },
             "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj": {
               "projectPath": "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj"
-            },
-            "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj": {
-              "projectPath": "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj"
             },
             "/home/jack/Code/Incapacidades/Modelos/Modelos.csproj": {
               "projectPath": "/home/jack/Code/Incapacidades/Modelos/Modelos.csproj"

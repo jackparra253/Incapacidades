@@ -1,6 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
+    <ProjectReference Include="..\IAplicacion\IAplicacion.csproj" />
+    <ProjectReference Include="..\Aplicacion\Aplicacion.csproj" />
+    <ProjectReference Include="..\Modelos\Modelos.csproj" />
     <ProjectReference Include="..\IDatos\IDatos.csproj" />
     <ProjectReference Include="..\Datos\Datos.csproj" />
   </ItemGroup>

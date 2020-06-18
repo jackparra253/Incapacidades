@@ -8,8 +8,10 @@
     ".NETCoreApp,Version=v3.1": {
       "Datos/1.0.0": {
         "dependencies": {
+          "IDatos": "1.0.0",
           "Microsoft.EntityFrameworkCore.Design": "3.1.5",
-          "Microsoft.EntityFrameworkCore.Sqlite": "3.1.5"
+          "Microsoft.EntityFrameworkCore.Sqlite": "3.1.5",
+          "Modelos": "1.0.0"
         },
         "runtime": {
           "Datos.dll": {}
@@ -388,6 +390,19 @@
             "fileVersion": "4.700.20.21406"
           }
         }
+      },
+      "IDatos/1.0.0": {
+        "dependencies": {
+          "Modelos": "1.0.0"
+        },
+        "runtime": {
+          "IDatos.dll": {}
+        }
+      },
+      "Modelos/1.0.0": {
+        "runtime": {
+          "Modelos.dll": {}
+        }
       }
     }
   },
@@ -627,6 +642,16 @@
       "sha512": "sha512-TcMd95wcrubm9nHvJEQs70rC0H/8omiSGGpU4FQ/ZA1URIqD4pjmFJh2Mfv1yH1eHgJDWTi2hMDXwTET+zOOyg==",
       "path": "system.text.json/4.7.2",
       "hashPath": "system.text.json.4.7.2.nupkg.sha512"
+    },
+    "IDatos/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Modelos/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

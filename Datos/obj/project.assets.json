@@ -430,6 +430,29 @@
         "runtime": {
           "lib/netcoreapp3.0/System.Text.Json.dll": {}
         }
+      },
+      "IDatos/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Modelos": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/IDatos.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/IDatos.dll": {}
+        }
+      },
+      "Modelos/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/Modelos.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Modelos.dll": {}
+        }
       }
     }
   },
@@ -1141,12 +1164,24 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "IDatos/1.0.0": {
+      "type": "project",
+      "path": "../IDatos/IDatos.csproj",
+      "msbuildProject": "../IDatos/IDatos.csproj"
+    },
+    "Modelos/1.0.0": {
+      "type": "project",
+      "path": "../Modelos/Modelos.csproj",
+      "msbuildProject": "../Modelos/Modelos.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "IDatos >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 3.1.5",
-      "Microsoft.EntityFrameworkCore.Sqlite >= 3.1.5"
+      "Microsoft.EntityFrameworkCore.Sqlite >= 3.1.5",
+      "Modelos >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -1172,7 +1207,14 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj": {
+              "projectPath": "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj"
+            },
+            "/home/jack/Code/Incapacidades/Modelos/Modelos.csproj": {
+              "projectPath": "/home/jack/Code/Incapacidades/Modelos/Modelos.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

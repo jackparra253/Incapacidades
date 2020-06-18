@@ -1,11 +1,67 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {}
+    ".NETCoreApp,Version=v3.1": {
+      "IAplicacion/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Modelos": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/IAplicacion.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/IAplicacion.dll": {}
+        }
+      },
+      "IDatos/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Modelos": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/IDatos.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/IDatos.dll": {}
+        }
+      },
+      "Modelos/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/Modelos.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Modelos.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "IAplicacion/1.0.0": {
+      "type": "project",
+      "path": "../IAplicacion/IAplicacion.csproj",
+      "msbuildProject": "../IAplicacion/IAplicacion.csproj"
+    },
+    "IDatos/1.0.0": {
+      "type": "project",
+      "path": "../IDatos/IDatos.csproj",
+      "msbuildProject": "../IDatos/IDatos.csproj"
+    },
+    "Modelos/1.0.0": {
+      "type": "project",
+      "path": "../Modelos/Modelos.csproj",
+      "msbuildProject": "../Modelos/Modelos.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": []
+    ".NETCoreApp,Version=v3.1": [
+      "IAplicacion >= 1.0.0",
+      "IDatos >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/home/jack/.nuget/packages/": {}
@@ -30,7 +86,14 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "/home/jack/Code/Incapacidades/IAplicacion/IAplicacion.csproj": {
+              "projectPath": "/home/jack/Code/Incapacidades/IAplicacion/IAplicacion.csproj"
+            },
+            "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj": {
+              "projectPath": "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

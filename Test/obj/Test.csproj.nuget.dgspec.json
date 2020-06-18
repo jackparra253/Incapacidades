@@ -4,62 +4,6 @@
     "/home/jack/Code/Incapacidades/Test/Test.csproj": {}
   },
   "projects": {
-    "/home/jack/Code/Incapacidades/Aplicacion/Aplicacion.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "/home/jack/Code/Incapacidades/Aplicacion/Aplicacion.csproj",
-        "projectName": "Aplicacion",
-        "projectPath": "/home/jack/Code/Incapacidades/Aplicacion/Aplicacion.csproj",
-        "packagesPath": "/home/jack/.nuget/packages/",
-        "outputPath": "/home/jack/Code/Incapacidades/Aplicacion/obj/",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "/home/jack/.nuget/NuGet/NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "netcoreapp3.1"
-        ],
-        "sources": {
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "netcoreapp3.1": {
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "netcoreapp3.1": {
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.2, 3.1.2]"
-            }
-          ],
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.300/RuntimeIdentifierGraph.json"
-        }
-      }
-    },
     "/home/jack/Code/Incapacidades/Datos/Datos.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -80,7 +24,14 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "projectReferences": {}
+            "projectReferences": {
+              "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj": {
+                "projectPath": "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj"
+              },
+              "/home/jack/Code/Incapacidades/Modelos/Modelos.csproj": {
+                "projectPath": "/home/jack/Code/Incapacidades/Modelos/Modelos.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -128,62 +79,6 @@
         }
       }
     },
-    "/home/jack/Code/Incapacidades/IAplicacion/IAplicacion.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "/home/jack/Code/Incapacidades/IAplicacion/IAplicacion.csproj",
-        "projectName": "IAplicacion",
-        "projectPath": "/home/jack/Code/Incapacidades/IAplicacion/IAplicacion.csproj",
-        "packagesPath": "/home/jack/.nuget/packages/",
-        "outputPath": "/home/jack/Code/Incapacidades/IAplicacion/obj/",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "/home/jack/.nuget/NuGet/NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "netcoreapp3.1"
-        ],
-        "sources": {
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "netcoreapp3.1": {
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "netcoreapp3.1": {
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.2, 3.1.2]"
-            }
-          ],
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.300/RuntimeIdentifierGraph.json"
-        }
-      }
-    },
     "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -204,63 +99,11 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "netcoreapp3.1": {
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.2, 3.1.2]"
+            "projectReferences": {
+              "/home/jack/Code/Incapacidades/Modelos/Modelos.csproj": {
+                "projectPath": "/home/jack/Code/Incapacidades/Modelos/Modelos.csproj"
+              }
             }
-          ],
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.300/RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj",
-        "projectName": "IDominio",
-        "projectPath": "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj",
-        "packagesPath": "/home/jack/.nuget/packages/",
-        "outputPath": "/home/jack/Code/Incapacidades/IDominio/obj/",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "/home/jack/.nuget/NuGet/NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "netcoreapp3.1"
-        ],
-        "sources": {
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "netcoreapp3.1": {
-            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -373,20 +216,11 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "/home/jack/Code/Incapacidades/Aplicacion/Aplicacion.csproj": {
-                "projectPath": "/home/jack/Code/Incapacidades/Aplicacion/Aplicacion.csproj"
-              },
               "/home/jack/Code/Incapacidades/Datos/Datos.csproj": {
                 "projectPath": "/home/jack/Code/Incapacidades/Datos/Datos.csproj"
               },
-              "/home/jack/Code/Incapacidades/IAplicacion/IAplicacion.csproj": {
-                "projectPath": "/home/jack/Code/Incapacidades/IAplicacion/IAplicacion.csproj"
-              },
               "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj": {
                 "projectPath": "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj"
-              },
-              "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj": {
-                "projectPath": "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj"
               },
               "/home/jack/Code/Incapacidades/Modelos/Modelos.csproj": {
                 "projectPath": "/home/jack/Code/Incapacidades/Modelos/Modelos.csproj"

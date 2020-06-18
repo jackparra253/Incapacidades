@@ -7,14 +7,54 @@
   "targets": {
     ".NETCoreApp,Version=v3.1": {
       "Aplicacion/1.0.0": {
+        "dependencies": {
+          "IAplicacion": "1.0.0",
+          "IDatos": "1.0.0"
+        },
         "runtime": {
           "Aplicacion.dll": {}
+        }
+      },
+      "IAplicacion/1.0.0": {
+        "dependencies": {
+          "Modelos": "1.0.0"
+        },
+        "runtime": {
+          "IAplicacion.dll": {}
+        }
+      },
+      "IDatos/1.0.0": {
+        "dependencies": {
+          "Modelos": "1.0.0"
+        },
+        "runtime": {
+          "IDatos.dll": {}
+        }
+      },
+      "Modelos/1.0.0": {
+        "runtime": {
+          "Modelos.dll": {}
         }
       }
     }
   },
   "libraries": {
     "Aplicacion/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "IAplicacion/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "IDatos/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Modelos/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
