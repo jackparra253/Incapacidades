@@ -9,6 +9,7 @@
       "Test/1.0.0": {
         "dependencies": {
           "Datos": "1.0.0",
+          "Dominio": "1.0.0",
           "IDatos": "1.0.0",
           "MSTest.TestAdapter": "2.1.0",
           "MSTest.TestFramework": "2.1.0",
@@ -1430,12 +1431,29 @@
           "Datos.dll": {}
         }
       },
+      "Dominio/1.0.0": {
+        "dependencies": {
+          "IDominio": "1.0.0",
+          "Modelos": "1.0.0"
+        },
+        "runtime": {
+          "Dominio.dll": {}
+        }
+      },
       "IDatos/1.0.0": {
         "dependencies": {
           "Modelos": "1.0.0"
         },
         "runtime": {
           "IDatos.dll": {}
+        }
+      },
+      "IDominio/1.0.0": {
+        "dependencies": {
+          "Modelos": "1.0.0"
+        },
+        "runtime": {
+          "IDominio.dll": {}
         }
       },
       "Modelos/1.0.0": {
@@ -2282,7 +2300,17 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Dominio/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "IDatos/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "IDominio/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

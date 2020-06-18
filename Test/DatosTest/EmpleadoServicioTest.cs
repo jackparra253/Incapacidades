@@ -5,7 +5,7 @@ using Modelos.Entidades;
 using Modelos.ValueObjects;
 using Modelos.Enumeracion;
 
-namespace Test.CapaDatos
+namespace Test.DatosTest
 {
     [TestClass]
     public class EmpleadoServicioTest : TestBase

@@ -2036,6 +2036,20 @@
           "bin/placeholder/Datos.dll": {}
         }
       },
+      "Dominio/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "IDominio": "1.0.0",
+          "Modelos": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Dominio.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Dominio.dll": {}
+        }
+      },
       "IDatos/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -2047,6 +2061,19 @@
         },
         "runtime": {
           "bin/placeholder/IDatos.dll": {}
+        }
+      },
+      "IDominio/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Modelos": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/IDominio.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/IDominio.dll": {}
         }
       },
       "Modelos/1.0.0": {
@@ -6763,10 +6790,20 @@
       "path": "../Datos/Datos.csproj",
       "msbuildProject": "../Datos/Datos.csproj"
     },
+    "Dominio/1.0.0": {
+      "type": "project",
+      "path": "../Dominio/Dominio.csproj",
+      "msbuildProject": "../Dominio/Dominio.csproj"
+    },
     "IDatos/1.0.0": {
       "type": "project",
       "path": "../IDatos/IDatos.csproj",
       "msbuildProject": "../IDatos/IDatos.csproj"
+    },
+    "IDominio/1.0.0": {
+      "type": "project",
+      "path": "../IDominio/IDominio.csproj",
+      "msbuildProject": "../IDominio/IDominio.csproj"
     },
     "Modelos/1.0.0": {
       "type": "project",
@@ -6777,6 +6814,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "Datos >= 1.0.0",
+      "Dominio >= 1.0.0",
       "IDatos >= 1.0.0",
       "MSTest.TestAdapter >= 2.1.0",
       "MSTest.TestFramework >= 2.1.0",
@@ -6813,6 +6851,9 @@
           "projectReferences": {
             "/home/jack/Code/Incapacidades/Datos/Datos.csproj": {
               "projectPath": "/home/jack/Code/Incapacidades/Datos/Datos.csproj"
+            },
+            "/home/jack/Code/Incapacidades/Dominio/Dominio.csproj": {
+              "projectPath": "/home/jack/Code/Incapacidades/Dominio/Dominio.csproj"
             },
             "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj": {
               "projectPath": "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj"

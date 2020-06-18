@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Modelos.Constantes;
 using Modelos.Entidades;
-using Modelos.ValueObjects;
 using Modelos.Enumeracion;
 
-namespace Test.CapaDatos
+namespace Test.DatosTest
 {
     [TestClass]
     public class ResponsablePagoServicioTest : TestBase
