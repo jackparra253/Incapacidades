@@ -7,3 +7,8 @@
 /home/jack/Code/Incapacidades/Dominio/obj/Debug/netcoreapp3.1/Dominio.dll
 /home/jack/Code/Incapacidades/Dominio/obj/Debug/netcoreapp3.1/Dominio.pdb
 /home/jack/Code/Incapacidades/Dominio/obj/Debug/netcoreapp3.1/Dominio.csprojAssemblyReference.cache
+/home/jack/Code/Incapacidades/Dominio/bin/Debug/netcoreapp3.1/IDominio.dll
+/home/jack/Code/Incapacidades/Dominio/bin/Debug/netcoreapp3.1/Modelos.dll
+/home/jack/Code/Incapacidades/Dominio/bin/Debug/netcoreapp3.1/IDominio.pdb
+/home/jack/Code/Incapacidades/Dominio/bin/Debug/netcoreapp3.1/Modelos.pdb
+/home/jack/Code/Incapacidades/Dominio/obj/Debug/netcoreapp3.1/Dominio.csproj.CopyComplete

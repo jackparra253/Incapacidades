@@ -7,14 +7,27 @@
   "targets": {
     ".NETCoreApp,Version=v3.1": {
       "IDominio/1.0.0": {
+        "dependencies": {
+          "Modelos": "1.0.0"
+        },
         "runtime": {
           "IDominio.dll": {}
+        }
+      },
+      "Modelos/1.0.0": {
+        "runtime": {
+          "Modelos.dll": {}
         }
       }
     }
   },
   "libraries": {
     "IDominio/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Modelos/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

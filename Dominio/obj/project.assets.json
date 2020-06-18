@@ -1,11 +1,49 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {}
+    ".NETCoreApp,Version=v3.1": {
+      "IDominio/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Modelos": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/IDominio.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/IDominio.dll": {}
+        }
+      },
+      "Modelos/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/Modelos.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Modelos.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "IDominio/1.0.0": {
+      "type": "project",
+      "path": "../IDominio/IDominio.csproj",
+      "msbuildProject": "../IDominio/IDominio.csproj"
+    },
+    "Modelos/1.0.0": {
+      "type": "project",
+      "path": "../Modelos/Modelos.csproj",
+      "msbuildProject": "../Modelos/Modelos.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": []
+    ".NETCoreApp,Version=v3.1": [
+      "IDominio >= 1.0.0",
+      "Modelos >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/home/jack/.nuget/packages/": {}
@@ -30,7 +68,14 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj": {
+              "projectPath": "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj"
+            },
+            "/home/jack/Code/Incapacidades/Modelos/Modelos.csproj": {
+              "projectPath": "/home/jack/Code/Incapacidades/Modelos/Modelos.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
