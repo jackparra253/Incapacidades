@@ -20,7 +20,7 @@ namespace Test.DominioTest
         [TestMethod]
         public void Debe_CalcularReconocimientoEconomico_RetornarDinero_CuandoTipoSalarioLey50()
         {
-            Dinero reconocimientoEconomicoEsperado = new Dinero(66670.0000m, Moneda.COP);
+            Dinero reconocimientoEconomicoEsperado = new Dinero(66_670.0000m, Moneda.COP);
 
             var richard = new Empleado(2, "Richard", "Hendricks", new Dinero(3_000_000, Moneda.COP), new Dinero(100_000m, Moneda.COP), TipoSalario.Ley50);
 
