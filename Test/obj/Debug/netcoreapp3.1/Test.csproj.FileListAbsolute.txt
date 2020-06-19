@@ -126,11 +126,15 @@
 /home/jack/Code/Incapacidades/Test/bin/Debug/netcoreapp3.1/runtimes/win-x64/native/e_sqlite3.dll
 /home/jack/Code/Incapacidades/Test/bin/Debug/netcoreapp3.1/runtimes/win-x86/native/e_sqlite3.dll
 /home/jack/Code/Incapacidades/Test/bin/Debug/netcoreapp3.1/Datos.dll
+/home/jack/Code/Incapacidades/Test/bin/Debug/netcoreapp3.1/Dominio.dll
 /home/jack/Code/Incapacidades/Test/bin/Debug/netcoreapp3.1/IDatos.dll
+/home/jack/Code/Incapacidades/Test/bin/Debug/netcoreapp3.1/IDominio.dll
 /home/jack/Code/Incapacidades/Test/bin/Debug/netcoreapp3.1/Modelos.dll
 /home/jack/Code/Incapacidades/Test/bin/Debug/netcoreapp3.1/Datos.pdb
 /home/jack/Code/Incapacidades/Test/bin/Debug/netcoreapp3.1/Modelos.pdb
 /home/jack/Code/Incapacidades/Test/bin/Debug/netcoreapp3.1/IDatos.pdb
+/home/jack/Code/Incapacidades/Test/bin/Debug/netcoreapp3.1/Dominio.pdb
+/home/jack/Code/Incapacidades/Test/bin/Debug/netcoreapp3.1/IDominio.pdb
 /home/jack/Code/Incapacidades/Test/obj/Debug/netcoreapp3.1/Test.csprojAssemblyReference.cache
 /home/jack/Code/Incapacidades/Test/obj/Debug/netcoreapp3.1/Test.AssemblyInfoInputs.cache
 /home/jack/Code/Incapacidades/Test/obj/Debug/netcoreapp3.1/Test.AssemblyInfo.cs
@@ -139,7 +143,3 @@
 /home/jack/Code/Incapacidades/Test/obj/Debug/netcoreapp3.1/Test.dll
 /home/jack/Code/Incapacidades/Test/obj/Debug/netcoreapp3.1/Test.pdb
 /home/jack/Code/Incapacidades/Test/obj/Debug/netcoreapp3.1/Test.genruntimeconfig.cache
-/home/jack/Code/Incapacidades/Test/bin/Debug/netcoreapp3.1/Dominio.dll
-/home/jack/Code/Incapacidades/Test/bin/Debug/netcoreapp3.1/IDominio.dll
-/home/jack/Code/Incapacidades/Test/bin/Debug/netcoreapp3.1/Dominio.pdb
-/home/jack/Code/Incapacidades/Test/bin/Debug/netcoreapp3.1/IDominio.pdb

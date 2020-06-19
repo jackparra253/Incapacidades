@@ -20,8 +20,8 @@ namespace Test.DatosTest
         {
             var context = GetDbContext();
 
-            var alan = new Empleado(1, "Alan", "Turing", new Dinero(15_000_000m, Moneda.COP), new Dinero(500_000m, "USD"), TipoSalario.Integral);
-            var richard = new Empleado(2, "Richard", "Hendricks", new Dinero(3_000_000, Moneda.COP), new Dinero(100_000m, "USD"), TipoSalario.Ley50);
+            var alan = new Empleado(1, "Alan", "Turing", new Dinero(15_000_000m, Moneda.COP), new Dinero(500_000m, Moneda.COP), TipoSalario.Integral);
+            var richard = new Empleado(2, "Richard", "Hendricks", new Dinero(3_000_000, Moneda.COP), new Dinero(100_000m, Moneda.COP), TipoSalario.Ley50);
 
             var empleadosEsperados = new List<Empleado>
             {
@@ -31,7 +31,8 @@ namespace Test.DatosTest
 
             List<Empleado> empleados = context.ObtenerEmpleados();
 
-            Assert.AreEqual(empleadosEsperados[0].Salario.Cantidad, empleados[0].Salario.Cantidad);
+            Assert.IsTrue(empleadosEsperados[0].Salario == empleados[0].Salario);
+            Assert.IsTrue(empleadosEsperados[1].Salario == empleados[1].Salario);
         }
     }
 }

@@ -1,10 +1,10 @@
-using Modelos.Enumeracion;
+using Modelos.Entidades;
 using Modelos.ValueObjects;
 
 namespace IDominio
 {
     public interface ICalculadoraReconocimientoEconomico
     {
-        Dinero CalcularReconocimientoEconomico(TipoSalario tipoSalario, Dinero salarioDiaro, decimal porcentajeReconocimiento);
+        Dinero CalcularReconocimientoEconomico(Empleado empleado, ResponsablePago responsablePago);
     }
 }
