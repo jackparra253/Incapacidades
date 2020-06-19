@@ -10,6 +10,7 @@ namespace Modelos.Entidades
         public int IdEmpleado { get; private set; }
         public Dinero ValorAPagar { get; private set; }
         public Entidad ResponsablePago { get; private set; }
+        public Incapacidad Incapacidad { get; private set; }
 
         public ReconocimientoEconomico(int idIncapacidad, int idEmpleado, Dinero valorAPagar, Entidad responsablePago)
         {
