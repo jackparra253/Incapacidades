@@ -8,8 +8,10 @@
     ".NETCoreApp,Version=v3.1": {
       "Test/1.0.0": {
         "dependencies": {
+          "Aplicacion": "1.0.0",
           "Datos": "1.0.0",
           "Dominio": "1.0.0",
+          "IAplicacion": "1.0.0",
           "IDatos": "1.0.0",
           "MSTest.TestAdapter": "2.1.0",
           "MSTest.TestFramework": "2.1.0",
@@ -1421,6 +1423,15 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
+      "Aplicacion/1.0.0": {
+        "dependencies": {
+          "IAplicacion": "1.0.0",
+          "IDatos": "1.0.0"
+        },
+        "runtime": {
+          "Aplicacion.dll": {}
+        }
+      },
       "Datos/1.0.0": {
         "dependencies": {
           "IDatos": "1.0.0",
@@ -1438,6 +1449,14 @@
         },
         "runtime": {
           "Dominio.dll": {}
+        }
+      },
+      "IAplicacion/1.0.0": {
+        "dependencies": {
+          "Modelos": "1.0.0"
+        },
+        "runtime": {
+          "IAplicacion.dll": {}
         }
       },
       "IDatos/1.0.0": {
@@ -2295,12 +2314,22 @@
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
+    "Aplicacion/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Datos/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
     "Dominio/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "IAplicacion/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
