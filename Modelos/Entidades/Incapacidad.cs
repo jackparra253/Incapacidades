@@ -24,5 +24,7 @@ namespace Modelos.Entidades
             Observaciones = observaciones;
             ReconocimientosEconomicos = reconocimientosEconomicos;
         }
+
+        private Incapacidad(){}
     }
 }

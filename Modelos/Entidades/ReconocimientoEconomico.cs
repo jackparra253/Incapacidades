@@ -19,5 +19,7 @@ namespace Modelos.Entidades
             ValorAPagar = valorAPagar;
             ResponsablePago = responsablePago;
         }
+
+        private ReconocimientoEconomico() { }
     }
 }
