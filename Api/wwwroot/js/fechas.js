@@ -2,9 +2,7 @@ const uriFechas = 'CalcularFechas';
 
 function obtenerFechaFinal() {
     const fecha = llenarFecha();
-    console.log(`fecha: ${fecha.anio} ${fecha.mes} ${fecha.dia}`);
     const cantidadDiasValor = obtenerValorCantidadDias();
-    console.log(`cantidadDiasValor : ${cantidadDiasValor}`);
 
     if (fecha.anio != 0 && fecha.mes != 0 && fecha.dia != 0 && cantidadDiasValor != 0)
         calcularFechas(fecha.anio, fecha.mes, fecha.dia, cantidadDiasValor);
