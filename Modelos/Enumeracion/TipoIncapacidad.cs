@@ -1,6 +1,6 @@
 namespace Modelos.Enumeracion
 {
-    public enum TipoIncapacidad
+    public enum TipoIncapacidad: byte
     {
         EnfermedadGeneral = 1,
         LicenciaMaternidad = 2,
