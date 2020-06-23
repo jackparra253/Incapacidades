@@ -460,6 +460,20 @@
           "bin/placeholder/Datos.dll": {}
         }
       },
+      "Dominio/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "IDominio": "1.0.0",
+          "Modelos": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Dominio.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Dominio.dll": {}
+        }
+      },
       "IAplicacion/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -484,6 +498,19 @@
         },
         "runtime": {
           "bin/placeholder/IDatos.dll": {}
+        }
+      },
+      "IDominio/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Modelos": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/IDominio.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/IDominio.dll": {}
         }
       },
       "Modelos/1.0.0": {
@@ -1217,6 +1244,11 @@
       "path": "../Datos/Datos.csproj",
       "msbuildProject": "../Datos/Datos.csproj"
     },
+    "Dominio/1.0.0": {
+      "type": "project",
+      "path": "../Dominio/Dominio.csproj",
+      "msbuildProject": "../Dominio/Dominio.csproj"
+    },
     "IAplicacion/1.0.0": {
       "type": "project",
       "path": "../IAplicacion/IAplicacion.csproj",
@@ -1226,6 +1258,11 @@
       "type": "project",
       "path": "../IDatos/IDatos.csproj",
       "msbuildProject": "../IDatos/IDatos.csproj"
+    },
+    "IDominio/1.0.0": {
+      "type": "project",
+      "path": "../IDominio/IDominio.csproj",
+      "msbuildProject": "../IDominio/IDominio.csproj"
     },
     "Modelos/1.0.0": {
       "type": "project",
@@ -1237,8 +1274,10 @@
     ".NETCoreApp,Version=v3.1": [
       "Aplicacion >= 1.0.0",
       "Datos >= 1.0.0",
+      "Dominio >= 1.0.0",
       "IAplicacion >= 1.0.0",
       "IDatos >= 1.0.0",
+      "IDominio >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 3.1.5",
       "Microsoft.EntityFrameworkCore.Sqlite >= 3.1.5",
       "Modelos >= 1.0.0",
@@ -1275,11 +1314,17 @@
             "/home/jack/Code/Incapacidades/Datos/Datos.csproj": {
               "projectPath": "/home/jack/Code/Incapacidades/Datos/Datos.csproj"
             },
+            "/home/jack/Code/Incapacidades/Dominio/Dominio.csproj": {
+              "projectPath": "/home/jack/Code/Incapacidades/Dominio/Dominio.csproj"
+            },
             "/home/jack/Code/Incapacidades/IAplicacion/IAplicacion.csproj": {
               "projectPath": "/home/jack/Code/Incapacidades/IAplicacion/IAplicacion.csproj"
             },
             "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj": {
               "projectPath": "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj"
+            },
+            "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj": {
+              "projectPath": "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj"
             },
             "/home/jack/Code/Incapacidades/Modelos/Modelos.csproj": {
               "projectPath": "/home/jack/Code/Incapacidades/Modelos/Modelos.csproj"

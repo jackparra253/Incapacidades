@@ -26,8 +26,10 @@
         "dependencies": {
           "Aplicacion": "1.0.0",
           "Datos": "1.0.0",
+          "Dominio": "1.0.0",
           "IAplicacion": "1.0.0",
           "IDatos": "1.0.0",
+          "IDominio": "1.0.0",
           "Microsoft.EntityFrameworkCore.Design": "3.1.5",
           "Microsoft.EntityFrameworkCore.Sqlite": "3.1.5",
           "Modelos": "1.0.0",
@@ -779,6 +781,18 @@
           "Datos.dll": {}
         }
       },
+      "Dominio/1.0.0": {
+        "dependencies": {
+          "IDominio": "1.0.0",
+          "Modelos": "1.0.0"
+        },
+        "runtime": {
+          "Dominio.dll": {}
+        },
+        "compile": {
+          "Dominio.dll": {}
+        }
+      },
       "IAplicacion/1.0.0": {
         "dependencies": {
           "Modelos": "1.0.0"
@@ -799,6 +813,17 @@
         },
         "compile": {
           "IDatos.dll": {}
+        }
+      },
+      "IDominio/1.0.0": {
+        "dependencies": {
+          "Modelos": "1.0.0"
+        },
+        "runtime": {
+          "IDominio.dll": {}
+        },
+        "compile": {
+          "IDominio.dll": {}
         }
       },
       "Modelos/1.0.0": {
@@ -2606,12 +2631,22 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Dominio/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "IAplicacion/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
     "IDatos/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "IDominio/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

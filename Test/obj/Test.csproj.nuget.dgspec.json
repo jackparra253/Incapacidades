@@ -4,6 +4,103 @@
     "/home/jack/Code/Incapacidades/Test/Test.csproj": {}
   },
   "projects": {
+    "/home/jack/Code/Incapacidades/Api/Api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/jack/Code/Incapacidades/Api/Api.csproj",
+        "projectName": "Api",
+        "projectPath": "/home/jack/Code/Incapacidades/Api/Api.csproj",
+        "packagesPath": "/home/jack/.nuget/packages/",
+        "outputPath": "/home/jack/Code/Incapacidades/Api/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/jack/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "/home/jack/Code/Incapacidades/Aplicacion/Aplicacion.csproj": {
+                "projectPath": "/home/jack/Code/Incapacidades/Aplicacion/Aplicacion.csproj"
+              },
+              "/home/jack/Code/Incapacidades/Datos/Datos.csproj": {
+                "projectPath": "/home/jack/Code/Incapacidades/Datos/Datos.csproj"
+              },
+              "/home/jack/Code/Incapacidades/Dominio/Dominio.csproj": {
+                "projectPath": "/home/jack/Code/Incapacidades/Dominio/Dominio.csproj"
+              },
+              "/home/jack/Code/Incapacidades/IAplicacion/IAplicacion.csproj": {
+                "projectPath": "/home/jack/Code/Incapacidades/IAplicacion/IAplicacion.csproj"
+              },
+              "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj": {
+                "projectPath": "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj"
+              },
+              "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj": {
+                "projectPath": "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj"
+              },
+              "/home/jack/Code/Incapacidades/Modelos/Modelos.csproj": {
+                "projectPath": "/home/jack/Code/Incapacidades/Modelos/Modelos.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[3.1.5, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[4.7.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.2, 3.1.2]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.300/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "/home/jack/Code/Incapacidades/Aplicacion/Aplicacion.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -462,6 +559,9 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
+              "/home/jack/Code/Incapacidades/Api/Api.csproj": {
+                "projectPath": "/home/jack/Code/Incapacidades/Api/Api.csproj"
+              },
               "/home/jack/Code/Incapacidades/Aplicacion/Aplicacion.csproj": {
                 "projectPath": "/home/jack/Code/Incapacidades/Aplicacion/Aplicacion.csproj"
               },
@@ -476,6 +576,9 @@
               },
               "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj": {
                 "projectPath": "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj"
+              },
+              "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj": {
+                "projectPath": "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj"
               },
               "/home/jack/Code/Incapacidades/Modelos/Modelos.csproj": {
                 "projectPath": "/home/jack/Code/Incapacidades/Modelos/Modelos.csproj"
@@ -513,6 +616,10 @@
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[16.5.0, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.14.3, )"
             },
             "coverlet.collector": {
               "target": "Package",

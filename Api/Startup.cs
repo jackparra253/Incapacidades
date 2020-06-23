@@ -8,6 +8,8 @@ using Datos;
 using IDatos;
 using IAplicacion;
 using Aplicacion;
+using Dominio;
+using IDominio;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -29,6 +31,10 @@ namespace Api
             //Aplicacion
             services.AddScoped<IConsultarEmpleados, ConsultarEmpleados>();
             services.AddScoped<ICalcularFechas, CalcularFechas>();
+            services.AddScoped<ICreadorIncapacidad, CreadorIncapacidad>();
+
+            //Dominio
+            services.AddScoped<ICalculadoraReconocimientoEconomico, CalculadoraReconocimientoEconomico>();
 
             services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true);
             services.AddDbContext<IncapacidadesContext>(options => options.UseSqlite(Configuration.GetConnectionString("IncapacidadesContext")));

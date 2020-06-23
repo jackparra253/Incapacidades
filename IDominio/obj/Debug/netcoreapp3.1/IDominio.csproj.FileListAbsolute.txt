@@ -3,10 +3,10 @@
 /home/jack/Code/Incapacidades/IDominio/bin/Debug/netcoreapp3.1/IDominio.pdb
 /home/jack/Code/Incapacidades/IDominio/bin/Debug/netcoreapp3.1/Modelos.dll
 /home/jack/Code/Incapacidades/IDominio/bin/Debug/netcoreapp3.1/Modelos.pdb
+/home/jack/Code/Incapacidades/IDominio/obj/Debug/netcoreapp3.1/IDominio.csprojAssemblyReference.cache
 /home/jack/Code/Incapacidades/IDominio/obj/Debug/netcoreapp3.1/IDominio.AssemblyInfoInputs.cache
 /home/jack/Code/Incapacidades/IDominio/obj/Debug/netcoreapp3.1/IDominio.AssemblyInfo.cs
 /home/jack/Code/Incapacidades/IDominio/obj/Debug/netcoreapp3.1/IDominio.csproj.CoreCompileInputs.cache
 /home/jack/Code/Incapacidades/IDominio/obj/Debug/netcoreapp3.1/IDominio.csproj.CopyComplete
 /home/jack/Code/Incapacidades/IDominio/obj/Debug/netcoreapp3.1/IDominio.dll
 /home/jack/Code/Incapacidades/IDominio/obj/Debug/netcoreapp3.1/IDominio.pdb
-/home/jack/Code/Incapacidades/IDominio/obj/Debug/netcoreapp3.1/IDominio.csprojAssemblyReference.cache

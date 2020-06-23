@@ -6,6 +6,8 @@
     <ProjectReference Include="..\Modelos\Modelos.csproj" />
     <ProjectReference Include="..\IDatos\IDatos.csproj" />
     <ProjectReference Include="..\Datos\Datos.csproj" />
+    <ProjectReference Include="..\IDominio\IDominio.csproj" />
+    <ProjectReference Include="..\Dominio\Dominio.csproj" />
   </ItemGroup>
 
   <ItemGroup>
