@@ -12,6 +12,7 @@ function guardar() {
         },
         body: JSON.stringify(solicitudIncapacidad)
       }).then(response => response.json())
+      .then(data => console.log(data))
       .catch(error => console.error('Unable to add incapacidad.', error));
 }
 
@@ -30,13 +31,13 @@ function crearSolicitudIncapacidad() {
 function obtenerValorEmpleadoSeleccionado() {
     const empleados = document.getElementById("empleados");
 
-    return empleados.options[empleados.selectedIndex].value;
+    return parseInt(empleados.options[empleados.selectedIndex].value);
 }
 
 function obtenerValorTipoIncapacidadSeleccionado() {
     const tiposIncapacidad = document.getElementById('tipoIncapacidad');
 
-    return tiposIncapacidad.options[tiposIncapacidad.selectedIndex].value;
+    return parseInt(tiposIncapacidad.options[tiposIncapacidad.selectedIndex].value);
 }
 
 function obtenerFecha() {
@@ -48,25 +49,37 @@ function obtenerFecha() {
 function obtenerAnio() {
     const fechaIncial = obtenerFecha();
 
-    return fechaIncial.substring(0, 4);
+    if(fechaIncial == '' || fechaIncial == undefined)
+        return 0;
+
+    return parseInt(fechaIncial.substring(0, 4));
 }
 
 function obtenerMes() {
     const fechaIncial = obtenerFecha();
 
-    return fechaIncial.substring(5, 7);
+    if(fechaIncial == '' || fechaIncial == undefined)
+        return 0;
+
+    return parseInt(fechaIncial.substring(5, 7));
 }
 
 function obtenerDia() {
     const fechaIncial = obtenerFecha();
 
-    return fechaIncial.substring(8, 10);
+    if(fechaIncial == '' || fechaIncial == undefined)
+        return 0;
+
+    return parseInt(fechaIncial.substring(8, 10));
 }
 
 function obtenerCantidadDias() {
     const cantidadDias = document.getElementById('cantidadDias');
 
-    return cantidadDias.value;
+    if(cantidadDias.value == '' || cantidadDias.value == undefined)
+        return 0;
+    
+    return parseInt(cantidadDias.value);
 }
 
 function obtenerObservaciones() {

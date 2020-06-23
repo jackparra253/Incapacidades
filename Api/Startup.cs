@@ -8,6 +8,8 @@ using Datos;
 using IDatos;
 using IAplicacion;
 using Aplicacion;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Api
 {
@@ -28,11 +30,9 @@ namespace Api
             services.AddScoped<IConsultarEmpleados, ConsultarEmpleados>();
             services.AddScoped<ICalcularFechas, CalcularFechas>();
 
-
-
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true);
             services.AddDbContext<IncapacidadesContext>(options => options.UseSqlite(Configuration.GetConnectionString("IncapacidadesContext")));
-            services.AddScoped<IServicioDatos>(provider => provider.GetService<IncapacidadesContext>());   
+            services.AddScoped<IServicioDatos>(provider => provider.GetService<IncapacidadesContext>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +44,7 @@ namespace Api
             }
 
             app.UseDefaultFiles();
-            
+
             app.UseStaticFiles();
 
             app.UseHttpsRedirection();

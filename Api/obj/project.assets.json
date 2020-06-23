@@ -1241,7 +1241,8 @@
       "IDatos >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 3.1.5",
       "Microsoft.EntityFrameworkCore.Sqlite >= 3.1.5",
-      "Modelos >= 1.0.0"
+      "Modelos >= 1.0.0",
+      "System.Text.Json >= 4.7.2"
     ]
   },
   "packageFolders": {
@@ -1304,6 +1305,10 @@
           "Microsoft.EntityFrameworkCore.Sqlite": {
             "target": "Package",
             "version": "[3.1.5, )"
+          },
+          "System.Text.Json": {
+            "target": "Package",
+            "version": "[4.7.2, )"
           }
         },
         "imports": [
