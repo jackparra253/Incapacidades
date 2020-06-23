@@ -13,6 +13,7 @@ function guardar() {
         body: JSON.stringify(solicitudIncapacidad)
       }).then(response => response.json())
       .then(data => console.log(data))
+      .then(limpiarFormulario())
       .catch(error => console.error('Unable to add incapacidad.', error));
 }
 
@@ -88,3 +89,14 @@ function obtenerObservaciones() {
     return observaciones.value;
 }
 
+function limpiarFormulario(){
+    const fechaIncial = document.getElementById('fechaInicial')
+    const cantidadDias = document.getElementById('cantidadDias');
+    const fechaFinal = document.getElementById('fechaFinal');
+    const observaciones = document.getElementById('observaciones');
+    
+    fechaIncial.value = '';
+    fechaFinal.innerText = '';
+    cantidadDias.value = '';
+    observaciones.value = '';
+}
