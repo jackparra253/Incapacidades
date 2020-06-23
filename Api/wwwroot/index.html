@@ -6,11 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/1533ed51df.js" crossorigin="anonymous"></script>
   <title>Incapacidades</title>
 </head>
 
 <body>
-   <!-- inicio header -->
+  <!-- inicio header -->
   <div class="page-header" style="text-align: center;
     background: #343a40; color:white">
     <h1>Incapacidades y licencias </h1>
@@ -18,7 +19,7 @@
   <!-- fin header -->
 
   <div class="container-sm">
-  
+
     <!-- inicio seleccionar empleado -->
     <div class="row">
       <div class="col-sm">
@@ -47,7 +48,7 @@
     </div>
     <br>
     <!-- fin detalle empleado -->
-    
+
     <!-- inicio registro incapacidad empleado -->
     <div class="row">
       <div class="col-sm">
@@ -70,7 +71,8 @@
             </div>
             <div class="form-group col-md-2">
               <label for="cantidadDias">Cantidad días</label>
-              <input type="number" class="form-control form-control-sm" id="cantidadDias" min="1" max="180" onchange="obtenerFechaFinal()">
+              <input type="number" class="form-control form-control-sm" id="cantidadDias" min="1" max="180"
+                onchange="obtenerFechaFinal()">
             </div>
             <div class="form-group col-md-3">
               <label for="fechaFinal">Fecha final</label>
@@ -89,6 +91,30 @@
       </div>
     </div><br>
     <!-- fin registro incapacidad empleado -->
+
+    <!-- Inicio tabla incapacidad -->
+    <div class="row">
+      <div class="col-sm">
+        <h4>Incapacidades</h4>
+        <table class="table table-sm table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">Fecha inicial</th>
+              <th scope="col">Fecha final</th>
+              <th scope="col">Cantidad días</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody id="tabla-detalle-incapacidad">
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- fin tabla incapacidad -->
 
   </div>
 

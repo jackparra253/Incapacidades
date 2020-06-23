@@ -1,5 +1,5 @@
 const uriIncapacidad = 'incapacidad';
-
+//Registrar incapacidad
 function guardar() {
 
     const solicitudIncapacidad = crearSolicitudIncapacidad();
@@ -7,14 +7,15 @@ function guardar() {
     fetch(`${uriIncapacidad}`, {
         method: 'POST',
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(solicitudIncapacidad)
-      }).then(response => response.json())
-      .then(data => console.log(data))
-      .then(limpiarFormulario())
-      .catch(error => console.error('Unable to add incapacidad.', error));
+    }).then(response => response.json())
+        .then(data => console.log(data))
+        .then(limpiarFormulario())
+        .then(consultarIncapacidades())
+        .catch(error => console.error('Unable to add incapacidad.', error));
 }
 
 function crearSolicitudIncapacidad() {
@@ -50,7 +51,7 @@ function obtenerFecha() {
 function obtenerAnio() {
     const fechaIncial = obtenerFecha();
 
-    if(fechaIncial == '' || fechaIncial == undefined)
+    if (fechaIncial == '' || fechaIncial == undefined)
         return 0;
 
     return parseInt(fechaIncial.substring(0, 4));
@@ -59,7 +60,7 @@ function obtenerAnio() {
 function obtenerMes() {
     const fechaIncial = obtenerFecha();
 
-    if(fechaIncial == '' || fechaIncial == undefined)
+    if (fechaIncial == '' || fechaIncial == undefined)
         return 0;
 
     return parseInt(fechaIncial.substring(5, 7));
@@ -68,7 +69,7 @@ function obtenerMes() {
 function obtenerDia() {
     const fechaIncial = obtenerFecha();
 
-    if(fechaIncial == '' || fechaIncial == undefined)
+    if (fechaIncial == '' || fechaIncial == undefined)
         return 0;
 
     return parseInt(fechaIncial.substring(8, 10));
@@ -77,9 +78,9 @@ function obtenerDia() {
 function obtenerCantidadDias() {
     const cantidadDias = document.getElementById('cantidadDias');
 
-    if(cantidadDias.value == '' || cantidadDias.value == undefined)
+    if (cantidadDias.value == '' || cantidadDias.value == undefined)
         return 0;
-    
+
     return parseInt(cantidadDias.value);
 }
 
@@ -89,14 +90,87 @@ function obtenerObservaciones() {
     return observaciones.value;
 }
 
-function limpiarFormulario(){
+function limpiarFormulario() {
     const fechaIncial = document.getElementById('fechaInicial')
     const cantidadDias = document.getElementById('cantidadDias');
     const fechaFinal = document.getElementById('fechaFinal');
     const observaciones = document.getElementById('observaciones');
-    
+
     fechaIncial.value = '';
     fechaFinal.innerText = '';
     cantidadDias.value = '';
     observaciones.value = '';
 }
+
+//Consultar incapacidad
+function consultarIncapacidades() {
+    const empleados = document.getElementById("empleados");
+
+    let idEmpleado = 1;
+
+    if (empleados.options.length != 0)
+        idEmpleado = empleados.options[empleados.selectedIndex].value;
+
+    fetch(`${uriIncapacidad}/${idEmpleado}`)
+        .then(response => response.json())
+        .then(data => llenarTabla(data))
+        .catch(err => console.log("Error" + err.message));
+}
+
+
+function llenarTabla(incapacidades) {
+    const cuerpoTabla = document.getElementById('tabla-detalle-incapacidad');
+
+    if (cuerpoTabla.rows.length > 0) {
+        for (let i = 0; i < incapacidades.length; i++){
+            cuerpoTabla.innerHTML = '';
+        }
+    }
+
+    for (const item of incapacidades) {
+        let trElemento = document.createElement('tr');
+
+        let idTdElemento = document.createElement('td');
+        idTdElemento.innerHTML = item.id;
+        trElemento.appendChild(idTdElemento);
+
+        let tipoTdElemento = document.createElement('td');
+        tipoTdElemento.innerHTML = item.tipo;
+        trElemento.appendChild(tipoTdElemento);
+
+        let fechaInicialTdElemento = document.createElement('td');
+        fechaInicialTdElemento.innerHTML = item.fechaInicial;
+        trElemento.appendChild(fechaInicialTdElemento);
+
+        let fechaFinalTdElemento = document.createElement('td');
+        fechaFinalTdElemento.innerHTML = item.fechaFinal;
+        trElemento.appendChild(fechaFinalTdElemento);
+
+        let cantidadDiasTdElemento = document.createElement('td');
+        cantidadDiasTdElemento.innerHTML = item.cantidadDias;
+        trElemento.appendChild(cantidadDiasTdElemento);
+
+        let prorrogaTdElemento = document.createElement('td');
+        let prorrogaBotonElemento = document.createElement('button');
+        prorrogaTdElemento.appendChild(prorrogaBotonElemento);
+        prorrogaBotonElemento.id = item.id;
+        prorrogaBotonElemento.className = 'btn btn-outline-dark btn-sm';
+        prorrogaBotonElemento.innerText = 'Prórroga';
+        trElemento.appendChild(prorrogaTdElemento);
+
+        let detalleTdElemento = document.createElement('td');
+
+        let detalleBotonElemento = document.createElement('button');
+        detalleTdElemento.appendChild(detalleBotonElemento);
+        detalleBotonElemento.id = item.id;
+        detalleBotonElemento.className = 'btn btn-outline-dark btn-sm';
+        detalleBotonElemento.innerText = 'Detalle';
+
+        trElemento.appendChild(detalleTdElemento);
+
+        cuerpoTabla.appendChild(trElemento);
+    }
+
+}
+
+consultarIncapacidades();
