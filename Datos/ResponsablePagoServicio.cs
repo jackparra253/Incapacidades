@@ -39,5 +39,14 @@ namespace Datos
         {
             return ObtenerResponsablesPago().Where(responsable => responsable.Id == id).FirstOrDefault();
         }
+
+         public List<ResponsablePago> ObtenerResponsablesPago(TipoIncapacidad tipoIncapacidad, TipoSalario tipoSalario, int cantidadDias)
+        {
+             return ObtenerResponsablesPago()
+                .Where(responsablePago => responsablePago.TipoIncapacidad == tipoIncapacidad 
+                                        && responsablePago.TipoSalario == tipoSalario
+                                        && responsablePago.DiasIncapacidadInicial <= cantidadDias)
+                .ToList();
+        }
     }
 }

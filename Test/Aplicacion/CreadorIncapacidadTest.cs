@@ -14,6 +14,7 @@ using Modelos;
 using IDatos;
 using Datos;
 using Microsoft.EntityFrameworkCore;
+using IAplicacion;
 
 namespace Test.Aplicacion
 {
@@ -31,14 +32,14 @@ namespace Test.Aplicacion
         [TestInitialize]
         public void Inicializar()
         {
-            //  var mock = new Mock<IServicioDatos>();
-            //   mock.Setup(p => p.ObtenerEmpleados()).Returns(new List<Empleado>());
+            var calculadoraFechasMock = new Mock<ICalcularFechas>();
+            calculadoraFechasMock.Setup(p => p.CalcularSiguienteFecha(new DateTime(2020, 06, 03), 3)).Returns(new DateTime(2020, 06, 05));
 
             DbContextOptionsBuilder<IncapacidadesContext> builder = new DbContextOptionsBuilder<IncapacidadesContext>();
 
             IServicioDatos _servicioDatos = new IncapacidadesContext(builder.Options);
 
-            _creadorIncapacidad = new CreadorIncapacidad(_servicioDatos);
+            _creadorIncapacidad = new CreadorIncapacidad(_servicioDatos, calculadoraFechasMock.Object);
         }
 
         [TestMethod]

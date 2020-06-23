@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Modelos.Entidades;
+using Modelos.Enumeracion;
 
 namespace IDatos
 {
@@ -12,5 +13,7 @@ namespace IDatos
         List<ResponsablePago> ObtenerResponsablesPago();
 
         ResponsablePago ObtenerResponsablePago(int id);
+
+        List<ResponsablePago> ObtenerResponsablesPago(TipoIncapacidad tipoIncapacidad, TipoSalario tipoSalario, int cantidadDias);
     }     
 }
