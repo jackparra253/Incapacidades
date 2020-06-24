@@ -2,6 +2,8 @@
   <ItemGroup>
     <ProjectReference Include="..\IDatos\IDatos.csproj" />
     <ProjectReference Include="..\IAplicacion\IAplicacion.csproj" />
+    <ProjectReference Include="..\IDominio\IDominio.csproj" />
+    <ProjectReference Include="..\Dominio\Dominio.csproj" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>

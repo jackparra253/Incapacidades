@@ -5,6 +5,6 @@ namespace IDominio
 {
     public interface ICalculadoraReconocimientoEconomico
     {
-        Dinero CalcularReconocimientoEconomico(Empleado empleado, ResponsablePago responsablePago);
+        Dinero CalcularReconocimientoEconomico(Empleado empleado, ResponsablePago responsablePago, int cantidadDiasRestantes);
     }
 }

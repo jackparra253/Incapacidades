@@ -2,6 +2,20 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
+      "Dominio/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "IDominio": "1.0.0",
+          "Modelos": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Dominio.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Dominio.dll": {}
+        }
+      },
       "IAplicacion/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -28,6 +42,19 @@
           "bin/placeholder/IDatos.dll": {}
         }
       },
+      "IDominio/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Modelos": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/IDominio.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/IDominio.dll": {}
+        }
+      },
       "Modelos/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -41,6 +68,11 @@
     }
   },
   "libraries": {
+    "Dominio/1.0.0": {
+      "type": "project",
+      "path": "../Dominio/Dominio.csproj",
+      "msbuildProject": "../Dominio/Dominio.csproj"
+    },
     "IAplicacion/1.0.0": {
       "type": "project",
       "path": "../IAplicacion/IAplicacion.csproj",
@@ -51,6 +83,11 @@
       "path": "../IDatos/IDatos.csproj",
       "msbuildProject": "../IDatos/IDatos.csproj"
     },
+    "IDominio/1.0.0": {
+      "type": "project",
+      "path": "../IDominio/IDominio.csproj",
+      "msbuildProject": "../IDominio/IDominio.csproj"
+    },
     "Modelos/1.0.0": {
       "type": "project",
       "path": "../Modelos/Modelos.csproj",
@@ -59,8 +96,10 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "Dominio >= 1.0.0",
       "IAplicacion >= 1.0.0",
-      "IDatos >= 1.0.0"
+      "IDatos >= 1.0.0",
+      "IDominio >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -87,11 +126,17 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
+            "/home/jack/Code/Incapacidades/Dominio/Dominio.csproj": {
+              "projectPath": "/home/jack/Code/Incapacidades/Dominio/Dominio.csproj"
+            },
             "/home/jack/Code/Incapacidades/IAplicacion/IAplicacion.csproj": {
               "projectPath": "/home/jack/Code/Incapacidades/IAplicacion/IAplicacion.csproj"
             },
             "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj": {
               "projectPath": "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj"
+            },
+            "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj": {
+              "projectPath": "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj"
             }
           }
         }

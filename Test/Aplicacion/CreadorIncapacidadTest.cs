@@ -13,6 +13,8 @@ using Modelos.ValueObjects;
 using Modelos;
 using IDatos;
 using Datos;
+using Dominio;
+using IDominio;
 using Microsoft.EntityFrameworkCore;
 using IAplicacion;
 
@@ -22,7 +24,15 @@ namespace Test.Aplicacion
     public class CreadorIncapacidadTest : TestBase
     {
         private IServicioDatos _servicioDatos;
+
+        private ICalculadoraReconocimientoEconomico _calculadoraReconocimientoEconomico;
+
+        private readonly IIncapacidadServicio _incapacidadServicio;
+
+
         private CreadorIncapacidad _creadorIncapacidad;
+
+        private IncapacidadesContext _contexto;
 
         public CreadorIncapacidadTest()
         {
@@ -32,6 +42,8 @@ namespace Test.Aplicacion
         [TestInitialize]
         public void Inicializar()
         {
+            _contexto = GetDbContext();
+
             var calculadoraFechasMock = new Mock<ICalcularFechas>();
             calculadoraFechasMock.Setup(p => p.CalcularSiguienteFecha(new DateTime(2020, 06, 03), 3)).Returns(new DateTime(2020, 06, 05));
 
@@ -39,50 +51,26 @@ namespace Test.Aplicacion
 
             IServicioDatos _servicioDatos = new IncapacidadesContext(builder.Options);
 
-            _creadorIncapacidad = new CreadorIncapacidad(_servicioDatos, calculadoraFechasMock.Object);
+            ICalculadoraReconocimientoEconomico _calculadoraReconocimientoEconomico = new CalculadoraReconocimientoEconomico();
+
+            IIncapacidadServicio _incapacidadServicio = new IncapacidadServicio(_contexto);
+
+            _creadorIncapacidad = new CreadorIncapacidad(_servicioDatos, calculadoraFechasMock.Object, _calculadoraReconocimientoEconomico, _incapacidadServicio);
         }
 
         [TestMethod]
-        public void Debe_Crear_Persistir_IncpacidadYReconocimientosEconomicos()
+        public void Debe_Crear_PersistirIncipacidad_Cuando_EsEnfermedadGeneralPorDosDiasSalarioIntegral()
         {
-            var context = GetDbContext();
-
-            // var reconocimientosEconomicos = new List<ReconocimientoEconomico>
-            // {
-            //     new ReconocimientoEconomico(1,1,new DateTime(2020, 06, 03),new Dinero(333_350m, Moneda.COP), Entidad.EMPRESA),
-            //     new ReconocimientoEconomico(1,1,new DateTime(2020, 06, 04),new Dinero(333_350m, Moneda.COP), Entidad.EMPRESA),
-            //     new ReconocimientoEconomico(1,1,new DateTime(2020, 06, 05),new Dinero(233_345m, Moneda.COP), Entidad.EPS),
-            //     new ReconocimientoEconomico(1,1,new DateTime(2020, 06, 05),new Dinero(150_000m, Moneda.COP), Entidad.EMPRESA)
-            // };
-
-            // var incapacidadEsperada = new Incapacidad(1, TipoIncapacidad.EnfermedadGeneral, new DateTime(2020, 06, 03), new DateTime(2020, 06, 05), 3, "incapacidad del señor Alan", reconocimientosEconomicos);
-
-
-            // var alan = new Empleado(1, "Alan", "Turing", new Dinero(15_000_000m, Moneda.COP), new Dinero(500_000m, Moneda.COP), TipoSalario.Integral);
-
-            var solicitudIncapacidad = new SolicitudIncapacidad(1, 1, 2020, 06, 03, 3, "incapacidad del señor Alan");
+            var reconocimientoEconomicoEsperado = new ReconocimientoEconomico(1, new DateTime(2020,06,03), new DateTime(2020,06,04), new Dinero(1_000_000m, Moneda.COP), Entidad.EMPRESA);
+            
+            var solicitudIncapacidad = new SolicitudIncapacidad(1, 1, 2020, 06, 03, 2, "incapacidad del señor Alan");
 
             _creadorIncapacidad.Crear(solicitudIncapacidad);
 
-            // Incapacidad incapacidad = context.Incapacidades.FirstOrDefault();
+            Incapacidad incapacidad = _contexto.Incapacidades.FirstOrDefault();
 
-            // Assert.AreEqual(incapacidadEsperada.ReconocimientosEconomicos.Count, incapacidad.ReconocimientosEconomicos.Count);
-            // Assert.AreEqual(incapacidadEsperada.IdEmpleado, incapacidad.IdEmpleado);
-            // AsertarReconocimientosEconomicos(incapacidadEsperada, incapacidad);
+            Assert.IsTrue(reconocimientoEconomicoEsperado.ValorAPagar == incapacidad.ReconocimientosEconomicos[0].ValorAPagar);
         }
-
-        public void AsertarReconocimientosEconomicos(Incapacidad incapacidadEsperada, Incapacidad incapacidad)
-        {
-            for (int i = 0; i < incapacidadEsperada.ReconocimientosEconomicos.Count; i++)
-            {
-                Assert.AreEqual(incapacidadEsperada.ReconocimientosEconomicos[i].ValorAPagar, incapacidad.ReconocimientosEconomicos[i].ValorAPagar);
-                Assert.AreEqual(incapacidadEsperada.ReconocimientosEconomicos[i].ResponsablePago, incapacidad.ReconocimientosEconomicos[i].ResponsablePago);
-                Assert.AreEqual(incapacidadEsperada.ReconocimientosEconomicos[i].Fecha, incapacidad.ReconocimientosEconomicos[i].Fecha);
-            }
-        }
-
-
-
     }
 
 }

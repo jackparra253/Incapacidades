@@ -36,6 +36,8 @@ namespace Api
             //Dominio
             services.AddScoped<ICalculadoraReconocimientoEconomico, CalculadoraReconocimientoEconomico>();
 
+            //Servicios
+            services.AddScoped<IIncapacidadServicio, IncapacidadServicio>();
             services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true);
             services.AddDbContext<IncapacidadesContext>(options => options.UseSqlite(Configuration.GetConnectionString("IncapacidadesContext")));
             services.AddScoped<IServicioDatos>(provider => provider.GetService<IncapacidadesContext>());

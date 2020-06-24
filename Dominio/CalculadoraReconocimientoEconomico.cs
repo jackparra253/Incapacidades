@@ -8,11 +8,11 @@ namespace Dominio
 {
     public class CalculadoraReconocimientoEconomico : ICalculadoraReconocimientoEconomico
     {
-        public Dinero CalcularReconocimientoEconomico(Empleado empleado, ResponsablePago responsablePago)
+        public Dinero CalcularReconocimientoEconomico(Empleado empleado, ResponsablePago responsablePago, int cantidadDiasRestantes)
         {
             decimal salarioDiarioBase = empleado.SalarioDiario.Cantidad * responsablePago.PorcentajeSalario;
 
-            decimal reconocimientoEconomico = salarioDiarioBase * responsablePago.ReconocimientoPorcentaje;
+            decimal reconocimientoEconomico = (salarioDiarioBase * responsablePago.ReconocimientoPorcentaje) * cantidadDiasRestantes;
 
             return new Dinero(reconocimientoEconomico, empleado.SalarioDiario.Moneda);
         }

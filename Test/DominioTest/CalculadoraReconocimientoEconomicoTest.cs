@@ -26,7 +26,7 @@ namespace Test.DominioTest
 
             var eps = new ResponsablePago(3, Entidad.EPS, TipoIncapacidad.EnfermedadGeneral, 3, 90, 0.6667m, 1m, TipoSalario.Ley50);
 
-            Dinero reconocimientoEconomico = _calculadora.CalcularReconocimientoEconomico(richard, eps);
+            Dinero reconocimientoEconomico = _calculadora.CalcularReconocimientoEconomico(richard, eps, 1);
 
             Assert.IsTrue(reconocimientoEconomicoEsperado == reconocimientoEconomico);
         }
@@ -36,11 +36,11 @@ namespace Test.DominioTest
         {
             Dinero reconocimientoEconomicoEsperado = new Dinero(233_345.0000m, Moneda.COP);
 
-            var alan = new Empleado(1, "Alan", "Turing", new Dinero(15_000_000m, Moneda.COP), new Dinero(500_000m,  Moneda.COP), TipoSalario.Integral);
+            var alan = new Empleado(1, "Alan", "Turing", new Dinero(15_000_000m, Moneda.COP), new Dinero(500_000m, Moneda.COP), TipoSalario.Integral);
 
             var eps = new ResponsablePago(4, Entidad.EPS, TipoIncapacidad.EnfermedadGeneral, 3, 90, 0.6667m, 0.7m, TipoSalario.Integral);
 
-            Dinero reconocimientoEconomico = _calculadora.CalcularReconocimientoEconomico(alan, eps);
+            Dinero reconocimientoEconomico = _calculadora.CalcularReconocimientoEconomico(alan, eps, 1);
 
             Assert.IsTrue(reconocimientoEconomicoEsperado == reconocimientoEconomico);
         }

@@ -50,6 +50,5 @@ namespace Test.DatosTest
 
             Assert.IsTrue(_empleadosEsperados[1].Salario == empleado.Salario);
         }
-
     }
 }

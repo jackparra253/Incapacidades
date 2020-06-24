@@ -2185,8 +2185,10 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
+          "Dominio": "1.0.0",
           "IAplicacion": "1.0.0",
-          "IDatos": "1.0.0"
+          "IDatos": "1.0.0",
+          "IDominio": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Aplicacion.dll": {}

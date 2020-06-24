@@ -122,11 +122,17 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
+              "/home/jack/Code/Incapacidades/Dominio/Dominio.csproj": {
+                "projectPath": "/home/jack/Code/Incapacidades/Dominio/Dominio.csproj"
+              },
               "/home/jack/Code/Incapacidades/IAplicacion/IAplicacion.csproj": {
                 "projectPath": "/home/jack/Code/Incapacidades/IAplicacion/IAplicacion.csproj"
               },
               "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj": {
                 "projectPath": "/home/jack/Code/Incapacidades/IDatos/IDatos.csproj"
+              },
+              "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj": {
+                "projectPath": "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj"
               }
             }
           }

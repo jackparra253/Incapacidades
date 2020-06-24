@@ -8,11 +8,22 @@
     ".NETCoreApp,Version=v3.1": {
       "Aplicacion/1.0.0": {
         "dependencies": {
+          "Dominio": "1.0.0",
           "IAplicacion": "1.0.0",
-          "IDatos": "1.0.0"
+          "IDatos": "1.0.0",
+          "IDominio": "1.0.0"
         },
         "runtime": {
           "Aplicacion.dll": {}
+        }
+      },
+      "Dominio/1.0.0": {
+        "dependencies": {
+          "IDominio": "1.0.0",
+          "Modelos": "1.0.0"
+        },
+        "runtime": {
+          "Dominio.dll": {}
         }
       },
       "IAplicacion/1.0.0": {
@@ -31,6 +42,14 @@
           "IDatos.dll": {}
         }
       },
+      "IDominio/1.0.0": {
+        "dependencies": {
+          "Modelos": "1.0.0"
+        },
+        "runtime": {
+          "IDominio.dll": {}
+        }
+      },
       "Modelos/1.0.0": {
         "runtime": {
           "Modelos.dll": {}
@@ -44,12 +63,22 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Dominio/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "IAplicacion/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
     "IDatos/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "IDominio/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

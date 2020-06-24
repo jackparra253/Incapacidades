@@ -6,6 +6,7 @@ using Modelos.Entidades;
 using Modelos.ValueObjects;
 using Modelos.Enumeracion;
 using System;
+using Microsoft.Extensions.Configuration;
 
 namespace Datos
 {
