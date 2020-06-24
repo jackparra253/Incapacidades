@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using IAplicacion;
 using Microsoft.AspNetCore.Mvc;
 using Modelos;
+using Modelos.Entidades;
+using IDatos;
 
 namespace Api.Controllers
 {
@@ -10,9 +12,12 @@ namespace Api.Controllers
     public class IncapacidadController : ControllerBase
     {
         private readonly ICreadorIncapacidad _creadorIncapacidad;
-        public IncapacidadController(ICreadorIncapacidad creadorIncapacidad)
+        private readonly IIncapacidadServicio _incapacidadServicio;
+
+        public IncapacidadController(ICreadorIncapacidad creadorIncapacidad,IIncapacidadServicio incapacidadServicio)
         {
             _creadorIncapacidad = creadorIncapacidad;
+            _incapacidadServicio = incapacidadServicio;
         }
         
         [HttpPost]
@@ -24,12 +29,7 @@ namespace Api.Controllers
         [HttpGet("{idEmpleado}")]
         public List<DetalleIncapacidad> ObtenerIncapacidades(int idEmpleado)
         {
-            return new List<DetalleIncapacidad>
-            {
-                new DetalleIncapacidad(idEmpleado, "Enfermedad General","2020-06-01", "2020-06-02", 2),
-                new DetalleIncapacidad(5, "Enfermedad Laboral","2020-07-13", "2020-07-03", 10),
-                new DetalleIncapacidad(6, "Licencia Maternidad","2020-08-15", "2020-08-08", 12)
-            };
+            return _incapacidadServicio.ObtenerIncapacidadesDetalle(idEmpleado);
         }
     }
 }

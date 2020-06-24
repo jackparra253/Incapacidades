@@ -2,6 +2,9 @@ using System.Linq;
 using IDatos;
 using Microsoft.EntityFrameworkCore;
 using Modelos.Entidades;
+using System.Collections.Generic;
+using Modelos;
+using Modelos.Enumeracion;
 
 namespace Datos
 {
@@ -12,13 +15,53 @@ namespace Datos
 
         public IncapacidadServicio(IncapacidadesContext contexto)
         {
-            _contexto =contexto;
+            _contexto = contexto;
         }
 
         public void Guardar(Incapacidad incapacidad)
         {
             _contexto.Incapacidades.Add(incapacidad);
             _contexto.SaveChanges();
+        }
+        
+        public List<DetalleIncapacidad> ObtenerIncapacidadesDetalle(int idEmpleado)
+        {
+            List<DetalleIncapacidad> incapacidadesDetalle = _contexto.Incapacidades
+                .Where(i => i.IdEmpleado == idEmpleado)
+                .Select(i => new DetalleIncapacidad(i.IncapacidadId,
+                     (TransformarATextoTipoIncapacida(i.TipoIncapacidad)),
+                    i.FechaIncial.ToShortDateString(),
+                    i.FechaFinal.ToShortDateString(),
+                    i.CantidadDias))
+                .ToList();
+
+            return incapacidadesDetalle;
+        }
+
+        private static string TransformarATextoTipoIncapacida(TipoIncapacidad tipoIncapacidad)
+        {
+            switch (tipoIncapacidad)
+            {
+                case TipoIncapacidad.EnfermedadGeneral:
+                    return "Enfermedad General";
+                    break;
+                case TipoIncapacidad.LicenciaMaternidad:
+                    return "Licencia Maternidad";
+                    break;
+                case TipoIncapacidad.LicenciaPaternidad:
+                    return "Licencia Paternidad";
+                    break;
+                case TipoIncapacidad.EnfermedadLaboral:
+                    return "Enfermedad Laboral";
+                    break;
+                case TipoIncapacidad.AccidenteLaboral:
+                    return "AccidenteLaboral";
+                    break;
+                default:
+                    return "";
+                    break;
+            }
+
         }
     }
 }
