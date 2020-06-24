@@ -9,5 +9,7 @@ namespace IDatos
     {
         void Guardar(Incapacidad incapacidad);
         List<DetalleIncapacidad> ObtenerIncapacidadesDetalle(int idEmpleado);
+
+        List<DetalleReconocimientoEconomico> ObtenerReconocimientosEconomicosDetalle(int idEmpleado);
     }     
 }

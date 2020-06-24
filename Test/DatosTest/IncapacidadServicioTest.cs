@@ -39,7 +39,7 @@ namespace Test.DatosTest
 
 
         [TestMethod]
-        public void Debe_ObtenerIncapacidadesDetalle_RetornarListaEmpleados_Cuando_RecibeIdEmpleado()
+        public void Debe_ObtenerIncapacidadesDetalle_RetornarListaDetalleIncapacidad_Cuando_RecibeIdEmpleado()
         {
             var incapacidadesDetalleEsperadas = new List<DetalleIncapacidad>
             {
@@ -51,6 +51,21 @@ namespace Test.DatosTest
             List<DetalleIncapacidad> incapacidadesDetalle = _incapacidadServicio.ObtenerIncapacidadesDetalle(idEmpleado);
 
             Assert.AreEqual(incapacidadesDetalleEsperadas[0].Tipo, incapacidadesDetalle[0].Tipo);
+        }
+
+        [TestMethod]
+        public void Debe_ObtenerReconocimientosEconomicosDetalle_RetornarlistaReconocimientosEconomicos_Cuando_RecibeIdEmpleado()
+        {
+            var reconocimientoEconomicosDetalleEsperados = new List<DetalleReconocimientoEconomico>
+            {
+                new DetalleReconocimientoEconomico(1, new DateTime(2020,06,03).ToShortDateString(), new DateTime(2020,06,04).ToShortDateString(), new Dinero(1_000_000m, Moneda.COP), "EMPRESA")
+            };
+
+            int idEmpleado = 1;
+            List<DetalleReconocimientoEconomico> reconocimientosEconomicosDetalle = _incapacidadServicio.ObtenerReconocimientosEconomicosDetalle(idEmpleado);
+            
+            Assert.AreEqual(reconocimientoEconomicosDetalleEsperados[0].ResponsablePago, reconocimientosEconomicosDetalle[0].ResponsablePago);
+            Assert.AreEqual(reconocimientoEconomicosDetalleEsperados[0].ValorAPagar, reconocimientosEconomicosDetalle[0].ValorAPagar);
         }
     }
 }

@@ -24,10 +24,7 @@ namespace Api.Controllers
         [HttpGet("{idEmpleado}")]
         public List<DetalleReconocimientoEconomico> ObtenerReconocimientosEconomicos(int idEmpleado)
         {
-            return new List<DetalleReconocimientoEconomico>
-            {
-                new DetalleReconocimientoEconomico(1,"2020-06-02", "2020-06-02", new Dinero(1_000_000, Moneda.COP),"Empresa")
-            };
+            return _incapacidadServicio.ObtenerReconocimientosEconomicosDetalle(idEmpleado);
         }
     }
 }

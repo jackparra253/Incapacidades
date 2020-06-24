@@ -1,6 +1,5 @@
 using System.Linq;
 using IDatos;
-using Microsoft.EntityFrameworkCore;
 using Modelos.Entidades;
 using System.Collections.Generic;
 using Modelos;
@@ -23,7 +22,7 @@ namespace Datos
             _contexto.Incapacidades.Add(incapacidad);
             _contexto.SaveChanges();
         }
-        
+
         public List<DetalleIncapacidad> ObtenerIncapacidadesDetalle(int idEmpleado)
         {
             List<DetalleIncapacidad> incapacidadesDetalle = _contexto.Incapacidades
@@ -62,6 +61,42 @@ namespace Datos
                     break;
             }
 
+        }
+
+        public List<DetalleReconocimientoEconomico> ObtenerReconocimientosEconomicosDetalle(int idEmpleado)
+        {
+            var reconocimientosEconomicos = _contexto.ReconocimientosEconomicos.ToList();
+
+            List<DetalleReconocimientoEconomico> reconocimientosEconomicosDetalle = reconocimientosEconomicos
+                .Where(re => re.IdEmpleado == idEmpleado)
+                .Select(re => new DetalleReconocimientoEconomico(
+                    re.IncapacidadId,
+                    re.FechaInicial.ToShortDateString(),
+                    re.FechaFinal.ToShortDateString(),
+                    re.ValorAPagar,
+                    TransformarATextoResponsable(re.ResponsablePago)
+                )).ToList();
+
+            return reconocimientosEconomicosDetalle;
+        }
+        private static string TransformarATextoResponsable(Entidad responsable)
+        {
+            switch (responsable)
+            {
+                case Entidad.EPS:
+                    return "EPS";
+                    break;
+                case Entidad.ARL:
+                    return "ARL";
+                    break;
+                case Entidad.EMPRESA:
+                    return "EMPRESA";
+                    break;
+
+                default:
+                    return "";
+                    break;
+            }
         }
     }
 }
