@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using IDominio;
 using Modelos.ValueObjects;
+using Modelos.Enumeracion;
 
 namespace Aplicacion
 {
@@ -27,32 +28,53 @@ namespace Aplicacion
         public void Crear(SolicitudIncapacidad solicitudIncapacidad)
         {
             Empleado empleado = _servicioDatos.ObtenerEmpleado(solicitudIncapacidad.IdEmpleado);
-            
+
             var fechaIncial = new DateTime(solicitudIncapacidad.Anio, solicitudIncapacidad.Mes, solicitudIncapacidad.Dia);
 
-            DateTime fechaFinalIncapacidad = _calcularFechas.CalcularSiguienteFecha(fechaIncial, solicitudIncapacidad.CantidadDias);
-
-            List<ResponsablePago> responsablesPagos = _servicioDatos.ObtenerResponsablesPago((Modelos.Enumeracion.TipoIncapacidad)solicitudIncapacidad.TipoIncapacidad, empleado.TipoSalario, solicitudIncapacidad.CantidadDias);
+            List<ResponsablePago> responsablesPagos = _servicioDatos.ObtenerResponsablesPago((TipoIncapacidad)solicitudIncapacidad.TipoIncapacidad, empleado.TipoSalario, solicitudIncapacidad.CantidadDias);
 
             var reconocimientosEconomicos = new List<ReconocimientoEconomico>();
 
-            //fechaInicial
-            //CantidadDias
-            //DiasRestantes
-
-            int cantidadDiasRestantes = 2;
-            foreach(var responsablePago in responsablesPagos)
+            if ((TipoIncapacidad)solicitudIncapacidad.TipoIncapacidad == TipoIncapacidad.LicenciaMaternidad)
             {
-                Dinero valorAPagar = _calculadoraReconocimientoEconomico.CalcularReconocimientoEconomico(empleado, responsablePago, cantidadDiasRestantes);
+                foreach (var responsablePago in responsablesPagos)
+                {
+                    Dinero valorAPagar = _calculadoraReconocimientoEconomico.CalcularReconocimientoEconomico(empleado, responsablePago, responsablePago.DiasIncapacidadFinal);
 
-                var reconocimientoEconomico = new ReconocimientoEconomico(empleado.Id, fechaIncial, fechaIncial.AddDays(solicitudIncapacidad.CantidadDias), valorAPagar, responsablePago.Responsable);
+                    var reconocimientoEconomico = new ReconocimientoEconomico(empleado.Id, fechaIncial, fechaIncial.AddDays(solicitudIncapacidad.CantidadDias), valorAPagar, responsablePago.Responsable);
 
-                reconocimientosEconomicos.Add(reconocimientoEconomico);
+                    reconocimientosEconomicos.Add(reconocimientoEconomico);
+                }
+
             }
 
-            var incapacidad = new Incapacidad(solicitudIncapacidad.IdEmpleado,(Modelos.Enumeracion.TipoIncapacidad)solicitudIncapacidad.TipoIncapacidad, fechaIncial, fechaFinalIncapacidad, solicitudIncapacidad.CantidadDias, solicitudIncapacidad.Observaciones, reconocimientosEconomicos);
+            if ((TipoIncapacidad)solicitudIncapacidad.TipoIncapacidad == TipoIncapacidad.EnfermedadGeneral)
+            {
+                int cantidadDiasRestantes = 2;
+                foreach (var responsablePago in responsablesPagos)
+                {
+                    Dinero valorAPagar = _calculadoraReconocimientoEconomico.CalcularReconocimientoEconomico(empleado, responsablePago, cantidadDiasRestantes);
+
+                    var reconocimientoEconomico = new ReconocimientoEconomico(empleado.Id, fechaIncial, fechaIncial.AddDays(solicitudIncapacidad.CantidadDias), valorAPagar, responsablePago.Responsable);
+
+                    reconocimientosEconomicos.Add(reconocimientoEconomico);
+                }
+
+            }
+
+            DateTime fechaFinalIncapacidad = ObtenerFechaFinalIncapacidad(solicitudIncapacidad, fechaIncial);
+
+            var incapacidad = new Incapacidad(solicitudIncapacidad.IdEmpleado, (Modelos.Enumeracion.TipoIncapacidad)solicitudIncapacidad.TipoIncapacidad, fechaIncial, fechaFinalIncapacidad, solicitudIncapacidad.CantidadDias, solicitudIncapacidad.Observaciones, reconocimientosEconomicos);
 
             _incapacidadServicio.Guardar(incapacidad);
+        }
+
+        private DateTime ObtenerFechaFinalIncapacidad(SolicitudIncapacidad solicitudIncapacidad, DateTime fechaIncial)
+        {
+            if((TipoIncapacidad)solicitudIncapacidad.TipoIncapacidad == TipoIncapacidad.LicenciaMaternidad)
+                return _calcularFechas.CalcularSiguienteFecha(fechaIncial, 126);
+
+            return _calcularFechas.CalcularSiguienteFecha(fechaIncial, solicitudIncapacidad.CantidadDias);
         }
     }
 }

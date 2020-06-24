@@ -22,7 +22,7 @@ namespace Datos
                 new ResponsablePago(8, Entidad.EMPRESA, TipoIncapacidad.EnfermedadGeneral, 91, 180, 1m, 0.3m, TipoSalario.Integral),
                 new ResponsablePago(9, Entidad.EPS, TipoIncapacidad.LicenciaMaternidad, 126, 126, 1m, 1m, TipoSalario.Ley50),
                 new ResponsablePago(10, Entidad.EPS, TipoIncapacidad.LicenciaMaternidad, 126, 126, 1m, 0.7m, TipoSalario.Integral),
-                new ResponsablePago(11, Entidad.EMPRESA, TipoIncapacidad.LicenciaMaternidad, 126, 126, 1m, 03m, TipoSalario.Integral),
+                new ResponsablePago(11, Entidad.EMPRESA, TipoIncapacidad.LicenciaMaternidad, 126, 126, 1m, 0.3m, TipoSalario.Integral),
                 new ResponsablePago(12, Entidad.EPS, TipoIncapacidad.LicenciaPaternidad, 8, 8, 1m, 1m, TipoSalario.Ley50),
                 new ResponsablePago(13, Entidad.EPS, TipoIncapacidad.LicenciaPaternidad, 8, 8, 1m, 0.7m, TipoSalario.Integral),
                 new ResponsablePago(14, Entidad.EMPRESA, TipoIncapacidad.LicenciaPaternidad, 8, 8, 1m, 0.3m, TipoSalario.Integral),
