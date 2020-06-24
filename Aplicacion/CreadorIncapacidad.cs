@@ -36,7 +36,7 @@ namespace Aplicacion
             var reconocimientosEconomicos = new List<ReconocimientoEconomico>();
 
             AgregarReconocimientoEconomicoTipoEnfermedadGeneral(solicitudIncapacidad, empleado, fechaIncial, responsablesPagos, reconocimientosEconomicos);
-            
+
             AgregarReconocimientoEconomicoOtrosTipos(solicitudIncapacidad, empleado, fechaIncial, responsablesPagos, reconocimientosEconomicos);
 
             DateTime fechaFinalIncapacidad = _calcularFechas.CalcularSiguienteFecha(fechaIncial, solicitudIncapacidad.CantidadDias);
@@ -67,7 +67,7 @@ namespace Aplicacion
             {
                 foreach (var responsablePago in responsablesPagos)
                 {
-                    if (responsablePago.DiasIncapacidadFinal <= solicitudIncapacidad.CantidadDias)
+                    if (responsablePago.Id == 1 || responsablePago.Id == 2)
                     {
                         Dinero valorAPagar = _calculadoraReconocimientoEconomico.CalcularReconocimientoEconomico(empleado, responsablePago, responsablePago.DiasIncapacidadFinal);
 
@@ -76,7 +76,7 @@ namespace Aplicacion
                         reconocimientosEconomicos.Add(reconocimientoEconomico);
                     }
 
-                    if (responsablePago.DiasIncapacidadInicial >= solicitudIncapacidad.CantidadDias)
+                    if (responsablePago.Id > 2)
                     {
                         Dinero valorAPagar = _calculadoraReconocimientoEconomico.CalcularReconocimientoEconomico(empleado, responsablePago, solicitudIncapacidad.CantidadDias - 2);
 
