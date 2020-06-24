@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using IAplicacion;
 using Microsoft.AspNetCore.Mvc;
 using Modelos;
 
@@ -8,10 +9,16 @@ namespace Api.Controllers
     [Route("[controller]")]
     public class IncapacidadController : ControllerBase
     {
-        [HttpPost]
-        public SolicitudIncapacidad Post(SolicitudIncapacidad solicitudIncapacidad)
+        private readonly ICreadorIncapacidad _creadorIncapacidad;
+        public IncapacidadController(ICreadorIncapacidad creadorIncapacidad)
         {
-            return solicitudIncapacidad;
+            _creadorIncapacidad = creadorIncapacidad;
+        }
+        
+        [HttpPost]
+        public void Post(SolicitudIncapacidad solicitudIncapacidad)
+        {            
+            _creadorIncapacidad.Crear(solicitudIncapacidad);
         }
 
         [HttpGet("{idEmpleado}")]

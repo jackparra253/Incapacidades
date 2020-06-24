@@ -1,11 +1,15 @@
 /home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/Aplicacion.deps.json
 /home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/Aplicacion.dll
 /home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/Aplicacion.pdb
+/home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/Dominio.dll
 /home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/IAplicacion.dll
 /home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/IDatos.dll
+/home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/IDominio.dll
 /home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/Modelos.dll
 /home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/IDatos.pdb
 /home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/IAplicacion.pdb
+/home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/IDominio.pdb
+/home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/Dominio.pdb
 /home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/Modelos.pdb
 /home/jack/Code/Incapacidades/Aplicacion/obj/Debug/netcoreapp3.1/Aplicacion.csprojAssemblyReference.cache
 /home/jack/Code/Incapacidades/Aplicacion/obj/Debug/netcoreapp3.1/Aplicacion.AssemblyInfoInputs.cache
@@ -14,7 +18,3 @@
 /home/jack/Code/Incapacidades/Aplicacion/obj/Debug/netcoreapp3.1/Aplicacion.csproj.CopyComplete
 /home/jack/Code/Incapacidades/Aplicacion/obj/Debug/netcoreapp3.1/Aplicacion.dll
 /home/jack/Code/Incapacidades/Aplicacion/obj/Debug/netcoreapp3.1/Aplicacion.pdb
-/home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/Dominio.dll
-/home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/IDominio.dll
-/home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/IDominio.pdb
-/home/jack/Code/Incapacidades/Aplicacion/bin/Debug/netcoreapp3.1/Dominio.pdb

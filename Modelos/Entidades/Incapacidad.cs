@@ -6,7 +6,7 @@ namespace Modelos.Entidades
 {
     public class Incapacidad
     {
-        public int Id { get; private set; }
+        public int IncapacidadId { get; private set; }
         public int IdEmpleado { get; private set; }
         public TipoIncapacidad TipoIncapacidad { get; private set; }
         public DateTime FechaIncial { get; private set; }
