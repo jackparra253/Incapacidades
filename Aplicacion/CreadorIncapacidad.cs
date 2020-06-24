@@ -35,30 +35,19 @@ namespace Aplicacion
 
             var reconocimientosEconomicos = new List<ReconocimientoEconomico>();
 
-            if ((TipoIncapacidad)solicitudIncapacidad.TipoIncapacidad == TipoIncapacidad.EnfermedadGeneral)
-            {
-                foreach (var responsablePago in responsablesPagos)
-                {
-                    if(responsablePago.DiasIncapacidadFinal <= solicitudIncapacidad.CantidadDias)
-                    {
-                        Dinero valorAPagar = _calculadoraReconocimientoEconomico.CalcularReconocimientoEconomico(empleado, responsablePago, responsablePago.DiasIncapacidadFinal);
+            AgregarReconocimientoEconomicoTipoEnfermedadGeneral(solicitudIncapacidad, empleado, fechaIncial, responsablesPagos, reconocimientosEconomicos);
+            
+            AgregarReconocimientoEconomicoOtrosTipos(solicitudIncapacidad, empleado, fechaIncial, responsablesPagos, reconocimientosEconomicos);
 
-                        var reconocimientoEconomico = new ReconocimientoEconomico(empleado.Id, fechaIncial, fechaIncial.AddDays(responsablePago.DiasIncapacidadFinal-1), valorAPagar, responsablePago.Responsable);
+            DateTime fechaFinalIncapacidad = _calcularFechas.CalcularSiguienteFecha(fechaIncial, solicitudIncapacidad.CantidadDias);
 
-                        reconocimientosEconomicos.Add(reconocimientoEconomico);
-                    }
+            var incapacidad = new Incapacidad(solicitudIncapacidad.IdEmpleado, (Modelos.Enumeracion.TipoIncapacidad)solicitudIncapacidad.TipoIncapacidad, fechaIncial, fechaFinalIncapacidad, solicitudIncapacidad.CantidadDias, solicitudIncapacidad.Observaciones, reconocimientosEconomicos);
 
-                    if(responsablePago.DiasIncapacidadInicial >= solicitudIncapacidad.CantidadDias)
-                    {
-                        Dinero valorAPagar = _calculadoraReconocimientoEconomico.CalcularReconocimientoEconomico(empleado, responsablePago, solicitudIncapacidad.CantidadDias-2);
+            _incapacidadServicio.Guardar(incapacidad);
+        }
 
-                        var reconocimientoEconomico = new ReconocimientoEconomico(empleado.Id, fechaIncial.AddDays(2), fechaIncial.AddDays(solicitudIncapacidad.CantidadDias-1), valorAPagar, responsablePago.Responsable);
-
-                        reconocimientosEconomicos.Add(reconocimientoEconomico);
-                    }
-                }
-            }
-
+        private void AgregarReconocimientoEconomicoOtrosTipos(SolicitudIncapacidad solicitudIncapacidad, Empleado empleado, DateTime fechaIncial, List<ResponsablePago> responsablesPagos, List<ReconocimientoEconomico> reconocimientosEconomicos)
+        {
             if ((TipoIncapacidad)solicitudIncapacidad.TipoIncapacidad != TipoIncapacidad.EnfermedadGeneral)
             {
                 foreach (var responsablePago in responsablesPagos)
@@ -70,12 +59,33 @@ namespace Aplicacion
                     reconocimientosEconomicos.Add(reconocimientoEconomico);
                 }
             }
+        }
 
-            DateTime fechaFinalIncapacidad = _calcularFechas.CalcularSiguienteFecha(fechaIncial, solicitudIncapacidad.CantidadDias);
+        private void AgregarReconocimientoEconomicoTipoEnfermedadGeneral(SolicitudIncapacidad solicitudIncapacidad, Empleado empleado, DateTime fechaIncial, List<ResponsablePago> responsablesPagos, List<ReconocimientoEconomico> reconocimientosEconomicos)
+        {
+            if ((TipoIncapacidad)solicitudIncapacidad.TipoIncapacidad == TipoIncapacidad.EnfermedadGeneral)
+            {
+                foreach (var responsablePago in responsablesPagos)
+                {
+                    if (responsablePago.DiasIncapacidadFinal <= solicitudIncapacidad.CantidadDias)
+                    {
+                        Dinero valorAPagar = _calculadoraReconocimientoEconomico.CalcularReconocimientoEconomico(empleado, responsablePago, responsablePago.DiasIncapacidadFinal);
 
-            var incapacidad = new Incapacidad(solicitudIncapacidad.IdEmpleado, (Modelos.Enumeracion.TipoIncapacidad)solicitudIncapacidad.TipoIncapacidad, fechaIncial, fechaFinalIncapacidad, solicitudIncapacidad.CantidadDias, solicitudIncapacidad.Observaciones, reconocimientosEconomicos);
+                        var reconocimientoEconomico = new ReconocimientoEconomico(empleado.Id, fechaIncial, fechaIncial.AddDays(responsablePago.DiasIncapacidadFinal - 1), valorAPagar, responsablePago.Responsable);
 
-            _incapacidadServicio.Guardar(incapacidad);
+                        reconocimientosEconomicos.Add(reconocimientoEconomico);
+                    }
+
+                    if (responsablePago.DiasIncapacidadInicial >= solicitudIncapacidad.CantidadDias)
+                    {
+                        Dinero valorAPagar = _calculadoraReconocimientoEconomico.CalcularReconocimientoEconomico(empleado, responsablePago, solicitudIncapacidad.CantidadDias - 2);
+
+                        var reconocimientoEconomico = new ReconocimientoEconomico(empleado.Id, fechaIncial.AddDays(2), fechaIncial.AddDays(solicitudIncapacidad.CantidadDias - 1), valorAPagar, responsablePago.Responsable);
+
+                        reconocimientosEconomicos.Add(reconocimientoEconomico);
+                    }
+                }
+            }
         }
     }
 }
