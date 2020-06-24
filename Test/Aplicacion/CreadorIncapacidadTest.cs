@@ -1,11 +1,7 @@
 using System;
 using Aplicacion;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.Extensions.DependencyInjection;
-using Moq;
-
 using Modelos.Constantes;
 using Modelos.Entidades;
 using Modelos.Enumeracion;
@@ -24,7 +20,6 @@ namespace Test.Aplicacion
     public class CreadorIncapacidadTest : TestBase
     {
         private IServicioDatos _servicioDatos;
-
         private ICalcularFechas _calculadoraFechas;
         private ICalculadoraReconocimientoEconomico _calculadoraReconocimientoEconomico;
         private IIncapacidadServicio _incapacidadServicio;
@@ -65,6 +60,37 @@ namespace Test.Aplicacion
             Incapacidad incapacidad = _contexto.Incapacidades.FirstOrDefault();
 
             Assert.IsTrue(reconocimientoEconomicoEsperado.ValorAPagar == incapacidad.ReconocimientosEconomicos[0].ValorAPagar);
+        }
+
+
+        [TestMethod]
+        public void Debe_Crear_PersistirIncapacidad_Cuando_EsEnfermedadGeneralPorDosDiasSalarioIntegral_3Dias()
+        {
+            var reconocimientoEconomicoEmpresa = new ReconocimientoEconomico(1, new DateTime(2020, 06, 03), new DateTime(2020, 06, 04), new Dinero(1_000_000m, Moneda.COP), Entidad.EMPRESA);
+            var reconocimientoEconomicoEmpresa2 = new ReconocimientoEconomico(1, new DateTime(2020, 06, 05), new DateTime(2020, 06, 05), new Dinero(150_000m, Moneda.COP), Entidad.EMPRESA);
+            var reconocimientoEconomicoEps = new ReconocimientoEconomico(1, new DateTime(2020, 06, 05), new DateTime(2020, 06, 05), new Dinero(233_345m, Moneda.COP), Entidad.EPS);
+
+            var solicitudIncapacidad = new SolicitudIncapacidad(1, 1, 2020, 06, 03, 3, "incapacidad del señor Alan");
+
+            _creadorIncapacidad.Crear(solicitudIncapacidad);
+
+            Incapacidad incapacidad = _contexto.Incapacidades.FirstOrDefault();
+
+            Assert.AreEqual(new DateTime(2020, 06, 03),incapacidad.FechaIncial);
+            Assert.AreEqual(new DateTime(2020, 06, 05),incapacidad.FechaFinal);
+
+            Assert.IsTrue(reconocimientoEconomicoEmpresa.ValorAPagar == incapacidad.ReconocimientosEconomicos[0].ValorAPagar);             
+            Assert.AreEqual(reconocimientoEconomicoEmpresa.FechaInicial, incapacidad.ReconocimientosEconomicos[0].FechaInicial);             
+            Assert.AreEqual(reconocimientoEconomicoEmpresa.FechaFinal, incapacidad.ReconocimientosEconomicos[0].FechaFinal);             
+
+
+            Assert.IsTrue(reconocimientoEconomicoEps.ValorAPagar == incapacidad.ReconocimientosEconomicos[1].ValorAPagar);
+            Assert.AreEqual(reconocimientoEconomicoEps.FechaInicial, incapacidad.ReconocimientosEconomicos[1].FechaInicial);
+            Assert.AreEqual(reconocimientoEconomicoEps.FechaFinal, incapacidad.ReconocimientosEconomicos[1].FechaFinal);
+
+            Assert.IsTrue(reconocimientoEconomicoEmpresa2.ValorAPagar == incapacidad.ReconocimientosEconomicos[2].ValorAPagar);
+            Assert.AreEqual(reconocimientoEconomicoEmpresa2.FechaInicial , incapacidad.ReconocimientosEconomicos[2].FechaInicial);
+            Assert.AreEqual(reconocimientoEconomicoEmpresa2.FechaFinal , incapacidad.ReconocimientosEconomicos[2].FechaFinal);
         }
 
         [TestMethod]
@@ -141,5 +167,4 @@ namespace Test.Aplicacion
             Assert.IsTrue(reconocimientoEconomicoEsperado.ValorAPagar == incapacidad.ReconocimientosEconomicos[0].ValorAPagar);
         }
     }
-
 }
