@@ -114,8 +114,8 @@ namespace Test.Aplicacion
         [TestMethod]
         public void Debe_Crear_PersistirIncapacidad_Cuando_EsLicenciaPaternidadSalarioIntegral()
         {
-            var reconocimientoEconomicoEmpresa = new ReconocimientoEconomico(1, new DateTime(2020, 06, 03), new DateTime(2020, 10, 11), new Dinero(1_200_000m, Moneda.COP), Entidad.EMPRESA);
-            var reconocimientoEconomicoEps = new ReconocimientoEconomico(1, new DateTime(2020, 06, 03), new DateTime(2020, 10, 11), new Dinero(2_800_000m, Moneda.COP), Entidad.EPS);
+            var reconocimientoEconomicoEmpresa = new ReconocimientoEconomico(1, new DateTime(2020, 06, 03), new DateTime(2020, 06, 11), new Dinero(1_200_000m, Moneda.COP), Entidad.EMPRESA);
+            var reconocimientoEconomicoEps = new ReconocimientoEconomico(1, new DateTime(2020, 06, 03), new DateTime(2020, 06, 11), new Dinero(2_800_000m, Moneda.COP), Entidad.EPS);
 
             var solicitudIncapacidad = new SolicitudIncapacidad(1, 3, 2020, 06, 03, 8, "incapacidad del señor Alan");
 
@@ -125,6 +125,20 @@ namespace Test.Aplicacion
 
             Assert.IsTrue(reconocimientoEconomicoEmpresa.ValorAPagar == incapacidad.ReconocimientosEconomicos[1].ValorAPagar);
             Assert.IsTrue(reconocimientoEconomicoEps.ValorAPagar == incapacidad.ReconocimientosEconomicos[0].ValorAPagar);
+        }
+
+        [TestMethod]
+        public void Debe_Crear_PersistirIncapacidad_Cuando_EsLicenciaPaternidadSalarioLey50()
+        {
+            var reconocimientoEconomicoEsperado = new ReconocimientoEconomico(2, new DateTime(2020, 06, 03), new DateTime(2020, 06, 11), new Dinero(800_000m, Moneda.COP), Entidad.EPS);
+
+            var solicitudIncapacidad = new SolicitudIncapacidad(2, 3, 2020, 06, 03, 8, "incapacidad del Richard");
+
+            _creadorIncapacidad.Crear(solicitudIncapacidad);
+
+            Incapacidad incapacidad = _contexto.Incapacidades.FirstOrDefault();
+
+            Assert.IsTrue(reconocimientoEconomicoEsperado.ValorAPagar == incapacidad.ReconocimientosEconomicos[0].ValorAPagar);
         }
     }
 
