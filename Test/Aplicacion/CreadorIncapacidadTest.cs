@@ -25,15 +25,11 @@ namespace Test.Aplicacion
     {
         private IServicioDatos _servicioDatos;
 
+        private ICalcularFechas _calculadoraFechas;
         private ICalculadoraReconocimientoEconomico _calculadoraReconocimientoEconomico;
-
-        private readonly IIncapacidadServicio _incapacidadServicio;
-
-
+        private IIncapacidadServicio _incapacidadServicio;
         private CreadorIncapacidad _creadorIncapacidad;
-
         private IncapacidadesContext _contexto;
-
         public CreadorIncapacidadTest()
         {
             UseSqlite();
@@ -44,26 +40,39 @@ namespace Test.Aplicacion
         {
             _contexto = GetDbContext();
 
-            var calculadoraFechasMock = new Mock<ICalcularFechas>();
-            calculadoraFechasMock.Setup(p => p.CalcularSiguienteFecha(new DateTime(2020, 06, 03), 3)).Returns(new DateTime(2020, 06, 05));
-
-            DbContextOptionsBuilder<IncapacidadesContext> builder = new DbContextOptionsBuilder<IncapacidadesContext>();
+            var builder = new DbContextOptionsBuilder<IncapacidadesContext>();
 
             IServicioDatos _servicioDatos = new IncapacidadesContext(builder.Options);
+
+            ICalcularFechas _calculadoraFechas = new CalcularFechas();
 
             ICalculadoraReconocimientoEconomico _calculadoraReconocimientoEconomico = new CalculadoraReconocimientoEconomico();
 
             IIncapacidadServicio _incapacidadServicio = new IncapacidadServicio(_contexto);
 
-            _creadorIncapacidad = new CreadorIncapacidad(_servicioDatos, calculadoraFechasMock.Object, _calculadoraReconocimientoEconomico, _incapacidadServicio);
+            _creadorIncapacidad = new CreadorIncapacidad(_servicioDatos, _calculadoraFechas, _calculadoraReconocimientoEconomico, _incapacidadServicio);
         }
 
         [TestMethod]
-        public void Debe_Crear_PersistirIncipacidad_Cuando_EsEnfermedadGeneralPorDosDiasSalarioIntegral()
+        public void Debe_Crear_PersistirIncapacidad_Cuando_EsEnfermedadGeneralPorDosDiasSalarioIntegral()
         {
             var reconocimientoEconomicoEsperado = new ReconocimientoEconomico(1, new DateTime(2020,06,03), new DateTime(2020,06,04), new Dinero(1_000_000m, Moneda.COP), Entidad.EMPRESA);
             
             var solicitudIncapacidad = new SolicitudIncapacidad(1, 1, 2020, 06, 03, 2, "incapacidad del señor Alan");
+
+            _creadorIncapacidad.Crear(solicitudIncapacidad);
+
+            Incapacidad incapacidad = _contexto.Incapacidades.FirstOrDefault();
+
+            Assert.IsTrue(reconocimientoEconomicoEsperado.ValorAPagar == incapacidad.ReconocimientosEconomicos[0].ValorAPagar);
+        }
+
+        [TestMethod]
+        public void Debe_Crear_PersistirIncapacidad_Cuando_EsEnfermedadGeneralPorDosDiasSalarioLey50()
+        {
+            var reconocimientoEconomicoEsperado = new ReconocimientoEconomico(2, new DateTime(2020,06,03), new DateTime(2020,06,04), new Dinero(200_000m, Moneda.COP), Entidad.EMPRESA);
+
+            var solicitudIncapacidad = new SolicitudIncapacidad(2, 1, 2020, 06, 03, 2, "incapacidad del Richard");
 
             _creadorIncapacidad.Crear(solicitudIncapacidad);
 
