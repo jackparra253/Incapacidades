@@ -15,6 +15,7 @@ function guardar() {
         .then(data => console.log(data))
         .then(limpiarFormulario())
         .then(consultarIncapacidades())
+        .then(consultarReconocimientosEconomicos())
         .catch(error => console.error('Unable to add incapacidad.', error));
 }
 
@@ -113,12 +114,12 @@ function consultarIncapacidades() {
 
     fetch(`${uriIncapacidad}/${idEmpleado}`)
         .then(response => response.json())
-        .then(data => llenarTabla(data))
+        .then(data => llenarTablaIncapacidades(data))
         .catch(err => console.log("Error" + err.message));
 }
 
 
-function llenarTabla(incapacidades) {
+function llenarTablaIncapacidades(incapacidades) {
     const cuerpoTabla = document.getElementById('tabla-detalle-incapacidad');
 
     if (cuerpoTabla.rows.length > 0) {
@@ -174,3 +175,63 @@ function llenarTabla(incapacidades) {
 }
 
 consultarIncapacidades();
+
+
+const uriReconocimientoEconomico = 'reconocimientoEconomico';
+
+//Consultar Reconocimiento Economico
+function consultarReconocimientosEconomicos() {
+    let empleados = document.getElementById("empleados");
+
+    let idEmpleado = 1;
+
+    if (empleados.options.length != 0)
+        idEmpleado = empleados.options[empleados.selectedIndex].value;
+
+    fetch(`${uriReconocimientoEconomico}/${idEmpleado}`)
+        .then(response => response.json())
+        .then(data => llenarTablaReconocimientosEconomicos(data))
+        .catch(err => console.log("Error" + err.message));
+}
+
+function llenarTablaReconocimientosEconomicos(reconocimientosEconomicos) {
+
+    console.log(reconocimientosEconomicos);
+
+    const cuerpoTabla = document.getElementById('tabla-detalle-reconocimiento');
+
+    console.log(cuerpoTabla);
+    if (cuerpoTabla.rows.length > 0) {
+        for (let i = 0; i < reconocimientosEconomicos.length; i++){
+            cuerpoTabla.innerHTML = '';
+        }
+    }
+
+    for (const item of reconocimientosEconomicos) {
+        let trElemento = document.createElement('tr');
+
+        let idIncapacidadTdElemento = document.createElement('td');
+        idIncapacidadTdElemento.innerHTML = item.idIncapacidad;
+        trElemento.appendChild(idIncapacidadTdElemento);
+
+        let fechaInicialTdElemento = document.createElement('td');
+        fechaInicialTdElemento.innerHTML = item.fechaInicial;
+        trElemento.appendChild(fechaInicialTdElemento);
+
+        let fechaFinalTdElemento = document.createElement('td');
+        fechaFinalTdElemento.innerHTML = item.fechaFinal;
+        trElemento.appendChild(fechaFinalTdElemento);
+
+        let valorAPagarTdElemento = document.createElement('td');
+        valorAPagarTdElemento.innerHTML = `${item.valorAPagar.cantidad} ${item.valorAPagar.moneda}`;
+        trElemento.appendChild(valorAPagarTdElemento);
+
+        let responsablePagoTdElemento = document.createElement('td');
+        responsablePagoTdElemento.innerHTML = item.responsablePago;
+        trElemento.appendChild(responsablePagoTdElemento);
+
+        cuerpoTabla.appendChild(trElemento);
+    }
+}
+
+consultarReconocimientosEconomicos();
