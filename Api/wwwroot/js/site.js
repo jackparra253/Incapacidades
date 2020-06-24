@@ -225,16 +225,6 @@ function llenarTablaIncapacidades(incapacidades) {
         prorrogaBotonElemento.innerText = 'Prórroga';
         trElemento.appendChild(prorrogaTdElemento);
 
-        let detalleTdElemento = document.createElement('td');
-
-        let detalleBotonElemento = document.createElement('button');
-        detalleTdElemento.appendChild(detalleBotonElemento);
-        detalleBotonElemento.id = item.id;
-        detalleBotonElemento.className = 'btn btn-outline-dark btn-sm';
-        detalleBotonElemento.innerText = 'Detalle';
-
-        trElemento.appendChild(detalleTdElemento);
-
         cuerpoTabla.appendChild(trElemento);
     }
 
