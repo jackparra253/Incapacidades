@@ -14,12 +14,12 @@ namespace Modelos.Entidades
         public int CantidadDias { get; private set; }
         public string Observaciones { get; private set; }
         public List<ReconocimientoEconomico> ReconocimientosEconomicos { get; private set; }
-        public Incapacidad(int idEmpleado, TipoIncapacidad tipoIncapacidad, DateTime fechaInicial, DateTime fechaFinal, int cantidadDias, string observaciones,List<ReconocimientoEconomico> reconocimientosEconomicos)
+        public Incapacidad(int idEmpleado, TipoIncapacidad tipoIncapacidad, DateTime fechaInicial, int cantidadDias, string observaciones,List<ReconocimientoEconomico> reconocimientosEconomicos)
         {
             IdEmpleado = idEmpleado;
             TipoIncapacidad = tipoIncapacidad;
             FechaIncial = fechaInicial;
-            FechaFinal = fechaFinal;
+            FechaFinal = fechaInicial.AddDays(cantidadDias -1);
             CantidadDias = cantidadDias;
             Observaciones = observaciones;
             ReconocimientosEconomicos = reconocimientosEconomicos;

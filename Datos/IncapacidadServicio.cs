@@ -7,7 +7,7 @@ using Modelos.Enumeracion;
 
 namespace Datos
 {
-    public partial class IncapacidadServicio : IIncapacidadServicio
+    public class IncapacidadServicio : IIncapacidadServicio
     {
 
         private readonly IncapacidadesContext _contexto;

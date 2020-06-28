@@ -1,6 +1,6 @@
 namespace Modelos.Enumeracion
 {
-    public enum TipoSalario: byte
+    public enum Tipo: byte
     {
         Ley50 = 1,
         Integral = 2

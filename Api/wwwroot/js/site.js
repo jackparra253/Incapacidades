@@ -44,32 +44,35 @@ function mostrarDetalleEmpleado() {
 
 }
 
-function transformarTipoSalario(tipoSalario){
-    if(tipoSalario == 1)
+function transformarTipoSalario(tipoSalario) {
+    if (tipoSalario == 1)
         return 'Ley 50';
-    else if(tipoSalario == 2)
+    else if (tipoSalario == 2)
         return 'Integral';
 }
 
-function obtenerValorEmpleadoSeleccionado(){
+function obtenerValorEmpleadoSeleccionado() {
     let select = document.getElementById("empleados");
 
     return select.options[select.selectedIndex].value;
 }
 
-function obtenerEmpleado(id){
+function obtenerEmpleado(id) {
     let empleado = empleados.filter(empleado => empleado.id == id);
 
     return empleado[0];
 }
 
-const uriIncapacidad = 'incapacidad';
+
 //Registrar incapacidad
 function guardar() {
 
     const solicitudIncapacidad = crearSolicitudIncapacidad();
 
-    fetch(`${uriIncapacidad}`, {
+    const uriGuardarIncapacidades = construirUriIncapacidadPorTipo();
+    console.log(uriGuardarIncapacidades);
+
+    fetch('incapacidadenfermedadgeneralsalarioley50', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -82,6 +85,14 @@ function guardar() {
         .then(consultarIncapacidades())
         .then(consultarReconocimientosEconomicos())
         .catch(error => console.error('Unable to add incapacidad.', error));
+}
+
+
+function construirUriIncapacidadPorTipo() {
+    const tipoSalario = empleados[0].tipoSalario.tipo;
+    const idTipoIncapacidad = obtenerValorTipoIncapacidadSeleccionado();
+
+    return 'incapacidadenfermedadgeneralsalarioley50';
 }
 
 function crearSolicitudIncapacidad() {
@@ -171,6 +182,8 @@ function limpiarFormulario() {
 
 //Consultar incapacidad
 function consultarIncapacidades() {
+    const uriIncapacidadConsulta = 'incapacidadconsulta';
+
     const empleados = document.getElementById("empleados");
 
     let idEmpleado = 1;
@@ -178,7 +191,7 @@ function consultarIncapacidades() {
     if (empleados.options.length != 0)
         idEmpleado = empleados.options[empleados.selectedIndex].value;
 
-    fetch(`${uriIncapacidad}/${idEmpleado}`)
+    fetch(`${uriIncapacidadConsulta}/${idEmpleado}`)
         .then(response => response.json())
         .then(data => llenarTablaIncapacidades(data))
         .catch(err => console.log("Error" + err.message));
@@ -189,7 +202,7 @@ function llenarTablaIncapacidades(incapacidades) {
     const cuerpoTabla = document.getElementById('tabla-detalle-incapacidad');
 
     if (cuerpoTabla.rows.length > 0) {
-        for (let i = 0; i < incapacidades.length; i++){
+        for (let i = 0; i < incapacidades.length; i++) {
             cuerpoTabla.innerHTML = '';
         }
     }
@@ -251,14 +264,10 @@ function consultarReconocimientosEconomicos() {
 }
 
 function llenarTablaReconocimientosEconomicos(reconocimientosEconomicos) {
-
-    console.log(reconocimientosEconomicos);
-
     const cuerpoTabla = document.getElementById('tabla-detalle-reconocimiento');
 
-    console.log(cuerpoTabla);
     if (cuerpoTabla.rows.length > 0) {
-        for (let i = 0; i < reconocimientosEconomicos.length; i++){
+        for (let i = 0; i < reconocimientosEconomicos.length; i++) {
             cuerpoTabla.innerHTML = '';
         }
     }

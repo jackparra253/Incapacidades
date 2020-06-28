@@ -1,16 +1,9 @@
-﻿using System.Collections.Generic;
-using IDatos;
-using Microsoft.EntityFrameworkCore;
-using Modelos.Constantes;
+﻿using Microsoft.EntityFrameworkCore;
 using Modelos.Entidades;
-using Modelos.ValueObjects;
-using Modelos.Enumeracion;
-using System;
-using Microsoft.Extensions.Configuration;
 
 namespace Datos
 {
-    public partial class IncapacidadesContext : DbContext, IServicioDatos
+    public partial class IncapacidadesContext : DbContext
     {
         public IncapacidadesContext(DbContextOptions<IncapacidadesContext> options) : base(options)
         {

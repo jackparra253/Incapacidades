@@ -27,9 +27,9 @@ namespace Test.DatosTest
         {
             _contexto = GetDbContext();
 
-            var reconocimientoEconomicos = new ReconocimientoEconomico(1, new DateTime(2020, 06, 03), new DateTime(2020, 06, 04), new Dinero(1_000_000m, Moneda.COP), Entidad.EMPRESA);
+            var reconocimientoEconomicos = new ReconocimientoEconomico(1, new DateTime(2020, 06, 03), 2, new Dinero(500_000m, Moneda.COP), 1,Entidad.EMPRESA);
 
-            var incapacidad = new Incapacidad(1, TipoIncapacidad.LicenciaMaternidad, new DateTime(2020, 06, 03), new DateTime(2020, 06, 04), 2, "Test", new List<ReconocimientoEconomico> { reconocimientoEconomicos });
+            var incapacidad = new Incapacidad(1, TipoIncapacidad.LicenciaMaternidad, new DateTime(2020, 06, 03), 2, "Test", new List<ReconocimientoEconomico> { reconocimientoEconomicos });
 
             _contexto.Add(incapacidad);
             _contexto.SaveChanges();

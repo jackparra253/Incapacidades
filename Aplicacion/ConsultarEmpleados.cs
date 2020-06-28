@@ -7,16 +7,16 @@ namespace Aplicacion
 {
     public class ConsultarEmpleados: IConsultarEmpleados
     {
-        private readonly IServicioDatos _servicioDatos;
+        private readonly IEmpleadoServicio _empleadoServicio;
 
-        public ConsultarEmpleados(IServicioDatos servicioDatos)
+        public ConsultarEmpleados(IEmpleadoServicio empleadoServicio)
         {
-            _servicioDatos = servicioDatos;
+            _empleadoServicio = empleadoServicio;
         }
 
         public List<Empleado> ObtenerEmpleados()
         {
-            return _servicioDatos.ObtenerEmpleados();
+            return _empleadoServicio.ObtenerEmpleados();
         }
     }
 }

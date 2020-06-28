@@ -15,13 +15,20 @@ namespace Modelos.Entidades
         public int IncapacidadId { get; private set; }
         public Incapacidad Incapacidad { get; private set; }
 
-        public ReconocimientoEconomico(int idEmpleado, DateTime fechaInicial, DateTime fechaFinal, Dinero valorAPagar, Entidad responsablePago)
+        public ReconocimientoEconomico(int idEmpleado, DateTime fechaInicial, int cantidadDias, Dinero salarioBase, decimal porcentajeReconocimiento, Entidad responsablePago)
         {
             IdEmpleado = idEmpleado;
             FechaInicial = fechaInicial;
-            FechaFinal = fechaFinal;
-            ValorAPagar = valorAPagar;
+            FechaFinal = fechaInicial.AddDays(cantidadDias - 1);
+            ValorAPagar = CalcularValorAPagar(cantidadDias, salarioBase, porcentajeReconocimiento);
             ResponsablePago = responsablePago;
+        }
+
+        private Dinero CalcularValorAPagar(int cantidadDias, Dinero salarioBase, decimal porcentajeReconocimiento)
+        {
+            decimal valorAPagarDiario = salarioBase.Cantidad * porcentajeReconocimiento;
+            decimal valorAPagarTotal = valorAPagarDiario * cantidadDias;
+            return new Dinero(valorAPagarTotal, salarioBase.Moneda);
         }
 
         private ReconocimientoEconomico() { }

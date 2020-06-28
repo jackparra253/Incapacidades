@@ -12,6 +12,7 @@ namespace Test.DatosTest
     {
         private List<Empleado> _empleadosEsperados;
         private IncapacidadesContext _contexto;
+        private EmpleadoServicio _empleadoServicio;
 
         public EmpleadoServicioTest()
         {
@@ -21,8 +22,8 @@ namespace Test.DatosTest
         [TestInitialize]
         public void Inicializar()
         {
-            var alan = new Empleado(1, "Alan", "Turing", new Dinero(15_000_000m, Moneda.COP), new Dinero(500_000m, Moneda.COP), TipoSalario.Integral);
-            var richard = new Empleado(2, "Richard", "Hendricks", new Dinero(3_000_000, Moneda.COP), new Dinero(100_000m, Moneda.COP), TipoSalario.Ley50);
+            var alan = new Empleado(1, "Alan", "Turing", new Dinero(15_000_000m, Moneda.COP), new TipoSalario(Tipo.Integral));
+            var richard = new Empleado(2, "Richard", "Hendricks", new Dinero(3_000_000, Moneda.COP), new TipoSalario(Tipo.Ley50));
 
             _empleadosEsperados = new List<Empleado>
             {
@@ -30,25 +31,33 @@ namespace Test.DatosTest
                 richard
             };
 
-             _contexto = GetDbContext();
+            _contexto = GetDbContext();
+
+            _empleadoServicio = new EmpleadoServicio(_contexto);
         }
 
         [TestMethod]
         public void Debe_ObtenerEmpleados_RetornarListaEmpleados()
         {
-            List<Empleado> empleados = _contexto.ObtenerEmpleados();
+            List<Empleado> empleados = _empleadoServicio.ObtenerEmpleados();
 
-            Assert.IsTrue(_empleadosEsperados[0].Salario == empleados[0].Salario);
-            Assert.IsTrue(_empleadosEsperados[1].Salario == empleados[1].Salario);
+            Assert.IsTrue(new Dinero(500_000m, Moneda.COP) == empleados[0].SalarioDiario);
+            Assert.IsTrue(new Dinero(350_000m, Moneda.COP) == empleados[0].SalarioDiarioPorPorcentajeSalario);
+            Assert.IsTrue(new Dinero(150_000m, Moneda.COP) == empleados[0].SalarioDiarioPorPorcentajeCompensacion);
+
+            Assert.IsTrue(new Dinero(100_000m, Moneda.COP) == empleados[1].SalarioDiario);
+            Assert.IsTrue(new Dinero(100_000m, Moneda.COP) == empleados[1].SalarioDiarioPorPorcentajeSalario);
+            Assert.IsTrue(new Dinero(0m, Moneda.COP) == empleados[1].SalarioDiarioPorPorcentajeCompensacion);
         }
 
         [TestMethod]
         public void Debe_ObtenerEmpleados_RetornarEmpleado_CuandoFiltraPorIdEmpleado()
         {
-            int id = 2;
-            Empleado empleado = _contexto.ObtenerEmpleado(id);
+            Empleado empleado = _empleadoServicio.ObtenerEmpleado(2);
 
-            Assert.IsTrue(_empleadosEsperados[1].Salario == empleado.Salario);
+            Assert.IsTrue(new Dinero(100_000m, Moneda.COP) == empleado.SalarioDiario);
+            Assert.IsTrue(new Dinero(100_000m, Moneda.COP) == empleado.SalarioDiarioPorPorcentajeSalario);
+            Assert.IsTrue(new Dinero(0m, Moneda.COP) == empleado.SalarioDiarioPorPorcentajeCompensacion);
         }
     }
 }

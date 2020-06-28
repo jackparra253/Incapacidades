@@ -31,18 +31,19 @@ namespace Api
             //Aplicacion
             services.AddScoped<IConsultarEmpleados, ConsultarEmpleados>();
             services.AddScoped<ICalcularFechas, CalcularFechas>();
-            services.AddScoped<ICreadorIncapacidad, CreadorIncapacidad>();
+            services.AddScoped<ICreadorIncapacidadEnfermedadGeneralSalarioLey50, CreadorIncapacidadEnfermedadGeneralSalarioLey50>();
 
             //Dominio
             services.AddScoped<ICalculadoraReconocimientoEconomico, CalculadoraReconocimientoEconomico>();
 
             //Servicios
             services.AddScoped<IIncapacidadServicio, IncapacidadServicio>();
+            services.AddScoped<IEmpleadoServicio, EmpleadoServicio>();
+            services.AddScoped<IResponsablePagoServicio, ResponsablePagoServicio>();
             services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true);
             services.AddDbContext<IncapacidadesContext>(options => options.UseSqlite(Configuration.GetConnectionString("IncapacidadesContext"), b => b.MigrationsAssembly("Api")));
 
             services.AddDbContext<IncapacidadesContext>();
-            services.AddScoped<IServicioDatos>(provider => provider.GetService<IncapacidadesContext>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

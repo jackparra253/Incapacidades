@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Modelos;
 using Modelos.Entidades;
-using Modelos.Enumeracion;
 
 namespace IDatos
 {

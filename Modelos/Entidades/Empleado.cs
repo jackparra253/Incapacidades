@@ -1,5 +1,4 @@
 ﻿using Modelos.ValueObjects;
-using Modelos.Enumeracion;
 
 namespace Modelos.Entidades
 {
@@ -10,14 +9,18 @@ namespace Modelos.Entidades
         public string Apellidos { get; private set; }
         public Dinero Salario { get; private set; }
         public Dinero SalarioDiario { get; private set; }
+        public Dinero SalarioDiarioPorPorcentajeSalario { get; private set; }
+        public Dinero SalarioDiarioPorPorcentajeCompensacion { get; private set; }
         public TipoSalario TipoSalario { get; private set; }
-        public Empleado(int id, string nombres, string apellidos, Dinero salario, Dinero salarioDiario, TipoSalario tipoSalario)
+        public Empleado(int id, string nombres, string apellidos, Dinero salario, TipoSalario tipoSalario)
         {
             Id = id;
             Nombres = nombres;
             Apellidos = apellidos;
             Salario = salario;
-            SalarioDiario = salarioDiario;
+            SalarioDiario = new Dinero(salario.Cantidad / 30, salario.Moneda);
+            SalarioDiarioPorPorcentajeSalario = new Dinero(SalarioDiario.Cantidad * tipoSalario.PorcentajeSalario, salario.Moneda);
+            SalarioDiarioPorPorcentajeCompensacion = new Dinero(SalarioDiario.Cantidad * tipoSalario.PorcentajeCompensacion, salario.Moneda);
             TipoSalario = tipoSalario;
         }
     }
