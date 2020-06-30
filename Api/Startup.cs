@@ -32,7 +32,7 @@ namespace Api
             services.AddScoped<IConsultarEmpleados, ConsultarEmpleados>();
             services.AddScoped<ICalcularFechas, CalcularFechas>();
             services.AddScoped<ICreadorIncapacidadLey50, CreadorIncapacidadLey50>();
-            services.AddScoped<ICreadorIncapacidadEnfermedadGeneralSalarioIntegral, CreadorIncapacidadEnfermedadGeneralSalarioIntegral>();
+            services.AddScoped<ICreadorIncapacidadSalarioIntegral, CreadorIncapacidadSalarioIntegral>();
 
             //Dominio
             services.AddScoped<ICalculadoraReconocimientoEconomico, CalculadoraReconocimientoEconomico>();

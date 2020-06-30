@@ -8,13 +8,13 @@ using Modelos.Enumeracion;
 
 namespace Aplicacion
 {
-    public class CreadorIncapacidadEnfermedadGeneralSalarioIntegral : CreadorIncapacidad, ICreadorIncapacidadEnfermedadGeneralSalarioIntegral
+    public class CreadorIncapacidadSalarioIntegral : CreadorIncapacidad, ICreadorIncapacidadSalarioIntegral
     {
         private readonly IResponsablePagoServicio _responsablePagoServicio;
         private readonly IEmpleadoServicio _empleadoServicio;
         private readonly IIncapacidadServicio _incapacidadServicio;
 
-        public CreadorIncapacidadEnfermedadGeneralSalarioIntegral(IResponsablePagoServicio responsablePagoServicio, IEmpleadoServicio empleadoServicio, IIncapacidadServicio incapacidadServicio)
+        public CreadorIncapacidadSalarioIntegral(IResponsablePagoServicio responsablePagoServicio, IEmpleadoServicio empleadoServicio, IIncapacidadServicio incapacidadServicio)
         {
             _responsablePagoServicio = responsablePagoServicio;
             _empleadoServicio = empleadoServicio;
@@ -48,20 +48,31 @@ namespace Aplicacion
 
                 if (responsablePago.DiasIncapacidadFinal <= solicitudIncapacidad.CantidadDias)
                 {
-                    var reconocimientoEconomico = new ReconocimientoEconomico(empleado.Id, fecha, cantidadDias, empleado.SalarioDiario, responsablePago.ReconocimientoPorcentaje, responsablePago.Responsable);
-                    reconocimientosEconomicos.Add(reconocimientoEconomico);
+                    if (responsablePago.Responsable == Entidad.EMPRESA)
+                    {
+                        var reconocimientoEconomico = new ReconocimientoEconomico(empleado.Id, fecha, cantidadDias, empleado.SalarioDiario, responsablePago.ReconocimientoPorcentaje, responsablePago.Responsable);
+                        reconocimientosEconomicos.Add(reconocimientoEconomico);
+                    }
+
+                    if (responsablePago.Responsable != Entidad.EMPRESA)
+                    {
+                        var reconocimientoEconomico = new ReconocimientoEconomico(empleado.Id, fecha, cantidadDias, empleado.SalarioDiarioPorPorcentajeSalario, responsablePago.ReconocimientoPorcentaje, responsablePago.Responsable);
+                        reconocimientosEconomicos.Add(reconocimientoEconomico);
+
+                        var reconocimientoEconomicoCompensacion = new ReconocimientoEconomico(empleado.Id, fecha, cantidadDias, empleado.SalarioDiarioPorPorcentajeCompensacion, 1, Entidad.EMPRESA);
+                        reconocimientosEconomicos.Add(reconocimientoEconomicoCompensacion);
+                    }
                 }
 
                 if (responsablePago.DiasIncapacidadFinal > solicitudIncapacidad.CantidadDias)
                 {
                     var reconocimientoEconomico = new ReconocimientoEconomico(empleado.Id, fecha, cantidadDias, empleado.SalarioDiarioPorPorcentajeSalario, responsablePago.ReconocimientoPorcentaje, responsablePago.Responsable);
-                    var reconocimientoEconomicoCompensacion = new ReconocimientoEconomico(empleado.Id, fecha, cantidadDias, empleado.SalarioDiarioPorPorcentajeCompensacion, 1, responsablePago.Responsable);
+                    var reconocimientoEconomicoCompensacion = new ReconocimientoEconomico(empleado.Id, fecha, cantidadDias, empleado.SalarioDiarioPorPorcentajeCompensacion, 1, Entidad.EMPRESA);
                     reconocimientosEconomicos.Add(reconocimientoEconomico);
                     reconocimientosEconomicos.Add(reconocimientoEconomicoCompensacion);
                 }
 
             }
-
             return reconocimientosEconomicos;
         }
 
@@ -81,7 +92,7 @@ namespace Aplicacion
             if (responsablePago.DiasIncapacidadInicial == cantidadDiasInicial || responsablePago.DiasIncapacidadFinal == cantidadDiasInicial || responsablePago.DiasIncapacidadFinal < cantidadDiasInicial)
                 return fecha;
 
-            return fecha.AddDays(cantidadDias-1);
+            return fecha.AddDays(cantidadDias - 1);
         }
 
     }
