@@ -8,6 +8,8 @@ using Modelos.ValueObjects;
 using Modelos;
 using IDatos;
 using Datos;
+using IDominio;
+using Dominio;
 
 namespace Test.Aplicacion
 {
@@ -27,12 +29,11 @@ namespace Test.Aplicacion
             _contexto = GetDbContext();
 
             IResponsablePagoServicio responsablePagoServicio = new ResponsablePagoServicio(_contexto);
-
             IEmpleadoServicio empleadoServicio = new EmpleadoServicio(_contexto);
-
             IIncapacidadServicio incapacidadServicio = new IncapacidadServicio(_contexto);
+            ICalculadoraReconocimientoEconomicoSalarioLey50 calculadoraReconocomientoEconomico = new CalculadoraReconocimientoEconomicoSalarioLey50();
 
-            _creadorIncapacidad = new CreadorIncapacidadLey50(responsablePagoServicio, empleadoServicio, incapacidadServicio);
+            _creadorIncapacidad = new CreadorIncapacidadLey50(responsablePagoServicio, empleadoServicio, incapacidadServicio, calculadoraReconocomientoEconomico);
         }
 
         [TestMethod]
@@ -78,6 +79,5 @@ namespace Test.Aplicacion
             Assert.AreEqual(new DateTime(2020, 06, 03), incapacidad.FechaIncial);
             Assert.AreEqual(new DateTime(2020, 06, 10), incapacidad.FechaFinal);
         }
-
     }
 }

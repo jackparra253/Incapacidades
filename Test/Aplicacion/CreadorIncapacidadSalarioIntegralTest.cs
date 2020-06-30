@@ -2,7 +2,6 @@ using Aplicacion;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using IDatos;
 using Datos;
-using Microsoft.EntityFrameworkCore;
 using Modelos.Entidades;
 using System;
 using Modelos.ValueObjects;
@@ -10,6 +9,8 @@ using Modelos;
 using System.Linq;
 using Modelos.Constantes;
 using Modelos.Enumeracion;
+using IDominio;
+using Dominio;
 
 namespace Test.Aplicacion
 {
@@ -29,15 +30,12 @@ namespace Test.Aplicacion
         {
             _contexto = GetDbContext();
 
-            var builder = new DbContextOptionsBuilder<IncapacidadesContext>();
-
             IResponsablePagoServicio responsablePagoServicio = new ResponsablePagoServicio(_contexto);
-
             IEmpleadoServicio empleadoServicio = new EmpleadoServicio(_contexto);
-
             IIncapacidadServicio incapacidadServicio = new IncapacidadServicio(_contexto);
+            ICalculadoraReconocimientoEconomicoSalarioIntegral calculadora = new CalculadoraReconocimientoEconomicoSalarioIntegral();
 
-            _creadorIncapacidad = new CreadorIncapacidadSalarioIntegral(responsablePagoServicio, empleadoServicio, incapacidadServicio);
+            _creadorIncapacidad = new CreadorIncapacidadSalarioIntegral(responsablePagoServicio, empleadoServicio, incapacidadServicio, calculadora);
         }
 
         [TestMethod]
