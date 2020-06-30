@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "gklfrHs/Vs/+2gVk5fdQ1z0PJntfRgTmW2imKXCUPb97N/+6muuzGsSy0XFTQtXFYnxH0p4vafhD3asx6e+/qQ==",
+  "dgSpecHash": "n0QkAeMkz3va4h5X8Hfa+5QN8yWIOJ/aHgMfOQnm2RJ1I0oc2yjlYZjOw1gyBEF5tRFKUByfH9HbNJNmP126Tw==",
   "success": true,
   "projectFilePath": "/home/jack/Code/Incapacidades/Api/Api.csproj",
   "expectedPackageFiles": [
@@ -36,8 +36,7 @@
     "/home/jack/.nuget/packages/system.componentmodel.annotations/4.7.0/system.componentmodel.annotations.4.7.0.nupkg.sha512",
     "/home/jack/.nuget/packages/system.diagnostics.diagnosticsource/4.7.1/system.diagnostics.diagnosticsource.4.7.1.nupkg.sha512",
     "/home/jack/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512",
-    "/home/jack/.nuget/packages/system.text.json/4.7.2/system.text.json.4.7.2.nupkg.sha512",
-    "/home/jack/.nuget/packages/microsoft.aspnetcore.app.ref/3.1.2/microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
+    "/home/jack/.nuget/packages/system.text.json/4.7.2/system.text.json.4.7.2.nupkg.sha512"
   ],
   "logs": []
 }

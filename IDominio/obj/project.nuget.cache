@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oWYL2Xl2As62wnYtY5xzQjllwGK6k3mqRh+l5fGWtlfvRv8ndDX2ltUTkTRlyIzPOHHeBqfZt6rf1Z18C0SPVg==",
+  "dgSpecHash": "IMVvjgs7VS/QkgSTXSxe2wAmVLWe5ElXbnxuB0+09uIR3ST2kqsuW+CUmJj8z+Ye1dySmkj1PM8gUXDn7JiupQ==",
   "success": true,
   "projectFilePath": "/home/jack/Code/Incapacidades/IDominio/IDominio.csproj",
-  "expectedPackageFiles": [
-    "/home/jack/.nuget/packages/microsoft.aspnetcore.app.ref/3.1.2/microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }

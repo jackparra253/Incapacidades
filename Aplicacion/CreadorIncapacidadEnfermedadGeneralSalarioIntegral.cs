@@ -4,18 +4,17 @@ using IDatos;
 using Modelos.Entidades;
 using System;
 using System.Collections.Generic;
-using IDominio;
 using Modelos.Enumeracion;
 
 namespace Aplicacion
 {
-    public class CreadorIncapacidadEnfermedadGeneralSalarioLey50 : CreadorIncapacidad, ICreadorIncapacidadEnfermedadGeneralSalarioLey50
+    public class CreadorIncapacidadEnfermedadGeneralSalarioIntegral : CreadorIncapacidad, ICreadorIncapacidadEnfermedadGeneralSalarioIntegral
     {
         private readonly IResponsablePagoServicio _responsablePagoServicio;
         private readonly IEmpleadoServicio _empleadoServicio;
         private readonly IIncapacidadServicio _incapacidadServicio;
 
-        public CreadorIncapacidadEnfermedadGeneralSalarioLey50(IResponsablePagoServicio responsablePagoServicio, IEmpleadoServicio empleadoServicio, IIncapacidadServicio incapacidadServicio)
+        public CreadorIncapacidadEnfermedadGeneralSalarioIntegral(IResponsablePagoServicio responsablePagoServicio, IEmpleadoServicio empleadoServicio, IIncapacidadServicio incapacidadServicio)
         {
             _responsablePagoServicio = responsablePagoServicio;
             _empleadoServicio = empleadoServicio;
@@ -47,9 +46,20 @@ namespace Aplicacion
 
                 DateTime fecha = CalcularFechaInicial(fechaIncial, solicitudIncapacidad.CantidadDias, cantidadDias, responsablePago);
 
-                var reconocimientoEconomico = new ReconocimientoEconomico(empleado.Id, fecha, cantidadDias, empleado.SalarioDiarioPorPorcentajeSalario, responsablePago.ReconocimientoPorcentaje, responsablePago.Responsable);
+                if (responsablePago.DiasIncapacidadFinal <= solicitudIncapacidad.CantidadDias)
+                {
+                    var reconocimientoEconomico = new ReconocimientoEconomico(empleado.Id, fecha, cantidadDias, empleado.SalarioDiario, responsablePago.ReconocimientoPorcentaje, responsablePago.Responsable);
+                    reconocimientosEconomicos.Add(reconocimientoEconomico);
+                }
 
-                reconocimientosEconomicos.Add(reconocimientoEconomico);
+                if (responsablePago.DiasIncapacidadFinal > solicitudIncapacidad.CantidadDias)
+                {
+                    var reconocimientoEconomico = new ReconocimientoEconomico(empleado.Id, fecha, cantidadDias, empleado.SalarioDiarioPorPorcentajeSalario, responsablePago.ReconocimientoPorcentaje, responsablePago.Responsable);
+                    var reconocimientoEconomicoCompensacion = new ReconocimientoEconomico(empleado.Id, fecha, cantidadDias, empleado.SalarioDiarioPorPorcentajeCompensacion, 1, responsablePago.Responsable);
+                    reconocimientosEconomicos.Add(reconocimientoEconomico);
+                    reconocimientosEconomicos.Add(reconocimientoEconomicoCompensacion);
+                }
+
             }
 
             return reconocimientosEconomicos;
@@ -71,7 +81,7 @@ namespace Aplicacion
             if (responsablePago.DiasIncapacidadInicial == cantidadDiasInicial || responsablePago.DiasIncapacidadFinal == cantidadDiasInicial || responsablePago.DiasIncapacidadFinal < cantidadDiasInicial)
                 return fecha;
 
-            return fecha.AddDays(cantidadDias);
+            return fecha.AddDays(cantidadDias-1);
         }
 
     }

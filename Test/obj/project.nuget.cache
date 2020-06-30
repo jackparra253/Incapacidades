@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "UQ9vVTNYHawRr++c72X8BlNmP9UkSTLpjnR9BQrAxX5i8M+d++2lUxtOI4n04eVhDYRPv5FcWMwz6SuqoTvXxw==",
+  "dgSpecHash": "LaCDto5RY7aidLMvJuJ3JkDsxPQMBMEpIqK5otfbQHS7rMpSPqz3SK4wrzbUHznpITykKHSgy4rD36JlEwIRqA==",
   "success": true,
   "projectFilePath": "/home/jack/Code/Incapacidades/Test/Test.csproj",
   "expectedPackageFiles": [
@@ -129,8 +129,7 @@
     "/home/jack/.nuget/packages/system.threading.timer/4.3.0/system.threading.timer.4.3.0.nupkg.sha512",
     "/home/jack/.nuget/packages/system.xml.readerwriter/4.3.0/system.xml.readerwriter.4.3.0.nupkg.sha512",
     "/home/jack/.nuget/packages/system.xml.xdocument/4.3.0/system.xml.xdocument.4.3.0.nupkg.sha512",
-    "/home/jack/.nuget/packages/system.xml.xmldocument/4.3.0/system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "/home/jack/.nuget/packages/microsoft.aspnetcore.app.ref/3.1.2/microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
+    "/home/jack/.nuget/packages/system.xml.xmldocument/4.3.0/system.xml.xmldocument.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

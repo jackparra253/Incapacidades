@@ -4,15 +4,11 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Modelos.Constantes;
 using Modelos.Entidades;
-using Modelos.Enumeracion;
 using Modelos.ValueObjects;
 using Modelos;
 using IDatos;
 using Datos;
-using Dominio;
-using IDominio;
 using Microsoft.EntityFrameworkCore;
-using IAplicacion;
 
 namespace Test.Aplicacion
 {
@@ -45,22 +41,16 @@ namespace Test.Aplicacion
         [TestMethod]
         public void Debe_Crear_PersistirIncapacidad_Cuando_EsEnfermedadGeneralPorDosDiasSalarioLey50_4Dias()
         {
-            var reconocimientoEconomicoEmpresa = new ReconocimientoEconomico(1, new DateTime(2020, 06, 03), 2, new Dinero(100_000m, Moneda.COP), 1, Entidad.EMPRESA);
-            var reconocimientoEconomicoEps = new ReconocimientoEconomico(1, new DateTime(2020, 06, 05), 2, new Dinero(100_000m, Moneda.COP), 0.66_67m, Entidad.EPS);
-
             var solicitudIncapacidad = new SolicitudIncapacidad(2, 1, 2020, 06, 03, 4, "incapacidad del Richard");
 
             _creadorIncapacidad.Crear(solicitudIncapacidad);
-
             Incapacidad incapacidad = _contexto.Incapacidades.FirstOrDefault();
 
             Assert.AreEqual(new DateTime(2020, 06, 03), incapacidad.FechaIncial);
             Assert.AreEqual(new DateTime(2020, 06, 06), incapacidad.FechaFinal);
-
             Assert.IsTrue(new Dinero(200_000m, Moneda.COP) == incapacidad.ReconocimientosEconomicos[0].ValorAPagar);
             Assert.AreEqual(new DateTime(2020, 06, 03), incapacidad.ReconocimientosEconomicos[0].FechaInicial);
             Assert.AreEqual(new DateTime(2020, 06, 04), incapacidad.ReconocimientosEconomicos[0].FechaFinal);
-
             Assert.IsTrue(new Dinero(133_340m, Moneda.COP) == incapacidad.ReconocimientosEconomicos[1].ValorAPagar);
             Assert.AreEqual(new DateTime(2020, 06, 05), incapacidad.ReconocimientosEconomicos[1].FechaInicial);
             Assert.AreEqual(new DateTime(2020, 06, 06), incapacidad.ReconocimientosEconomicos[1].FechaFinal);

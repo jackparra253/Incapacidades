@@ -2,15 +2,11 @@ using Aplicacion;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using IDatos;
 using Datos;
-using Dominio;
-using IDominio;
 using Microsoft.EntityFrameworkCore;
-using IAplicacion;
 using Modelos.Entidades;
 using System;
 using Modelos.ValueObjects;
 using Modelos;
-using Modelos.Enumeracion;
 using System.Linq;
 using Modelos.Constantes;
 
@@ -20,6 +16,8 @@ namespace Test.Aplicacion
     public class CreadorIncapacidadEnfermedadGeneralSalarioIntegralTest : TestBase
     {
         private IncapacidadesContext _contexto;
+
+        private CreadorIncapacidadEnfermedadGeneralSalarioIntegral _creadorIncapacidad;
         public CreadorIncapacidadEnfermedadGeneralSalarioIntegralTest()
         {
             UseSqlite();
@@ -32,13 +30,37 @@ namespace Test.Aplicacion
 
             var builder = new DbContextOptionsBuilder<IncapacidadesContext>();
 
-            IResponsablePagoServicio _responsablePagoServicio = new ResponsablePagoServicio(_contexto);
+            IResponsablePagoServicio responsablePagoServicio = new ResponsablePagoServicio(_contexto);
 
-            ICalcularFechas _calculadoraFechas = new CalcularFechas();
+            IEmpleadoServicio empleadoServicio = new EmpleadoServicio(_contexto);
 
-            ICalculadoraReconocimientoEconomico _calculadoraReconocimientoEconomico = new CalculadoraReconocimientoEconomico();
+            IIncapacidadServicio incapacidadServicio = new IncapacidadServicio(_contexto);
 
-            IIncapacidadServicio _incapacidadServicio = new IncapacidadServicio(_contexto);
+            _creadorIncapacidad = new CreadorIncapacidadEnfermedadGeneralSalarioIntegral(responsablePagoServicio,empleadoServicio, incapacidadServicio);
+        }
+
+        [TestMethod]
+        public void Debe_Crear_PersistirIncapacidad_Cuando_EsEnfermedadGeneralPorDosDiasSalarioIntegral_5Dias()
+        {
+            var solicitudIncapacidad = new SolicitudIncapacidad(1, 1, 2020, 06, 03, 5, "incapacidad del señor Alan");
+
+            _creadorIncapacidad.Crear(solicitudIncapacidad);
+            Incapacidad incapacidad = _contexto.Incapacidades.FirstOrDefault();
+
+            Assert.AreEqual(new DateTime(2020, 06, 03), incapacidad.FechaIncial);
+            Assert.AreEqual(new DateTime(2020, 06, 07), incapacidad.FechaFinal);
+
+            Assert.IsTrue(new Dinero(1_000_000m, Moneda.COP) == incapacidad.ReconocimientosEconomicos[0].ValorAPagar);
+            Assert.AreEqual(new DateTime(2020, 06, 03), incapacidad.ReconocimientosEconomicos[0].FechaInicial);
+            Assert.AreEqual(new DateTime(2020, 06, 04), incapacidad.ReconocimientosEconomicos[0].FechaFinal);
+
+            Assert.IsTrue(new Dinero(700_035m, Moneda.COP) == incapacidad.ReconocimientosEconomicos[1].ValorAPagar);
+            Assert.AreEqual(new DateTime(2020, 06, 05), incapacidad.ReconocimientosEconomicos[1].FechaInicial);
+            Assert.AreEqual(new DateTime(2020, 06, 07), incapacidad.ReconocimientosEconomicos[1].FechaFinal);
+
+            Assert.IsTrue(new Dinero(450_000m, Moneda.COP) == incapacidad.ReconocimientosEconomicos[2].ValorAPagar);
+            Assert.AreEqual(new DateTime(2020, 06, 05), incapacidad.ReconocimientosEconomicos[2].FechaInicial);
+            Assert.AreEqual(new DateTime(2020, 06, 07), incapacidad.ReconocimientosEconomicos[2].FechaFinal);
         }
     }
 }
