@@ -92,7 +92,7 @@ function construirUriIncapacidadPorTipo() {
     const tipoSalario = empleados[0].tipoSalario.tipo;
     const idTipoIncapacidad = obtenerValorTipoIncapacidadSeleccionado();
 
-    return 'incapacidadenfermedadgeneralsalarioley50';
+    return 'incapacidadley50';
 }
 
 function crearSolicitudIncapacidad() {

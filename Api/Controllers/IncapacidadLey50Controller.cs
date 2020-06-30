@@ -6,11 +6,11 @@ namespace Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class IncapacidadEnfermedadGeneralSalarioLey50Controller : ControllerBase
+    public class IncapacidadLey50Controller : ControllerBase
     {
-        private readonly ICreadorIncapacidadEnfermedadGeneralSalarioLey50 _creadorIncapacidad;
+        private readonly ICreadorIncapacidadLey50 _creadorIncapacidad;
 
-        public IncapacidadEnfermedadGeneralSalarioLey50Controller(ICreadorIncapacidadEnfermedadGeneralSalarioLey50 creadorIncapacidad)
+        public IncapacidadLey50Controller(ICreadorIncapacidadLey50 creadorIncapacidad)
         {
             _creadorIncapacidad = creadorIncapacidad;
         }

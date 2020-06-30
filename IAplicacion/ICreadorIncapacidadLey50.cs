@@ -2,7 +2,7 @@ using Modelos;
 
 namespace IAplicacion
 {
-    public interface ICreadorIncapacidadEnfermedadGeneralSalarioLey50
+    public interface ICreadorIncapacidadLey50
     {
         void Crear(SolicitudIncapacidad solicitudIncapacidad);
     }

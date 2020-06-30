@@ -9,13 +9,13 @@ using Modelos.Enumeracion;
 
 namespace Aplicacion
 {
-    public class CreadorIncapacidadEnfermedadGeneralSalarioLey50 : CreadorIncapacidad, ICreadorIncapacidadEnfermedadGeneralSalarioLey50
+    public class CreadorIncapacidadLey50 : CreadorIncapacidad, ICreadorIncapacidadLey50
     {
         private readonly IResponsablePagoServicio _responsablePagoServicio;
         private readonly IEmpleadoServicio _empleadoServicio;
         private readonly IIncapacidadServicio _incapacidadServicio;
 
-        public CreadorIncapacidadEnfermedadGeneralSalarioLey50(IResponsablePagoServicio responsablePagoServicio, IEmpleadoServicio empleadoServicio, IIncapacidadServicio incapacidadServicio)
+        public CreadorIncapacidadLey50(IResponsablePagoServicio responsablePagoServicio, IEmpleadoServicio empleadoServicio, IIncapacidadServicio incapacidadServicio)
         {
             _responsablePagoServicio = responsablePagoServicio;
             _empleadoServicio = empleadoServicio;

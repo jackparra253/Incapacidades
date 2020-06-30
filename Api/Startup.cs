@@ -31,7 +31,7 @@ namespace Api
             //Aplicacion
             services.AddScoped<IConsultarEmpleados, ConsultarEmpleados>();
             services.AddScoped<ICalcularFechas, CalcularFechas>();
-            services.AddScoped<ICreadorIncapacidadEnfermedadGeneralSalarioLey50, CreadorIncapacidadEnfermedadGeneralSalarioLey50>();
+            services.AddScoped<ICreadorIncapacidadLey50, CreadorIncapacidadLey50>();
             services.AddScoped<ICreadorIncapacidadEnfermedadGeneralSalarioIntegral, CreadorIncapacidadEnfermedadGeneralSalarioIntegral>();
 
             //Dominio
