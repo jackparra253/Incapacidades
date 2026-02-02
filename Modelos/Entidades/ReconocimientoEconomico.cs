@@ -10,10 +10,10 @@ namespace Modelos.Entidades
         public int IdEmpleado { get; private set; }
         public DateTime FechaInicial { get; private set; }
         public DateTime FechaFinal { get; private set; }
-        public Dinero ValorAPagar { get; private set; }
+        public Dinero ValorAPagar { get; private set; } = null!;
         public Entidad ResponsablePago { get; private set; }
         public int IncapacidadId { get; private set; }
-        public Incapacidad Incapacidad { get; private set; }
+        public Incapacidad? Incapacidad { get; private set; }
 
         public ReconocimientoEconomico(int idEmpleado, DateTime fechaInicial, int cantidadDias, Dinero salarioBase, decimal porcentajeReconocimiento, Entidad responsablePago)
         {

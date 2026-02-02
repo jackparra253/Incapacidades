@@ -10,8 +10,8 @@ namespace Datos
 
         }
 
-        public DbSet<Incapacidad> Incapacidades { get; set; }
-        public DbSet<ReconocimientoEconomico> ReconocimientosEconomicos { get; set; }
+        public DbSet<Incapacidad> Incapacidades { get; set; } = null!;
+        public DbSet<ReconocimientoEconomico> ReconocimientosEconomicos { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

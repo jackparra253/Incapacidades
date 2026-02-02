@@ -1,67 +1,56 @@
-using System.Collections.Generic;
 using Datos;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Modelos.Entidades;
 using Modelos.Enumeracion;
+using Shouldly;
+using Xunit;
 
-namespace Test.DatosTest
+namespace Test.DatosTest;
+
+public class ResponsablePagoServicioTest : TestBase
 {
-    [TestClass]
-    public class ResponsablePagoServicioTest : TestBase
+    private readonly List<ResponsablePago> _responsablesPagosEsperados;
+    private readonly ResponsablePagoServicio _responsablePagoServicio;
+
+    public ResponsablePagoServicioTest()
     {
-        private IncapacidadesContext _contexto;
-        private List<ResponsablePago> _responsablesPagosEsperados;
-        private ResponsablePagoServicio _responsablePagoServicio;
-
-        public ResponsablePagoServicioTest()
+        _responsablesPagosEsperados = new List<ResponsablePago>
         {
-            UseSqlite();
-        }
+            new ResponsablePago(1, Entidad.EMPRESA, TipoIncapacidad.EnfermedadGeneral, 1, 2, 1m),
+            new ResponsablePago(2, Entidad.EPS, TipoIncapacidad.EnfermedadGeneral, 3, 90, 0.6667m),
+            new ResponsablePago(3, Entidad.EPS, TipoIncapacidad.EnfermedadGeneral, 91, 180, 0.5m),
+            new ResponsablePago(4, Entidad.EPS, TipoIncapacidad.LicenciaMaternidad, 1, 126, 1m),
+            new ResponsablePago(5, Entidad.EPS, TipoIncapacidad.LicenciaPaternidad, 1, 8, 1m),
+            new ResponsablePago(6, Entidad.ARL, TipoIncapacidad.EnfermedadLaboral, 1, 180, 1m),
+            new ResponsablePago(7, Entidad.ARL, TipoIncapacidad.AccidenteLaboral, 1, 180, 1m)
+        };
 
-        [TestInitialize]
-        public void Inicializar()
+        _responsablePagoServicio = new ResponsablePagoServicio(Contexto);
+    }
+
+    [Fact]
+    public void Debe_ObtenerResponsablesPago_RetornaListaConResponsablePago()
+    {
+        List<ResponsablePago> responsablesPago = _responsablePagoServicio.ObtenerResponsablesPago();
+
+        responsablesPago.Count.ShouldBe(_responsablesPagosEsperados.Count);
+    }
+
+    [Fact]
+    public void Debe_ObtenerResponsablesPago_RetornarListaResponsablesPago_CuandoSeFiltraPorTipoIncapacidadTipoSalarioYCantidadDias()
+    {
+        var responsablesPagosEsperado = new List<ResponsablePago>
         {
-            _contexto = GetDbContext();
+            new ResponsablePago(1, Entidad.EMPRESA, TipoIncapacidad.EnfermedadGeneral, 1, 2, 1m),
+            new ResponsablePago(2, Entidad.EPS, TipoIncapacidad.EnfermedadGeneral, 3, 90, 0.6667m),
+            new ResponsablePago(3, Entidad.EPS, TipoIncapacidad.EnfermedadGeneral, 91, 180, 0.5m)
+        };
 
-            _responsablesPagosEsperados = new List<ResponsablePago>
-            {
-                new ResponsablePago(1, Entidad.EMPRESA, TipoIncapacidad.EnfermedadGeneral, 1,2, 1m),
-                new ResponsablePago(2, Entidad.EPS, TipoIncapacidad.EnfermedadGeneral, 3, 90, 0.6667m),
-                new ResponsablePago(3, Entidad.EPS, TipoIncapacidad.EnfermedadGeneral, 91, 180, 0.5m),
-                new ResponsablePago(4, Entidad.EPS, TipoIncapacidad.LicenciaMaternidad, 1, 126, 1m),
-                new ResponsablePago(5, Entidad.EPS, TipoIncapacidad.LicenciaPaternidad, 1, 8, 1m),
-                new ResponsablePago(6, Entidad.ARL, TipoIncapacidad.EnfermedadLaboral, 1, 180, 1m),
-                new ResponsablePago(7, Entidad.ARL, TipoIncapacidad.AccidenteLaboral, 1, 180, 1m)
-            };
+        var tipoIncapacidad = TipoIncapacidad.EnfermedadGeneral;
+        var cantidadDias = 4;
 
-            _responsablePagoServicio = new ResponsablePagoServicio(_contexto);
-        }
+        List<ResponsablePago> responsablesPagos = _responsablePagoServicio.ObtenerResponsablesPago(tipoIncapacidad, cantidadDias);
 
-        [TestMethod]
-        public void Debe_ObtenerResponsablesPago_RetornaListaConResponsablePago()
-        {
-            List<ResponsablePago> responsablesPago = _responsablePagoServicio.ObtenerResponsablesPago();
-
-            Assert.AreEqual(_responsablesPagosEsperados.Count, responsablesPago.Count);
-        }
-
-        [TestMethod]
-        public void Debe_ObtenerResponsablesPago_RetornarListaResponsablesPago_CuandoSeFiltraPorTipoIncapacidadTipoSalarioYCantidadDias()
-        {
-            var responsablesPagosEsperado = new List<ResponsablePago>
-            {
-                new ResponsablePago(1, Entidad.EMPRESA, TipoIncapacidad.EnfermedadGeneral, 1,2, 1m),
-                new ResponsablePago(2, Entidad.EPS, TipoIncapacidad.EnfermedadGeneral, 3, 90, 0.6667m),
-                new ResponsablePago(3, Entidad.EPS, TipoIncapacidad.EnfermedadGeneral, 91, 180, 0.5m)
-            };
-
-            var tipoIncapacidad =  TipoIncapacidad.EnfermedadGeneral;
-            var cantidadDias = 4;
-
-            List<ResponsablePago> responsablesPagos = _responsablePagoServicio.ObtenerResponsablesPago(tipoIncapacidad, cantidadDias);
-
-            Assert.AreEqual(2, responsablesPagos.Count);
-            Assert.AreEqual(responsablesPagosEsperado[0].Id, responsablesPagos[0].Id);
-        }
+        responsablesPagos.Count.ShouldBe(2);
+        responsablesPagos[0].Id.ShouldBe(responsablesPagosEsperado[0].Id);
     }
 }

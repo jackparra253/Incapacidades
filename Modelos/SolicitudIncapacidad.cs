@@ -8,7 +8,7 @@ namespace Modelos
         public int Mes { get; set; }
         public int Dia { get; set; }
         public int CantidadDias { get; set; }
-        public string Observaciones { get; set; }
+        public string Observaciones { get; set; } = string.Empty;
 
         public SolicitudIncapacidad(int idEmpleado, int tipoIncapacidad, int anio, int mes, int dia, int cantidadDias, string observaciones)
         {

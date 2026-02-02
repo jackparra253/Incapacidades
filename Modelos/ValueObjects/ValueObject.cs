@@ -7,7 +7,7 @@ namespace Modelos.ValueObjects
     {
         protected abstract IEnumerable<object> GetEqualityComponents();
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null)
                 return false;
@@ -32,7 +32,7 @@ namespace Modelos.ValueObjects
                 });
         }
 
-        public static bool operator ==(ValueObject a, ValueObject b)
+        public static bool operator ==(ValueObject? a, ValueObject? b)
         {
             if (ReferenceEquals(a, null) && ReferenceEquals(b, null))
                 return true;
@@ -43,7 +43,7 @@ namespace Modelos.ValueObjects
             return a.Equals(b);
         }
 
-        public static bool operator !=(ValueObject a, ValueObject b)
+        public static bool operator !=(ValueObject? a, ValueObject? b)
         {
             return !(a == b);
         }

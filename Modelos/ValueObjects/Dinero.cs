@@ -6,7 +6,7 @@ namespace Modelos.ValueObjects
     public class Dinero : ValueObject
     {
         public decimal Cantidad { get; private set; }
-        public string Moneda { get; set; }
+        public string Moneda { get; set; } = string.Empty;
 
         public Dinero(decimal cantidad, string moneda)
         {

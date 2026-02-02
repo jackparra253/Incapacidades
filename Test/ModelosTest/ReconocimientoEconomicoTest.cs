@@ -1,29 +1,27 @@
-using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Modelos.Constantes;
 using Modelos.Entidades;
 using Modelos.Enumeracion;
 using Modelos.ValueObjects;
+using Shouldly;
+using Xunit;
 
-namespace Test.ModelosTest
+namespace Test.ModelosTest;
+
+public class ReconocimientoEconomicoTest
 {
-    [TestClass]
-    public class ReconocimientoEconomicoTest
+    [Fact]
+    public void Debe_ReconocimientoEconomico_CalcularValorAPagar()
     {
-        [TestMethod]
-        public void Debe_ReconocimientoEconomico_CalcularValorAPagar()
-        {
-            var reconocimientoEconomico = new ReconocimientoEconomico(1, new DateTime(2020, 06, 27), 2, new Dinero(100_000, Moneda.COP), 0.6667m, Entidad.EPS);
+        var reconocimientoEconomico = new ReconocimientoEconomico(1, new DateTime(2020, 06, 27), 2, new Dinero(100_000, Moneda.COP), 0.6667m, Entidad.EPS);
 
-            Assert.AreEqual(new Dinero(133_340m, Moneda.COP), reconocimientoEconomico.ValorAPagar);
-        }
+        reconocimientoEconomico.ValorAPagar.ShouldBe(new Dinero(133_340m, Moneda.COP));
+    }
 
-        [TestMethod]
-        public void Debe_ReconocimientoEconomico_AsignarFechaFinal()
-        {
-            var reconocimientoEconomico = new ReconocimientoEconomico(1, new DateTime(2020, 06, 27), 2, new Dinero(100_000, Moneda.COP), 0.6667m, Entidad.EPS);
+    [Fact]
+    public void Debe_ReconocimientoEconomico_AsignarFechaFinal()
+    {
+        var reconocimientoEconomico = new ReconocimientoEconomico(1, new DateTime(2020, 06, 27), 2, new Dinero(100_000, Moneda.COP), 0.6667m, Entidad.EPS);
 
-            Assert.AreEqual(new DateTime(2020, 06, 28), reconocimientoEconomico.FechaFinal);
-        }
+        reconocimientoEconomico.FechaFinal.ShouldBe(new DateTime(2020, 06, 28));
     }
 }

@@ -12,8 +12,8 @@ namespace Modelos.Entidades
         public DateTime FechaIncial { get; private set; }
         public DateTime FechaFinal { get; private set; }
         public int CantidadDias { get; private set; }
-        public string Observaciones { get; private set; }
-        public List<ReconocimientoEconomico> ReconocimientosEconomicos { get; private set; }
+        public string Observaciones { get; private set; } = string.Empty;
+        public List<ReconocimientoEconomico> ReconocimientosEconomicos { get; private set; } = new();
         public Incapacidad(int idEmpleado, TipoIncapacidad tipoIncapacidad, DateTime fechaInicial, int cantidadDias, string observaciones,List<ReconocimientoEconomico> reconocimientosEconomicos)
         {
             IdEmpleado = idEmpleado;

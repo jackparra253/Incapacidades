@@ -1,36 +1,31 @@
 using Datos;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
-namespace Test
+namespace Test;
+
+public abstract class TestBase : IDisposable
 {
-    public abstract class TestBase
+    private readonly SqliteConnection _connection;
+    protected readonly IncapacidadesContext Contexto;
+
+    protected TestBase()
     {
-        private bool _useSqlite;
+        _connection = new SqliteConnection("DataSource=:memory:");
+        _connection.Open();
 
-        public IncapacidadesContext GetDbContext()
-        {
-            DbContextOptionsBuilder<IncapacidadesContext> builder = new DbContextOptionsBuilder<IncapacidadesContext>();
+        var options = new DbContextOptionsBuilder<IncapacidadesContext>()
+            .UseSqlite(_connection)
+            .Options;
 
-            if (_useSqlite)
-            {
-                builder.UseSqlite("DataSource=:memory:", x => { });
-            }
-            
-            
-            var dbContext = new IncapacidadesContext(builder.Options);
-            if (_useSqlite)
-            {
-                 dbContext.Database.OpenConnection();
-            }
+        Contexto = new IncapacidadesContext(options);
+        Contexto.Database.EnsureCreated();
+    }
 
-            dbContext.Database.EnsureCreated();
-
-            return dbContext;
-        }
-
-        public void UseSqlite()
-        {
-            _useSqlite = true;
-        }
+    public void Dispose()
+    {
+        Contexto.Dispose();
+        _connection.Dispose();
+        GC.SuppressFinalize(this);
     }
 }
