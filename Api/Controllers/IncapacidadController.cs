@@ -6,19 +6,18 @@ namespace Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class IncapacidadLey50Controller : ControllerBase
+public class IncapacidadController : ControllerBase
 {
     private readonly ICreadorIncapacidad _creadorIncapacidad;
 
-    public IncapacidadLey50Controller(ICreadorIncapacidad creadorIncapacidad)
+    public IncapacidadController(ICreadorIncapacidad creadorIncapacidad)
     {
         _creadorIncapacidad = creadorIncapacidad;
     }
-        
+
     [HttpPost]
     public void Post(SolicitudIncapacidad solicitudIncapacidad)
-    {            
+    {
         _creadorIncapacidad.Crear(solicitudIncapacidad);
     }
-
 }

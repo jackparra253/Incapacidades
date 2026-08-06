@@ -1,302 +1,234 @@
-const uriEmpleado = 'Empleado';
-const empleados = [];
+const RUTA_EMPLEADOS = 'Empleado';
+const RUTA_INCAPACIDADES = 'Incapacidad';
+const RUTA_CONSULTA_INCAPACIDADES = 'IncapacidadConsulta';
+const RUTA_RECONOCIMIENTOS = 'ReconocimientoEconomico';
 
-function llenarSelectEmpleados() {
-    obtenerEmpleados();
+const TIPOS_DE_SALARIO = { 1: 'Ley 50', 2: 'Integral' };
+
+let empleados = [];
+
+function iniciar() {
+    pedirJson(RUTA_EMPLEADOS)
+        .then(guardarEmpleados)
+        .then(llenarSelectDeEmpleados)
+        .then(mostrarDetalleEmpleado)
+        .catch(mostrarError);
 }
 
-function obtenerEmpleados() {
-    fetch(uriEmpleado)
-        .then(response => response.json())
-        .then(data => agregarEmpleados(data))
-        .catch(err => console.log("Error" + err));
+function pedirJson(ruta) {
+    return fetch(ruta)
+        .then(exigirRespuestaExitosa)
+        .then(respuesta => respuesta.json());
 }
 
-function agregarEmpleados(data) {
-    data.forEach(element => empleados.push(element));
-    let select = document.getElementById('empleados');
+function exigirRespuestaExitosa(respuesta) {
+    if (!respuesta.ok)
+        throw new Error(`${respuesta.status} ${respuesta.statusText}`);
 
-    for (var i = 0; i < empleados.length; i++) {
-        var option = document.createElement("option");
-        option.value = empleados[i].id;
-        option.text = `${empleados[i].nombres} ${empleados[i].apellidos}`;
-        select.appendChild(option);
-    }
+    return respuesta;
+}
 
-    mostrarDetalleEmpleado();
+function guardarEmpleados(empleadosRecibidos) {
+    empleados = empleadosRecibidos;
+}
+
+function llenarSelectDeEmpleados() {
+    const select = document.getElementById('empleados');
+    select.innerHTML = '';
+
+    empleados.forEach(empleado => {
+        const opcion = document.createElement('option');
+        opcion.value = empleado.id;
+        opcion.textContent = `${empleado.nombres} ${empleado.apellidos}`;
+        select.appendChild(opcion);
+    });
+}
+
+function empleadoSeleccionado() {
+    const id = idEmpleadoSeleccionado();
+
+    return empleados.find(empleado => empleado.id === id);
+}
+
+function idEmpleadoSeleccionado() {
+    const select = document.getElementById('empleados');
+
+    if (select.options.length === 0)
+        return 0;
+
+    return parseInt(select.options[select.selectedIndex].value);
 }
 
 function mostrarDetalleEmpleado() {
-    const idEmpleado = obtenerValorEmpleadoSeleccionado();
-    const empleado = obtenerEmpleado(idEmpleado);
+    const empleado = empleadoSeleccionado();
 
-    let empleadoNombres = document.getElementById('empleadoNombres');
-    empleadoNombres.innerText = `${empleado.nombres} ${empleado.apellidos}`;
+    if (empleado === undefined)
+        return Promise.resolve();
 
-    let empleadoSalario = document.getElementById('empleadoSalario');
-    empleadoSalario.innerText = `Tipo salario: ${transformarTipoSalario(empleado.tipoSalario)} - Salario: ${empleado.salario.cantidad} ${empleado.salario.moneda} - Salario diario: ${empleado.salarioDiario.cantidad} ${empleado.salarioDiario.moneda}  `;
+    document.getElementById('empleadoNombres').textContent = `${empleado.nombres} ${empleado.apellidos}`;
+    document.getElementById('empleadoSalario').textContent = descripcionDelSalario(empleado);
 
-    empleadoTipoSalario = document.getElementById('empleadoTipoSalario');
-    empleadoTipoSalario.innerText = ``;
-
-    consultarIncapacidades();
-    consultarReconocimientosEconomicos();
-
+    return refrescarTablas();
 }
 
-function transformarTipoSalario(tipoSalario) {
-    if (tipoSalario == 1)
-        return 'Ley 50';
-    else if (tipoSalario == 2)
-        return 'Integral';
+function descripcionDelSalario(empleado) {
+    const tipo = TIPOS_DE_SALARIO[empleado.tipoSalario.tipo];
+
+    return `Tipo salario: ${tipo}`
+        + ` - Salario: ${formatearDinero(empleado.salario)}`
+        + ` - Salario diario: ${formatearDinero(empleado.salarioDiario)}`;
 }
 
-function obtenerValorEmpleadoSeleccionado() {
-    let select = document.getElementById("empleados");
-
-    return select.options[select.selectedIndex].value;
+function formatearDinero(dinero) {
+    return `${dinero.cantidad} ${dinero.moneda}`;
 }
 
-function obtenerEmpleado(id) {
-    let empleado = empleados.filter(empleado => empleado.id == id);
-
-    return empleado[0];
-}
-
-
-//Registrar incapacidad
 function guardar() {
+    enviarSolicitudIncapacidad(construirSolicitudIncapacidad())
+        .then(limpiarFormulario)
+        .then(refrescarTablas)
+        .then(() => mostrarMensaje('Se guardó la incapacidad'))
+        .catch(mostrarError);
+}
 
-    const solicitudIncapacidad = crearSolicitudIncapacidad();
-
-    const uriGuardarIncapacidades = construirUriIncapacidadPorTipo();
-    console.log(uriGuardarIncapacidades);
-
-    fetch('incapacidadenfermedadgeneralsalarioley50', {
+function enviarSolicitudIncapacidad(solicitudIncapacidad) {
+    return fetch(RUTA_INCAPACIDADES, {
         method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(solicitudIncapacidad)
-    }).then(response => response.json())
-        .then(data => console.log(data))
-        .then(limpiarFormulario())
-        .then(consultarIncapacidades())
-        .then(consultarReconocimientosEconomicos())
-        .catch(error => console.error('Unable to add incapacidad.', error));
+    }).then(exigirRespuestaExitosa);
 }
 
+function construirSolicitudIncapacidad() {
+    const fechaInicial = fechaInicialSeleccionada();
 
-function construirUriIncapacidadPorTipo() {
-    const tipoSalario = empleados[0].tipoSalario.tipo;
-    const idTipoIncapacidad = obtenerValorTipoIncapacidadSeleccionado();
-
-    return 'incapacidadley50';
-}
-
-function crearSolicitudIncapacidad() {
     return {
-        idEmpleado: obtenerValorEmpleadoSeleccionado(),
-        tipoIncapacidad: obtenerValorTipoIncapacidadSeleccionado(),
-        anio: obtenerAnio(),
-        mes: obtenerMes(),
-        dia: obtenerDia(),
-        cantidadDias: obtenerCantidadDias(),
-        observaciones: obtenerObservaciones()
-    }
+        idEmpleado: idEmpleadoSeleccionado(),
+        tipoIncapacidad: tipoIncapacidadSeleccionado(),
+        anio: fechaInicial.anio,
+        mes: fechaInicial.mes,
+        dia: fechaInicial.dia,
+        cantidadDias: cantidadDiasSeleccionada(),
+        observaciones: document.getElementById('observaciones').value
+    };
 }
 
-function obtenerValorEmpleadoSeleccionado() {
-    const empleados = document.getElementById("empleados");
+function tipoIncapacidadSeleccionado() {
+    const select = document.getElementById('tipoIncapacidad');
 
-    return parseInt(empleados.options[empleados.selectedIndex].value);
+    return parseInt(select.options[select.selectedIndex].value);
 }
 
-function obtenerValorTipoIncapacidadSeleccionado() {
-    const tiposIncapacidad = document.getElementById('tipoIncapacidad');
+function fechaInicialSeleccionada() {
+    const valor = document.getElementById('fechaInicial').value;
 
-    return parseInt(tiposIncapacidad.options[tiposIncapacidad.selectedIndex].value);
+    if (!valor)
+        return { anio: 0, mes: 0, dia: 0 };
+
+    return {
+        anio: parseInt(valor.substring(0, 4)),
+        mes: parseInt(valor.substring(5, 7)),
+        dia: parseInt(valor.substring(8, 10))
+    };
 }
 
-function obtenerFecha() {
-    const fechaIncial = document.getElementById('fechaInicial');
+function cantidadDiasSeleccionada() {
+    const valor = document.getElementById('cantidadDias').value;
 
-    return fechaIncial.value;
-}
-
-function obtenerAnio() {
-    const fechaIncial = obtenerFecha();
-
-    if (fechaIncial == '' || fechaIncial == undefined)
+    if (!valor)
         return 0;
 
-    return parseInt(fechaIncial.substring(0, 4));
-}
-
-function obtenerMes() {
-    const fechaIncial = obtenerFecha();
-
-    if (fechaIncial == '' || fechaIncial == undefined)
-        return 0;
-
-    return parseInt(fechaIncial.substring(5, 7));
-}
-
-function obtenerDia() {
-    const fechaIncial = obtenerFecha();
-
-    if (fechaIncial == '' || fechaIncial == undefined)
-        return 0;
-
-    return parseInt(fechaIncial.substring(8, 10));
-}
-
-function obtenerCantidadDias() {
-    const cantidadDias = document.getElementById('cantidadDias');
-
-    if (cantidadDias.value == '' || cantidadDias.value == undefined)
-        return 0;
-
-    return parseInt(cantidadDias.value);
-}
-
-function obtenerObservaciones() {
-    const observaciones = document.getElementById('observaciones');
-
-    return observaciones.value;
+    return parseInt(valor);
 }
 
 function limpiarFormulario() {
-    const fechaIncial = document.getElementById('fechaInicial')
-    const cantidadDias = document.getElementById('cantidadDias');
-    const fechaFinal = document.getElementById('fechaFinal');
-    const observaciones = document.getElementById('observaciones');
-
-    fechaIncial.value = '';
-    fechaFinal.innerText = '';
-    cantidadDias.value = '';
-    observaciones.value = '';
-    alert("Se guardo la incapacidad");
+    document.getElementById('fechaInicial').value = '';
+    document.getElementById('fechaFinal').textContent = '';
+    document.getElementById('cantidadDias').value = '';
+    document.getElementById('observaciones').value = '';
 }
 
-//Consultar incapacidad
-function consultarIncapacidades() {
-    const uriIncapacidadConsulta = 'incapacidadconsulta';
+function refrescarTablas() {
+    const idEmpleado = idEmpleadoSeleccionado();
 
-    const empleados = document.getElementById("empleados");
-
-    let idEmpleado = 1;
-
-    if (empleados.options.length != 0)
-        idEmpleado = empleados.options[empleados.selectedIndex].value;
-
-    fetch(`${uriIncapacidadConsulta}/${idEmpleado}`)
-        .then(response => response.json())
-        .then(data => llenarTablaIncapacidades(data))
-        .catch(err => console.log("Error" + err.message));
+    return Promise.all([
+        consultarIncapacidades(idEmpleado),
+        consultarReconocimientosEconomicos(idEmpleado)
+    ]);
 }
 
-
-function llenarTablaIncapacidades(incapacidades) {
-    const cuerpoTabla = document.getElementById('tabla-detalle-incapacidad');
-
-    if (cuerpoTabla.rows.length > 0) {
-        for (let i = 0; i < incapacidades.length; i++) {
-            cuerpoTabla.innerHTML = '';
-        }
-    }
-
-    for (const item of incapacidades) {
-        let trElemento = document.createElement('tr');
-
-        let idTdElemento = document.createElement('td');
-        idTdElemento.innerHTML = item.id;
-        trElemento.appendChild(idTdElemento);
-
-        let tipoTdElemento = document.createElement('td');
-        tipoTdElemento.innerHTML = item.tipo;
-        trElemento.appendChild(tipoTdElemento);
-
-        let fechaInicialTdElemento = document.createElement('td');
-        fechaInicialTdElemento.innerHTML = item.fechaInicial;
-        trElemento.appendChild(fechaInicialTdElemento);
-
-        let fechaFinalTdElemento = document.createElement('td');
-        fechaFinalTdElemento.innerHTML = item.fechaFinal;
-        trElemento.appendChild(fechaFinalTdElemento);
-
-        let cantidadDiasTdElemento = document.createElement('td');
-        cantidadDiasTdElemento.innerHTML = item.cantidadDias;
-        trElemento.appendChild(cantidadDiasTdElemento);
-
-        let prorrogaTdElemento = document.createElement('td');
-        let prorrogaBotonElemento = document.createElement('button');
-        prorrogaTdElemento.appendChild(prorrogaBotonElemento);
-        prorrogaBotonElemento.id = item.id;
-        prorrogaBotonElemento.className = 'btn btn-outline-dark btn-sm';
-        prorrogaBotonElemento.innerText = 'Prórroga';
-        trElemento.appendChild(prorrogaTdElemento);
-
-        cuerpoTabla.appendChild(trElemento);
-    }
-
+function consultarIncapacidades(idEmpleado) {
+    return pedirJson(`${RUTA_CONSULTA_INCAPACIDADES}/${idEmpleado}`)
+        .then(incapacidades => llenarTabla('tabla-detalle-incapacidad', incapacidades, filaDeIncapacidad));
 }
 
-consultarIncapacidades();
-
-
-const uriReconocimientoEconomico = 'reconocimientoEconomico';
-
-//Consultar Reconocimiento Economico
-function consultarReconocimientosEconomicos() {
-    let empleados = document.getElementById("empleados");
-
-    let idEmpleado = 1;
-
-    if (empleados.options.length != 0)
-        idEmpleado = empleados.options[empleados.selectedIndex].value;
-
-    fetch(`${uriReconocimientoEconomico}/${idEmpleado}`)
-        .then(response => response.json())
-        .then(data => llenarTablaReconocimientosEconomicos(data))
-        .catch(err => console.log("Error" + err.message));
+function filaDeIncapacidad(incapacidad) {
+    return [
+        incapacidad.id,
+        incapacidad.tipo,
+        incapacidad.fechaInicial,
+        incapacidad.fechaFinal,
+        incapacidad.cantidadDias,
+        botonDeProrroga(incapacidad.id)
+    ];
 }
 
-function llenarTablaReconocimientosEconomicos(reconocimientosEconomicos) {
-    const cuerpoTabla = document.getElementById('tabla-detalle-reconocimiento');
+function botonDeProrroga(idIncapacidad) {
+    const boton = document.createElement('button');
+    boton.id = idIncapacidad;
+    boton.className = 'btn btn-outline-dark btn-sm';
+    boton.textContent = 'Prórroga';
 
-    if (cuerpoTabla.rows.length > 0) {
-        for (let i = 0; i < reconocimientosEconomicos.length; i++) {
-            cuerpoTabla.innerHTML = '';
-        }
-    }
-
-    for (const item of reconocimientosEconomicos) {
-        let trElemento = document.createElement('tr');
-
-        let idIncapacidadTdElemento = document.createElement('td');
-        idIncapacidadTdElemento.innerHTML = item.idIncapacidad;
-        trElemento.appendChild(idIncapacidadTdElemento);
-
-        let fechaInicialTdElemento = document.createElement('td');
-        fechaInicialTdElemento.innerHTML = item.fechaInicial;
-        trElemento.appendChild(fechaInicialTdElemento);
-
-        let fechaFinalTdElemento = document.createElement('td');
-        fechaFinalTdElemento.innerHTML = item.fechaFinal;
-        trElemento.appendChild(fechaFinalTdElemento);
-
-        let valorAPagarTdElemento = document.createElement('td');
-        valorAPagarTdElemento.innerHTML = `${item.valorAPagar.cantidad} ${item.valorAPagar.moneda}`;
-        trElemento.appendChild(valorAPagarTdElemento);
-
-        let responsablePagoTdElemento = document.createElement('td');
-        responsablePagoTdElemento.innerHTML = item.responsablePago;
-        trElemento.appendChild(responsablePagoTdElemento);
-
-        cuerpoTabla.appendChild(trElemento);
-    }
+    return boton;
 }
 
-consultarReconocimientosEconomicos();
+function consultarReconocimientosEconomicos(idEmpleado) {
+    return pedirJson(`${RUTA_RECONOCIMIENTOS}/${idEmpleado}`)
+        .then(reconocimientos => llenarTabla('tabla-detalle-reconocimiento', reconocimientos, filaDeReconocimiento));
+}
+
+function filaDeReconocimiento(reconocimiento) {
+    return [
+        reconocimiento.idIncapacidad,
+        reconocimiento.fechaInicial,
+        reconocimiento.fechaFinal,
+        formatearDinero(reconocimiento.valorAPagar),
+        reconocimiento.responsablePago
+    ];
+}
+
+function llenarTabla(idCuerpoTabla, filas, construirColumnas) {
+    const cuerpoTabla = document.getElementById(idCuerpoTabla);
+    cuerpoTabla.innerHTML = '';
+
+    filas.forEach(fila => cuerpoTabla.appendChild(crearFila(construirColumnas(fila))));
+}
+
+function crearFila(columnas) {
+    const tr = document.createElement('tr');
+
+    columnas.forEach(columna => {
+        const td = document.createElement('td');
+
+        if (columna instanceof Node)
+            td.appendChild(columna);
+        else
+            td.textContent = columna;
+
+        tr.appendChild(td);
+    });
+
+    return tr;
+}
+
+function mostrarMensaje(texto) {
+    const mensaje = document.getElementById('mensaje');
+    mensaje.className = 'alert alert-success';
+    mensaje.textContent = texto;
+}
+
+function mostrarError(error) {
+    const mensaje = document.getElementById('mensaje');
+    mensaje.className = 'alert alert-danger';
+    mensaje.textContent = `No se pudo completar la operación: ${error.message}`;
+}
