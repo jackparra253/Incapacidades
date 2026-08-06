@@ -1,9 +1,8 @@
 using Modelos;
 
-namespace IAplicacion
+namespace IAplicacion;
+
+public interface ICreadorIncapacidadLey50
 {
-    public interface ICreadorIncapacidadLey50
-    {
-        void Crear(SolicitudIncapacidad solicitudIncapacidad);
-    }
+    void Crear(SolicitudIncapacidad solicitudIncapacidad);
 }

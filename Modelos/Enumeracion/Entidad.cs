@@ -1,10 +1,8 @@
-namespace Modelos.Enumeracion
+namespace Modelos.Enumeracion;
+
+public enum Entidad: byte
 {
-    public enum Entidad: byte
-    {
-        EPS = 1,
-        ARL = 2,
-        EMPRESA = 3
-    }
-     
+    EPS = 1,
+    ARL = 2,
+    EMPRESA = 3
 }

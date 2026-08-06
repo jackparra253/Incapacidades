@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using Modelos.Entidades;
+﻿using Modelos.Entidades;
 
-namespace IAplicacion
+namespace IAplicacion;
+
+public interface IConsultarEmpleados
 {
-    public interface IConsultarEmpleados
-    {
-        List<Empleado> ObtenerEmpleados();
-    }
+    List<Empleado> ObtenerEmpleados();
 }

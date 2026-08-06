@@ -1,8 +1,7 @@
-namespace Modelos.Enumeracion
+namespace Modelos.Enumeracion;
+
+public enum Tipo: byte
 {
-    public enum Tipo: byte
-    {
-        Ley50 = 1,
-        Integral = 2
-    } 
+    Ley50 = 1,
+    Integral = 2
 }
