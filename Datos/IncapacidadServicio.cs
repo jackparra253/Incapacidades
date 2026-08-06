@@ -2,6 +2,7 @@ using IDatos;
 using Modelos.Entidades;
 using Modelos;
 using Modelos.Enumeracion;
+using Modelos.Excepciones;
 
 namespace Datos;
 
@@ -37,28 +38,15 @@ public class IncapacidadServicio : IIncapacidadServicio
 
     private static string TransformarATextoTipoIncapacida(TipoIncapacidad tipoIncapacidad)
     {
-        switch (tipoIncapacidad)
+        return tipoIncapacidad switch
         {
-            case TipoIncapacidad.EnfermedadGeneral:
-                return "Enfermedad General";
-                break;
-            case TipoIncapacidad.LicenciaMaternidad:
-                return "Licencia Maternidad";
-                break;
-            case TipoIncapacidad.LicenciaPaternidad:
-                return "Licencia Paternidad";
-                break;
-            case TipoIncapacidad.EnfermedadLaboral:
-                return "Enfermedad Laboral";
-                break;
-            case TipoIncapacidad.AccidenteLaboral:
-                return "AccidenteLaboral";
-                break;
-            default:
-                return "";
-                break;
-        }
-
+            TipoIncapacidad.EnfermedadGeneral => "Enfermedad General",
+            TipoIncapacidad.LicenciaMaternidad => "Licencia Maternidad",
+            TipoIncapacidad.LicenciaPaternidad => "Licencia Paternidad",
+            TipoIncapacidad.EnfermedadLaboral => "Enfermedad Laboral",
+            TipoIncapacidad.AccidenteLaboral => "Accidente Laboral",
+            _ => throw new TipoIncapacidadInvalido((int)tipoIncapacidad)
+        };
     }
 
     public List<DetalleReconocimientoEconomico> ObtenerReconocimientosEconomicosDetalle(int idEmpleado)
@@ -79,21 +67,13 @@ public class IncapacidadServicio : IIncapacidadServicio
     }
     private static string TransformarATextoResponsable(Entidad responsable)
     {
-        switch (responsable)
+        return responsable switch
         {
-            case Entidad.EPS:
-                return "EPS";
-                break;
-            case Entidad.ARL:
-                return "ARL";
-                break;
-            case Entidad.EMPRESA:
-                return "EMPRESA";
-                break;
-
-            default:
-                return "";
-                break;
-        }
+            Entidad.EPS => "EPS",
+            Entidad.ARL => "ARL",
+            Entidad.EMPRESA => "EMPRESA",
+            Entidad.FONDO_PENSIONES => "FONDO DE PENSIONES",
+            _ => throw new ArgumentOutOfRangeException(nameof(responsable), responsable, "Responsable de pago desconocido.")
+        };
     }
 }

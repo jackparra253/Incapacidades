@@ -10,17 +10,17 @@ using Xunit;
 
 namespace Test.Aplicacion;
 
-public class CreadorIncapacidadLey50Test : TestBase
+public class CreadorIncapacidadSalarioOrdinarioTest : TestBase
 {
-    private readonly CreadorIncapacidadLey50 _creadorIncapacidad;
+    private readonly CreadorIncapacidad _creadorIncapacidad;
 
-    public CreadorIncapacidadLey50Test()
+    public CreadorIncapacidadSalarioOrdinarioTest()
     {
         IResponsablePagoServicio responsablePagoServicio = new ResponsablePagoServicio(Contexto);
         IEmpleadoServicio empleadoServicio = new EmpleadoServicio(Contexto);
         IIncapacidadServicio incapacidadServicio = new IncapacidadServicio(Contexto);
 
-        _creadorIncapacidad = new CreadorIncapacidadLey50(responsablePagoServicio, empleadoServicio, incapacidadServicio);
+        _creadorIncapacidad = new CreadorIncapacidad(responsablePagoServicio, empleadoServicio, incapacidadServicio);
     }
 
     [Fact]
@@ -36,7 +36,9 @@ public class CreadorIncapacidadLey50Test : TestBase
         (new Dinero(200_000m, Moneda.COP) == incapacidad.ReconocimientosEconomicos[0].ValorAPagar).ShouldBeTrue();
         incapacidad.ReconocimientosEconomicos[0].FechaInicial.ShouldBe(new DateTime(2020, 06, 03));
         incapacidad.ReconocimientosEconomicos[0].FechaFinal.ShouldBe(new DateTime(2020, 06, 04));
-        (new Dinero(133_340m, Moneda.COP) == incapacidad.ReconocimientosEconomicos[1].ValorAPagar).ShouldBeTrue();
+        // Salario ordinario 3.000.000 -> IBC diario = 100.000 (sin reducción del 70%).
+        // Días 3-4: la EPS paga el 66,66% -> 100.000 * 0,6666 * 2.
+        (new Dinero(133_320m, Moneda.COP) == incapacidad.ReconocimientosEconomicos[1].ValorAPagar).ShouldBeTrue();
         incapacidad.ReconocimientosEconomicos[1].FechaInicial.ShouldBe(new DateTime(2020, 06, 05));
         incapacidad.ReconocimientosEconomicos[1].FechaFinal.ShouldBe(new DateTime(2020, 06, 06));
     }

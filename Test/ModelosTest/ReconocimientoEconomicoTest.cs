@@ -12,15 +12,15 @@ public class ReconocimientoEconomicoTest
     [Fact]
     public void Debe_ReconocimientoEconomico_CalcularValorAPagar()
     {
-        var reconocimientoEconomico = new ReconocimientoEconomico(1, new DateTime(2020, 06, 27), 2, new Dinero(100_000, Moneda.COP), 0.6667m, Entidad.EPS);
+        var reconocimientoEconomico = new ReconocimientoEconomico(1, new DateTime(2020, 06, 27), 2, new Dinero(100_000, Moneda.COP), 0.6666m, Entidad.EPS);
 
-        reconocimientoEconomico.ValorAPagar.ShouldBe(new Dinero(133_340m, Moneda.COP));
+        reconocimientoEconomico.ValorAPagar.ShouldBe(new Dinero(133_320m, Moneda.COP));
     }
 
     [Fact]
     public void Debe_ReconocimientoEconomico_AsignarFechaFinal()
     {
-        var reconocimientoEconomico = new ReconocimientoEconomico(1, new DateTime(2020, 06, 27), 2, new Dinero(100_000, Moneda.COP), 0.6667m, Entidad.EPS);
+        var reconocimientoEconomico = new ReconocimientoEconomico(1, new DateTime(2020, 06, 27), 2, new Dinero(100_000, Moneda.COP), 0.6666m, Entidad.EPS);
 
         reconocimientoEconomico.FechaFinal.ShouldBe(new DateTime(2020, 06, 28));
     }

@@ -1,29 +1,31 @@
-
 using Modelos.Enumeracion;
 
 namespace Modelos.Entidades;
 
-public class TipoSalario
+/// <summary>
+/// Define qué fracción del salario mensual constituye el Ingreso Base de Cotización (IBC), que es
+/// sobre lo que se liquidan las incapacidades. El resto es factor prestacional, que se congela
+/// durante la incapacidad y no genera reconocimiento.
+/// </summary>
+public abstract class TipoSalario
 {
-    public Tipo Tipo { get; private set; }
+    public abstract Tipo Tipo { get; }
+    public abstract decimal PorcentajeSalario { get; }
+    public abstract decimal PorcentajeCompensacion { get; }
+}
 
-    public decimal PorcentajeSalario { get; private set; }
-    public decimal PorcentajeCompensacion { get; private set; }
+/// <summary>Salario ordinario: el IBC es el 100% del salario.</summary>
+public class SalarioLey50 : TipoSalario
+{
+    public override Tipo Tipo => Tipo.Ley50;
+    public override decimal PorcentajeSalario => 1m;
+    public override decimal PorcentajeCompensacion => 0m;
+}
 
-    public TipoSalario(Tipo tipo)
-    {
-        Tipo = tipo;
-
-        if (tipo == Tipo.Ley50)
-            AsignarPorcentajeSalarioYPorcentajeCompesacion(1, 0);
-
-        if (tipo == Tipo.Integral)
-            AsignarPorcentajeSalarioYPorcentajeCompesacion(0.7m, 0.3m);
-    }
-
-    private void AsignarPorcentajeSalarioYPorcentajeCompesacion(decimal porcentajeSalario, decimal porcentajeCompensacion)
-    {
-        PorcentajeSalario = porcentajeSalario;
-        PorcentajeCompensacion = porcentajeCompensacion;
-    }
+/// <summary>Salario integral (art. 132 CST): el IBC es el 70%; el 30% es factor prestacional.</summary>
+public class SalarioIntegral : TipoSalario
+{
+    public override Tipo Tipo => Tipo.Integral;
+    public override decimal PorcentajeSalario => 0.7m;
+    public override decimal PorcentajeCompensacion => 0.3m;
 }

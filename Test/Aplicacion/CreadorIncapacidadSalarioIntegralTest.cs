@@ -13,7 +13,7 @@ namespace Test.Aplicacion;
 
 public class CreadorIncapacidadSalarioIntegralTest : TestBase
 {
-    private readonly CreadorIncapacidadSalarioIntegral _creadorIncapacidad;
+    private readonly CreadorIncapacidad _creadorIncapacidad;
 
     public CreadorIncapacidadSalarioIntegralTest()
     {
@@ -21,7 +21,7 @@ public class CreadorIncapacidadSalarioIntegralTest : TestBase
         IEmpleadoServicio empleadoServicio = new EmpleadoServicio(Contexto);
         IIncapacidadServicio incapacidadServicio = new IncapacidadServicio(Contexto);
 
-        _creadorIncapacidad = new CreadorIncapacidadSalarioIntegral(responsablePagoServicio, empleadoServicio, incapacidadServicio);
+        _creadorIncapacidad = new CreadorIncapacidad(responsablePagoServicio, empleadoServicio, incapacidadServicio);
     }
 
     [Fact]
@@ -35,20 +35,21 @@ public class CreadorIncapacidadSalarioIntegralTest : TestBase
         incapacidad.FechaIncial.ShouldBe(new DateTime(2020, 06, 03));
         incapacidad.FechaFinal.ShouldBe(new DateTime(2020, 06, 07));
 
-        (new Dinero(1_000_000m, Moneda.COP) == incapacidad.ReconocimientosEconomicos[0].ValorAPagar).ShouldBeTrue();
+        // Salario integral 15.000.000 -> IBC diario = (15.000.000 / 30) * 70% = 350.000.
+        // El 30% prestacional se congela durante la incapacidad: no genera reconocimiento.
+        incapacidad.ReconocimientosEconomicos.Count.ShouldBe(2);
+
+        // Días 1-2: el empleador paga el 100% del IBC diario.
+        (new Dinero(700_000m, Moneda.COP) == incapacidad.ReconocimientosEconomicos[0].ValorAPagar).ShouldBeTrue();
         incapacidad.ReconocimientosEconomicos[0].FechaInicial.ShouldBe(new DateTime(2020, 06, 03));
         incapacidad.ReconocimientosEconomicos[0].FechaFinal.ShouldBe(new DateTime(2020, 06, 04));
         incapacidad.ReconocimientosEconomicos[0].ResponsablePago.ShouldBe(Entidad.EMPRESA);
 
-        (new Dinero(700_035m, Moneda.COP) == incapacidad.ReconocimientosEconomicos[1].ValorAPagar).ShouldBeTrue();
+        // Días 3-5: la EPS paga el 66,66% del IBC diario -> 350.000 * 0,6666 * 3.
+        (new Dinero(699_930m, Moneda.COP) == incapacidad.ReconocimientosEconomicos[1].ValorAPagar).ShouldBeTrue();
         incapacidad.ReconocimientosEconomicos[1].FechaInicial.ShouldBe(new DateTime(2020, 06, 05));
         incapacidad.ReconocimientosEconomicos[1].FechaFinal.ShouldBe(new DateTime(2020, 06, 07));
         incapacidad.ReconocimientosEconomicos[1].ResponsablePago.ShouldBe(Entidad.EPS);
-
-        (new Dinero(450_000m, Moneda.COP) == incapacidad.ReconocimientosEconomicos[2].ValorAPagar).ShouldBeTrue();
-        incapacidad.ReconocimientosEconomicos[2].FechaInicial.ShouldBe(new DateTime(2020, 06, 05));
-        incapacidad.ReconocimientosEconomicos[2].FechaFinal.ShouldBe(new DateTime(2020, 06, 07));
-        incapacidad.ReconocimientosEconomicos[2].ResponsablePago.ShouldBe(Entidad.EMPRESA);
     }
 
     // Regresion: con 4 dias la formula vieja arrancaba la EPS el 04/06, solapando un dia que la
@@ -72,9 +73,7 @@ public class CreadorIncapacidadSalarioIntegralTest : TestBase
         incapacidad.ReconocimientosEconomicos[1].FechaFinal.ShouldBe(new DateTime(2020, 06, 06));
         incapacidad.ReconocimientosEconomicos[1].ResponsablePago.ShouldBe(Entidad.EPS);
 
-        incapacidad.ReconocimientosEconomicos[2].FechaInicial.ShouldBe(new DateTime(2020, 06, 05));
-        incapacidad.ReconocimientosEconomicos[2].FechaFinal.ShouldBe(new DateTime(2020, 06, 06));
-        incapacidad.ReconocimientosEconomicos[2].ResponsablePago.ShouldBe(Entidad.EMPRESA);
+        incapacidad.ReconocimientosEconomicos.Count.ShouldBe(2);
     }
 
     [Fact]
@@ -89,15 +88,13 @@ public class CreadorIncapacidadSalarioIntegralTest : TestBase
         incapacidad.FechaIncial.ShouldBe(new DateTime(2020, 06, 03));
         incapacidad.FechaFinal.ShouldBe(new DateTime(2020, 10, 06));
 
+        // La EPS cubre los 126 días al 100% del IBC diario. Ya no hay línea del 30% prestacional.
+        incapacidad.ReconocimientosEconomicos.Count.ShouldBe(1);
+
         (new Dinero(44_100_000m, Moneda.COP) == incapacidad.ReconocimientosEconomicos[0].ValorAPagar).ShouldBeTrue();
         incapacidad.ReconocimientosEconomicos[0].FechaInicial.ShouldBe(new DateTime(2020, 06, 03));
         incapacidad.ReconocimientosEconomicos[0].FechaFinal.ShouldBe(new DateTime(2020, 10, 06));
         incapacidad.ReconocimientosEconomicos[0].ResponsablePago.ShouldBe(Entidad.EPS);
-
-        (new Dinero(18_900_000m, Moneda.COP) == incapacidad.ReconocimientosEconomicos[1].ValorAPagar).ShouldBeTrue();
-        incapacidad.ReconocimientosEconomicos[1].FechaInicial.ShouldBe(new DateTime(2020, 06, 03));
-        incapacidad.ReconocimientosEconomicos[1].FechaFinal.ShouldBe(new DateTime(2020, 10, 06));
-        incapacidad.ReconocimientosEconomicos[1].ResponsablePago.ShouldBe(Entidad.EMPRESA);
     }
 
     [Fact]
@@ -112,14 +109,11 @@ public class CreadorIncapacidadSalarioIntegralTest : TestBase
         incapacidad.FechaIncial.ShouldBe(new DateTime(2020, 06, 03));
         incapacidad.FechaFinal.ShouldBe(new DateTime(2020, 06, 10));
 
+        incapacidad.ReconocimientosEconomicos.Count.ShouldBe(1);
+
         (new Dinero(2_800_000m, Moneda.COP) == incapacidad.ReconocimientosEconomicos[0].ValorAPagar).ShouldBeTrue();
         incapacidad.ReconocimientosEconomicos[0].FechaInicial.ShouldBe(new DateTime(2020, 06, 03));
         incapacidad.ReconocimientosEconomicos[0].FechaFinal.ShouldBe(new DateTime(2020, 06, 10));
         incapacidad.ReconocimientosEconomicos[0].ResponsablePago.ShouldBe(Entidad.EPS);
-
-        (new Dinero(1_200_000m, Moneda.COP) == incapacidad.ReconocimientosEconomicos[1].ValorAPagar).ShouldBeTrue();
-        incapacidad.ReconocimientosEconomicos[1].FechaInicial.ShouldBe(new DateTime(2020, 06, 03));
-        incapacidad.ReconocimientosEconomicos[1].FechaFinal.ShouldBe(new DateTime(2020, 06, 10));
-        incapacidad.ReconocimientosEconomicos[1].ResponsablePago.ShouldBe(Entidad.EMPRESA);
     }
 }

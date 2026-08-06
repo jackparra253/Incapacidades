@@ -22,8 +22,7 @@ public class Startup
         //Aplicacion
         services.AddScoped<IConsultarEmpleados, ConsultarEmpleados>();
         services.AddScoped<ICalcularFechas, CalcularFechas>();
-        services.AddScoped<ICreadorIncapacidadLey50, CreadorIncapacidadLey50>();
-        services.AddScoped<ICreadorIncapacidadSalarioIntegral, CreadorIncapacidadSalarioIntegral>();
+        services.AddScoped<ICreadorIncapacidad, CreadorIncapacidad>();
 
         //Servicios
         services.AddScoped<IIncapacidadServicio, IncapacidadServicio>();

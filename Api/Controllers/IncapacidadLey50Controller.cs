@@ -8,9 +8,9 @@ namespace Api.Controllers;
 [Route("[controller]")]
 public class IncapacidadLey50Controller : ControllerBase
 {
-    private readonly ICreadorIncapacidadLey50 _creadorIncapacidad;
+    private readonly ICreadorIncapacidad _creadorIncapacidad;
 
-    public IncapacidadLey50Controller(ICreadorIncapacidadLey50 creadorIncapacidad)
+    public IncapacidadLey50Controller(ICreadorIncapacidad creadorIncapacidad)
     {
         _creadorIncapacidad = creadorIncapacidad;
     }
