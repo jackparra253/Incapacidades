@@ -13,7 +13,8 @@ namespace Modelos.Entidades
         public DateTime FechaFinal { get; private set; }
         public int CantidadDias { get; private set; }
         public string Observaciones { get; private set; } = string.Empty;
-        public List<ReconocimientoEconomico> ReconocimientosEconomicos { get; private set; } = new();
+        private readonly List<ReconocimientoEconomico> _reconocimientosEconomicos = new();
+        public IReadOnlyList<ReconocimientoEconomico> ReconocimientosEconomicos => _reconocimientosEconomicos;
         public Incapacidad(int idEmpleado, TipoIncapacidad tipoIncapacidad, DateTime fechaInicial, int cantidadDias, string observaciones,List<ReconocimientoEconomico> reconocimientosEconomicos)
         {
             IdEmpleado = idEmpleado;
@@ -22,7 +23,7 @@ namespace Modelos.Entidades
             FechaFinal = fechaInicial.AddDays(cantidadDias -1);
             CantidadDias = cantidadDias;
             Observaciones = observaciones;
-            ReconocimientosEconomicos = reconocimientosEconomicos;
+            _reconocimientosEconomicos.AddRange(reconocimientosEconomicos);
         }
 
         private Incapacidad(){}
