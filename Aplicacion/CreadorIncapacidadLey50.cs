@@ -4,7 +4,6 @@ using IDatos;
 using Modelos.Entidades;
 using System;
 using System.Collections.Generic;
-using IDominio;
 using Modelos.Enumeracion;
 
 namespace Aplicacion
