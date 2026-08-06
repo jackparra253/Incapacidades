@@ -33,10 +33,22 @@ public class Dinero : ValueObject
 
     public Dinero Mas(Dinero otro)
     {
-        if (!string.Equals(Moneda, otro.Moneda, StringComparison.OrdinalIgnoreCase))
-            throw new MonedasIncompatibles(Moneda, otro.Moneda);
+        ExigirMismaMoneda(otro);
 
         return new Dinero(Cantidad + otro.Cantidad, Moneda);
+    }
+
+    public bool EsMenorQue(Dinero otro)
+    {
+        ExigirMismaMoneda(otro);
+
+        return Cantidad < otro.Cantidad;
+    }
+
+    private void ExigirMismaMoneda(Dinero otro)
+    {
+        if (!string.Equals(Moneda, otro.Moneda, StringComparison.OrdinalIgnoreCase))
+            throw new MonedasIncompatibles(Moneda, otro.Moneda);
     }
 
     private static bool EsMonedaValida(string moneda)

@@ -2,25 +2,23 @@ using IAplicacion;
 using IDatos;
 using Modelos;
 using Modelos.Entidades;
+using Modelos.ValueObjects;
 
 namespace Aplicacion;
 
-/// <summary>
-/// Único creador de incapacidades. La diferencia entre salario ordinario e integral no vive acá:
-/// la resuelve el <see cref="TipoSalario"/> del empleado, que define qué fracción del salario es
-/// el IBC. Por eso el reparto entre responsables es el mismo algoritmo para los dos.
-/// </summary>
 public class CreadorIncapacidad : ICreadorIncapacidad
 {
     private readonly IResponsablePagoServicio _responsablePagoServicio;
     private readonly IEmpleadoServicio _empleadoServicio;
     private readonly IIncapacidadServicio _incapacidadServicio;
+    private readonly ISalarioMinimoServicio _salarioMinimoServicio;
 
-    public CreadorIncapacidad(IResponsablePagoServicio responsablePagoServicio, IEmpleadoServicio empleadoServicio, IIncapacidadServicio incapacidadServicio)
+    public CreadorIncapacidad(IResponsablePagoServicio responsablePagoServicio, IEmpleadoServicio empleadoServicio, IIncapacidadServicio incapacidadServicio, ISalarioMinimoServicio salarioMinimoServicio)
     {
         _responsablePagoServicio = responsablePagoServicio;
         _empleadoServicio = empleadoServicio;
         _incapacidadServicio = incapacidadServicio;
+        _salarioMinimoServicio = salarioMinimoServicio;
     }
 
     public void Crear(SolicitudIncapacidad solicitudIncapacidad)
@@ -30,8 +28,10 @@ public class CreadorIncapacidad : ICreadorIncapacidad
         List<ResponsablePago> responsablesPagos = _responsablePagoServicio.ObtenerResponsablesPago(
             solicitudIncapacidad.TipoDeIncapacidad, solicitudIncapacidad.CantidadDias);
 
+        Dinero minimoDiario = _salarioMinimoServicio.ObtenerSalarioMinimoDiario(solicitudIncapacidad.FechaInicial.Year);
+
         List<ReconocimientoEconomico> reconocimientosEconomicos = CalcularReconocimientosEconomicos(
-            empleado, solicitudIncapacidad.FechaInicial, solicitudIncapacidad.CantidadDias, responsablesPagos);
+            empleado, solicitudIncapacidad.FechaInicial, solicitudIncapacidad.CantidadDias, responsablesPagos, minimoDiario);
 
         var incapacidad = new Incapacidad(
             solicitudIncapacidad.IdEmpleado,
@@ -44,7 +44,7 @@ public class CreadorIncapacidad : ICreadorIncapacidad
         _incapacidadServicio.Guardar(incapacidad);
     }
 
-    private static List<ReconocimientoEconomico> CalcularReconocimientosEconomicos(Empleado empleado, DateTime fechaInicial, int diasDeIncapacidad, List<ResponsablePago> responsablesPagos)
+    private static List<ReconocimientoEconomico> CalcularReconocimientosEconomicos(Empleado empleado, DateTime fechaInicial, int diasDeIncapacidad, List<ResponsablePago> responsablesPagos, Dinero minimoDiario)
     {
         var reconocimientosEconomicos = new List<ReconocimientoEconomico>();
 
@@ -56,7 +56,8 @@ public class CreadorIncapacidad : ICreadorIncapacidad
                 responsablePago.DiasQueCubre(diasDeIncapacidad),
                 empleado.SalarioDiarioPorPorcentajeSalario,
                 responsablePago.ReconocimientoPorcentaje,
-                responsablePago.Responsable);
+                responsablePago.Responsable,
+                minimoDiario);
 
             reconocimientosEconomicos.Add(reconocimientoEconomico);
         }

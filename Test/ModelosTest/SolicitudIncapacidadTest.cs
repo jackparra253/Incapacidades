@@ -12,14 +12,14 @@ public class SolicitudIncapacidadTest
     [Fact]
     public void Debe_Construir_ExponerLaFechaYElTipoYaConvertidos()
     {
-        var solicitud = new SolicitudIncapacidad(2, 1, 2020, 06, 03, 4, "incapacidad del Richard");
+        const int enfermedadGeneral = 1;
+
+        var solicitud = new SolicitudIncapacidad(2, enfermedadGeneral, 2020, 06, 03, 4, "incapacidad del Richard");
 
         solicitud.FechaInicial.ShouldBe(new DateTime(2020, 06, 03));
         solicitud.TipoDeIncapacidad.ShouldBe(TipoIncapacidad.EnfermedadGeneral);
     }
 
-    // Antes, un tipo inválido se casteaba sin error, no matcheaba ningún ResponsablePago, y la
-    // incapacidad se persistía sin reconocimientos económicos y sin aviso.
     [Theory]
     [InlineData(0)]
     [InlineData(6)]
@@ -28,8 +28,9 @@ public class SolicitudIncapacidadTest
     [InlineData(300)]
     public void Debe_Construir_Fallar_Cuando_ElTipoDeIncapacidadNoExiste(int tipoIncapacidad)
     {
-        var error = Should.Throw<TipoIncapacidadInvalido>(
-            () => new SolicitudIncapacidad(2, tipoIncapacidad, 2020, 06, 03, 4, "x"));
+        Action construccion = () => new SolicitudIncapacidad(2, tipoIncapacidad, 2020, 06, 03, 4, "x");
+
+        TipoIncapacidadInvalido error = Should.Throw<TipoIncapacidadInvalido>(construccion);
 
         error.Valor.ShouldBe(tipoIncapacidad);
     }
@@ -41,18 +42,21 @@ public class SolicitudIncapacidadTest
     [InlineData(2020, 00, 10)]
     public void Debe_Construir_Fallar_Cuando_LaFechaNoExiste(int anio, int mes, int dia)
     {
-        Should.Throw<FechaInvalida>(() => new SolicitudIncapacidad(2, 1, anio, mes, dia, 4, "x"));
+        Action construccion = () => new SolicitudIncapacidad(2, 1, anio, mes, dia, 4, "x");
+
+        Should.Throw<FechaInvalida>(construccion);
     }
 
     [Fact]
     public void Debe_Construir_AceptarUnAnioBisiesto()
     {
-        new SolicitudIncapacidad(2, 1, 2020, 02, 29, 4, "x").FechaInicial
-            .ShouldBe(new DateTime(2020, 02, 29));
+        var solicitud = new SolicitudIncapacidad(2, 1, 2020, 02, 29, 4, "x");
+
+        DateTime fechaInicial = solicitud.FechaInicial;
+
+        fechaInicial.ShouldBe(new DateTime(2020, 02, 29));
     }
 
-    // Los setters pasaron a private: hay que garantizar que el payload que manda el front
-    // (Api/wwwroot/js/site.js) siga deserializando por el constructor.
     [Fact]
     public void Debe_Deserializar_ElPayloadDelFront()
     {
@@ -67,9 +71,9 @@ public class SolicitudIncapacidadTest
               "observaciones": "incapacidad del Richard"
             }
             """;
+        var opciones = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-        SolicitudIncapacidad solicitud = JsonSerializer.Deserialize<SolicitudIncapacidad>(
-            json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
+        SolicitudIncapacidad solicitud = JsonSerializer.Deserialize<SolicitudIncapacidad>(json, opciones)!;
 
         solicitud.IdEmpleado.ShouldBe(2);
         solicitud.CantidadDias.ShouldBe(4);

@@ -3,11 +3,6 @@ using Modelos.Excepciones;
 
 namespace Modelos;
 
-/// <summary>
-/// DTO del borde HTTP. Conserva la forma que manda el front (anio, mes y dia sueltos, el tipo de
-/// incapacidad como entero) pero valida una sola vez, al construirse, y expone hacia el dominio los
-/// objetos ya válidos: FechaInicial y TipoDeIncapacidad.
-/// </summary>
 public class SolicitudIncapacidad
 {
     public int IdEmpleado { get; private set; }

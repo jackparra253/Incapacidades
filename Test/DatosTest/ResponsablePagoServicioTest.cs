@@ -8,50 +8,43 @@ namespace Test.DatosTest;
 
 public class ResponsablePagoServicioTest : TestBase
 {
-    private readonly List<ResponsablePago> _responsablesPagosEsperados;
     private readonly ResponsablePagoServicio _responsablePagoServicio;
 
     public ResponsablePagoServicioTest()
     {
-        _responsablesPagosEsperados = new List<ResponsablePago>
-        {
-            new ResponsablePago(1, Entidad.EMPRESA, TipoIncapacidad.EnfermedadGeneral, 1, 2, 1m),
-            new ResponsablePago(2, Entidad.EPS, TipoIncapacidad.EnfermedadGeneral, 3, 90, 0.6666m),
-            new ResponsablePago(3, Entidad.EPS, TipoIncapacidad.EnfermedadGeneral, 91, 180, 0.5m),
-            new ResponsablePago(8, Entidad.FONDO_PENSIONES, TipoIncapacidad.EnfermedadGeneral, 181, 540, 0.5m),
-            new ResponsablePago(4, Entidad.EPS, TipoIncapacidad.LicenciaMaternidad, 1, 126, 1m),
-            new ResponsablePago(5, Entidad.EPS, TipoIncapacidad.LicenciaPaternidad, 1, 8, 1m),
-            new ResponsablePago(6, Entidad.ARL, TipoIncapacidad.EnfermedadLaboral, 1, 180, 1m),
-            new ResponsablePago(7, Entidad.ARL, TipoIncapacidad.AccidenteLaboral, 1, 180, 1m)
-        };
-
         _responsablePagoServicio = new ResponsablePagoServicio(Contexto);
     }
 
     [Fact]
-    public void Debe_ObtenerResponsablesPago_RetornaListaConResponsablePago()
+    public void Debe_ObtenerResponsablesPago_RetornarTodosLosTramosConocidos()
     {
         List<ResponsablePago> responsablesPago = _responsablePagoServicio.ObtenerResponsablesPago();
 
-        responsablesPago.Count.ShouldBe(_responsablesPagosEsperados.Count);
+        responsablesPago.Count.ShouldBe(8);
     }
 
     [Fact]
-    public void Debe_ObtenerResponsablesPago_RetornarListaResponsablesPago_CuandoSeFiltraPorTipoIncapacidadTipoSalarioYCantidadDias()
+    public void Debe_ObtenerResponsablesPago_DescartarLosTramosQueEmpiezanDespues_Cuando_SeFiltraPorDuracion()
     {
-        var responsablesPagosEsperado = new List<ResponsablePago>
-        {
-            new ResponsablePago(1, Entidad.EMPRESA, TipoIncapacidad.EnfermedadGeneral, 1, 2, 1m),
-            new ResponsablePago(2, Entidad.EPS, TipoIncapacidad.EnfermedadGeneral, 3, 90, 0.6666m),
-            new ResponsablePago(3, Entidad.EPS, TipoIncapacidad.EnfermedadGeneral, 91, 180, 0.5m)
-        };
-
         var tipoIncapacidad = TipoIncapacidad.EnfermedadGeneral;
-        var cantidadDias = 4;
+        const int cantidadDias = 4;
 
         List<ResponsablePago> responsablesPagos = _responsablePagoServicio.ObtenerResponsablesPago(tipoIncapacidad, cantidadDias);
 
         responsablesPagos.Count.ShouldBe(2);
-        responsablesPagos[0].Id.ShouldBe(responsablesPagosEsperado[0].Id);
+        responsablesPagos[0].Responsable.ShouldBe(Entidad.EMPRESA);
+        responsablesPagos[1].Responsable.ShouldBe(Entidad.EPS);
+    }
+
+    [Fact]
+    public void Debe_ObtenerResponsablesPago_IncluirAlFondoDePensiones_Cuando_LaIncapacidadPasaLosCientoOchentaDias()
+    {
+        var tipoIncapacidad = TipoIncapacidad.EnfermedadGeneral;
+        const int cantidadDias = 200;
+
+        List<ResponsablePago> responsablesPagos = _responsablePagoServicio.ObtenerResponsablesPago(tipoIncapacidad, cantidadDias);
+
+        responsablesPagos.Count.ShouldBe(4);
+        responsablesPagos[3].Responsable.ShouldBe(Entidad.FONDO_PENSIONES);
     }
 }
