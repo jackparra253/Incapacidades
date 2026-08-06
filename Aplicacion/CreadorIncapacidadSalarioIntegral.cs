@@ -42,9 +42,9 @@ namespace Aplicacion
 
             foreach (var responsablePago in responsablesPagos)
             {
-                int cantidadDias = CalcularCantidadDias(solicitudIncapacidad.CantidadDias, responsablePago);
+                int cantidadDias = responsablePago.DiasQueCubre(solicitudIncapacidad.CantidadDias);
 
-                DateTime fecha = CalcularFechaInicial(fechaIncial, solicitudIncapacidad.CantidadDias, cantidadDias, responsablePago);
+                DateTime fecha = responsablePago.FechaEnQueInicia(fechaIncial);
 
                 if (responsablePago.DiasIncapacidadFinal <= solicitudIncapacidad.CantidadDias)
                 {
@@ -75,25 +75,5 @@ namespace Aplicacion
             }
             return reconocimientosEconomicos;
         }
-
-        public int CalcularCantidadDias(int cantidadDias, ResponsablePago responsablePago)
-        {
-            if (responsablePago.DiasIncapacidadInicial == cantidadDias || responsablePago.DiasIncapacidadFinal == cantidadDias)
-                return cantidadDias;
-
-            if (responsablePago.DiasIncapacidadFinal < cantidadDias)
-                return responsablePago.DiasIncapacidadFinal;
-
-            return (cantidadDias + 1) - responsablePago.DiasIncapacidadInicial;
-        }
-
-        public DateTime CalcularFechaInicial(DateTime fecha, int cantidadDiasInicial, int cantidadDias, ResponsablePago responsablePago)
-        {
-            if (responsablePago.DiasIncapacidadInicial == cantidadDiasInicial || responsablePago.DiasIncapacidadFinal == cantidadDiasInicial || responsablePago.DiasIncapacidadFinal < cantidadDiasInicial)
-                return fecha;
-
-            return fecha.AddDays(cantidadDias - 1);
-        }
-
     }
 }

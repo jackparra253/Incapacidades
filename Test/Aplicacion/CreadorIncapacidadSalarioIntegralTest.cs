@@ -51,6 +51,32 @@ public class CreadorIncapacidadSalarioIntegralTest : TestBase
         incapacidad.ReconocimientosEconomicos[2].ResponsablePago.ShouldBe(Entidad.EMPRESA);
     }
 
+    // Regresion: con 4 dias la formula vieja arrancaba la EPS el 04/06, solapando un dia que la
+    // empresa ya habia pagado, y dejaba el 06/06 sin cubrir.
+    [Fact]
+    public void Debe_Crear_EncadenarEmpresaYEpsSinTraslape_Cuando_EsEnfermedadGeneralSalarioIntegral_4Dias()
+    {
+        var solicitudIncapacidad = new SolicitudIncapacidad(1, 1, 2020, 06, 03, 4, "incapacidad del señor Alan");
+
+        _creadorIncapacidad.Crear(solicitudIncapacidad);
+        Incapacidad incapacidad = Contexto.Incapacidades.FirstOrDefault()!;
+
+        incapacidad.FechaIncial.ShouldBe(new DateTime(2020, 06, 03));
+        incapacidad.FechaFinal.ShouldBe(new DateTime(2020, 06, 06));
+
+        incapacidad.ReconocimientosEconomicos[0].FechaInicial.ShouldBe(new DateTime(2020, 06, 03));
+        incapacidad.ReconocimientosEconomicos[0].FechaFinal.ShouldBe(new DateTime(2020, 06, 04));
+        incapacidad.ReconocimientosEconomicos[0].ResponsablePago.ShouldBe(Entidad.EMPRESA);
+
+        incapacidad.ReconocimientosEconomicos[1].FechaInicial.ShouldBe(new DateTime(2020, 06, 05));
+        incapacidad.ReconocimientosEconomicos[1].FechaFinal.ShouldBe(new DateTime(2020, 06, 06));
+        incapacidad.ReconocimientosEconomicos[1].ResponsablePago.ShouldBe(Entidad.EPS);
+
+        incapacidad.ReconocimientosEconomicos[2].FechaInicial.ShouldBe(new DateTime(2020, 06, 05));
+        incapacidad.ReconocimientosEconomicos[2].FechaFinal.ShouldBe(new DateTime(2020, 06, 06));
+        incapacidad.ReconocimientosEconomicos[2].ResponsablePago.ShouldBe(Entidad.EMPRESA);
+    }
+
     [Fact]
     public void Debe_Crear_PersistirIncapacidad_Cuando_EsLicenciaMaternidadSalarioIntegral()
     {

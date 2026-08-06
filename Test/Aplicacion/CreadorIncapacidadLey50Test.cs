@@ -41,6 +41,26 @@ public class CreadorIncapacidadLey50Test : TestBase
         incapacidad.ReconocimientosEconomicos[1].FechaFinal.ShouldBe(new DateTime(2020, 06, 06));
     }
 
+    // Regresion: con 5 dias la formula vieja arrancaba la EPS el 06/06, dejaba el 05/06 sin cubrir
+    // y terminaba el 08/06, un dia despues del fin de la incapacidad.
+    [Fact]
+    public void Debe_Crear_EncadenarEmpresaYEpsSinHuecos_Cuando_EsEnfermedadGeneralSalarioLey50_5Dias()
+    {
+        var solicitudIncapacidad = new SolicitudIncapacidad(2, 1, 2020, 06, 03, 5, "incapacidad del Richard");
+
+        _creadorIncapacidad.Crear(solicitudIncapacidad);
+        Incapacidad incapacidad = Contexto.Incapacidades.FirstOrDefault()!;
+
+        incapacidad.FechaIncial.ShouldBe(new DateTime(2020, 06, 03));
+        incapacidad.FechaFinal.ShouldBe(new DateTime(2020, 06, 07));
+
+        incapacidad.ReconocimientosEconomicos[0].FechaInicial.ShouldBe(new DateTime(2020, 06, 03));
+        incapacidad.ReconocimientosEconomicos[0].FechaFinal.ShouldBe(new DateTime(2020, 06, 04));
+
+        incapacidad.ReconocimientosEconomicos[1].FechaInicial.ShouldBe(new DateTime(2020, 06, 05));
+        incapacidad.ReconocimientosEconomicos[1].FechaFinal.ShouldBe(new DateTime(2020, 06, 07));
+    }
+
     [Fact]
     public void Debe_Crear_PersistirIncapacidad_Cuando_EsLicenciaMaternidadSalarioLey50()
     {
