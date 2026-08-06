@@ -1,25 +1,59 @@
-using System;
-using System.Collections.Generic;
+using Modelos.Excepciones;
 
-namespace Modelos.ValueObjects
+namespace Modelos.ValueObjects;
+
+public class Dinero : ValueObject
 {
-    public class Dinero : ValueObject
+    public decimal Cantidad { get; private set; }
+    public string Moneda { get; private set; } = string.Empty;
+
+    public Dinero(decimal cantidad, string moneda)
     {
-        public decimal Cantidad { get; private set; }
-        public string Moneda { get; private set; } = string.Empty;
+        if (!EsMonedaValida(moneda))
+            throw new MonedaInvalida(moneda);
 
-        public Dinero(decimal cantidad, string moneda)
-        {
-            Cantidad = cantidad;
-            Moneda = moneda;
-        }
+        Cantidad = cantidad;
+        Moneda = moneda.ToUpperInvariant();
+    }
 
-        private Dinero() { }
+    private Dinero() { }
 
-        protected override IEnumerable<object> GetEqualityComponents()
-        {
-            yield return Math.Round(Cantidad, 2);
-            yield return Moneda.ToUpper();
-        }
+    public Dinero Por(decimal factor)
+    {
+        return new Dinero(Cantidad * factor, Moneda);
+    }
+
+    public Dinero Entre(decimal divisor)
+    {
+        if (divisor == 0)
+            throw new DivideByZeroException("No se puede dividir dinero entre cero.");
+
+        return new Dinero(Cantidad / divisor, Moneda);
+    }
+
+    public Dinero Mas(Dinero otro)
+    {
+        if (!string.Equals(Moneda, otro.Moneda, StringComparison.OrdinalIgnoreCase))
+            throw new MonedasIncompatibles(Moneda, otro.Moneda);
+
+        return new Dinero(Cantidad + otro.Cantidad, Moneda);
+    }
+
+    private static bool EsMonedaValida(string moneda)
+    {
+        if (string.IsNullOrWhiteSpace(moneda) || moneda.Length != 3)
+            return false;
+
+        foreach (char caracter in moneda)
+            if (!char.IsLetter(caracter))
+                return false;
+
+        return true;
+    }
+
+    protected override IEnumerable<object> GetEqualityComponents()
+    {
+        yield return Math.Round(Cantidad, 2);
+        yield return Moneda.ToUpperInvariant();
     }
 }
