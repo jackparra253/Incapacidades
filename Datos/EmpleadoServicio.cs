@@ -3,6 +3,7 @@ using IDatos;
 using Modelos.Constantes;
 using Modelos.Entidades;
 using Modelos.Enumeracion;
+using Modelos.Excepciones;
 using Modelos.ValueObjects;
 using System.Linq;
 
@@ -28,7 +29,8 @@ namespace Datos
 
         public Empleado ObtenerEmpleado(int id)
         {
-            return ObtenerEmpleados().Where(empleado => empleado.Id == id).FirstOrDefault();
+            return ObtenerEmpleados().FirstOrDefault(empleado => empleado.Id == id)
+                ?? throw new EmpleadoNoEncontrado(id);
         }
     }
 }

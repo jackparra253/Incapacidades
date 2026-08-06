@@ -1,3 +1,4 @@
+using System;
 using Modelos.Enumeracion;
 
 namespace Modelos.Entidades
@@ -19,6 +20,16 @@ namespace Modelos.Entidades
             DiasIncapacidadInicial = diasIncapacidadInicial;
             DiasIncapacidadFinal = diasIncapacidadFinal;
             ReconocimientoPorcentaje = reconocimientoPorcentaje;
+        }
+
+        public int DiasQueCubre(int diasDeIncapacidad)
+        {
+            return Math.Min(DiasIncapacidadFinal, diasDeIncapacidad) - DiasIncapacidadInicial + 1;
+        }
+
+        public DateTime FechaEnQueInicia(DateTime fechaInicialIncapacidad)
+        {
+            return fechaInicialIncapacidad.AddDays(DiasIncapacidadInicial - 1);
         }
     }
 }

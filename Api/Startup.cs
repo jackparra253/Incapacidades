@@ -8,8 +8,6 @@ using Datos;
 using IDatos;
 using IAplicacion;
 using Aplicacion;
-using Dominio;
-using IDominio;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -33,9 +31,6 @@ namespace Api
             services.AddScoped<ICalcularFechas, CalcularFechas>();
             services.AddScoped<ICreadorIncapacidadLey50, CreadorIncapacidadLey50>();
             services.AddScoped<ICreadorIncapacidadSalarioIntegral, CreadorIncapacidadSalarioIntegral>();
-
-            //Dominio
-            services.AddScoped<ICalculadoraReconocimientoEconomico, CalculadoraReconocimientoEconomico>();
 
             //Servicios
             services.AddScoped<IIncapacidadServicio, IncapacidadServicio>();

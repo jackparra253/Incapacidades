@@ -21,6 +21,9 @@ bld/
 # JetBrains Rider
 .idea/
 
+# Claude Code
+.claude/
+
 # User-specific files
 *.rsuser
 *.suo
