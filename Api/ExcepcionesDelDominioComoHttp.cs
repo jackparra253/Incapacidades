@@ -41,6 +41,7 @@ public class ExcepcionesDelDominioComoHttp : IExceptionHandler
         {
             SolicitudInvalida => StatusCodes.Status400BadRequest,
             NoEncontrado => StatusCodes.Status404NotFound,
+            BadHttpRequestException malFormada => malFormada.StatusCode,
             _ => null
         };
     }
@@ -51,6 +52,7 @@ public class ExcepcionesDelDominioComoHttp : IExceptionHandler
         {
             SolicitudInvalida => "La solicitud no es válida",
             NoEncontrado => "No se encontró lo que se pidió",
+            BadHttpRequestException => "No se pudo leer la solicitud",
             _ => "Error"
         };
     }

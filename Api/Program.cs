@@ -1,16 +1,34 @@
+using Api.Empleados;
+using Api.Incapacidades;
+using Api.Liquidacion;
+
 namespace Api;
 
 public class Program
 {
     public static void Main(string[] args)
     {
-        CreateHostBuilder(args).Build().Run();
-    }
+        WebApplicationBuilder constructor = WebApplication.CreateBuilder(args);
 
-    public static IHostBuilder CreateHostBuilder(string[] args) =>
-        Host.CreateDefaultBuilder(args)
-            .ConfigureWebHostDefaults(webBuilder =>
-            {
-                webBuilder.UseStartup<Startup>();
-            });
+        constructor.Services.AgregarBitakora(constructor.Configuration);
+
+        WebApplication app = constructor.Build();
+
+        if (app.Environment.IsDevelopment())
+            app.UseDeveloperExceptionPage();
+
+        app.UseExceptionHandler();
+
+        app.UseDefaultFiles();
+
+        app.UseStaticFiles();
+
+        app.UseHttpsRedirection();
+
+        app.MapearEmpleados();
+        app.MapearIncapacidades();
+        app.MapearLiquidacion();
+
+        app.Run();
+    }
 }
