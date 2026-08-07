@@ -3,7 +3,7 @@ using System;
 
 namespace Bitakora.Liquidacion;
 
-public class DiasSinResponsableDePago : Exception
+public class DiasSinResponsableDePago : SolicitudInvalida
 {
     public TipoIncapacidad TipoIncapacidad { get; }
     public int CantidadDias { get; }

@@ -88,16 +88,33 @@ que la empresa paga aparte al 100%.
 
 Fuente: [MinJusticia — Cómo y quién paga el salario durante una incapacidad laboral](https://www.minjusticia.gov.co/programas-co/LegalApp/Paginas/Como-y-quien-paga-el-salario-durante-una-incapacidad-laboral.aspx)
 
+## Errores
+
+El dominio distingue dos clases de falla que el que llama **puede** corregir, y la Api las traduce a
+HTTP en `ExcepcionesDelDominioComoHttp`. La distinción vive en el dominio (`SolicitudInvalida`,
+`NoEncontrado`); el código de estado es cosa de la Api.
+
+| Excepción hereda de | HTTP | Ejemplos |
+| --- | --- | --- |
+| `SolicitudInvalida` | `400` | `CantidadDiasInvalida`, `FechaInvalida`, `TipoIncapacidadInvalido`, `DiasSinResponsableDePago` |
+| `NoEncontrado` | `404` | `EmpleadoNoEncontrado` |
+| cualquier otra | `500` | `SalarioMinimoDesconocido`, `MonedaInvalida`, `IncapacidadSinReconocimientos` |
+
+Las dos primeras responden `application/problem+json` con el mensaje de la excepción en `detail`, y
+el front lo muestra tal cual. Las demás son fallas internas: devuelven un 500 genérico y **no** filtran
+el mensaje.
+
+Una excepción nueva no obliga a tocar la Api: alcanza con heredar de la base que corresponda.
+
 ## Limitaciones conocidas
 
-- **Las excepciones de dominio salen como HTTP 500.** No hay mapeo excepción→estado, así que una
-  solicitud con datos inválidos —tipo inexistente, 0 días, más días de los que cubre su tipo— devuelve
-  500 cuando le correspondería 400.
 - **Empleados y responsables de pago están hardcodeados** en `EmpleadoServicio` y
   `ResponsablePagoServicio`. Solo las incapacidades y sus reconocimientos van a la base.
 - **No existe el concepto de sector.** Los días 1–2 se pagan al 100%, que es la regla del sector
   público; en el privado la fuente sostiene 66.66%. No se arregla cambiando un número: falta el ente
   que represente la distinción.
 - **`SalarioMinimoServicio` solo conoce 2026 y 2020.** Cualquier otro año lanza
-  `SalarioMinimoDesconocido`, a propósito, para no liquidar contra un mínimo equivocado.
+  `SalarioMinimoDesconocido`, a propósito, para no liquidar contra un mínimo equivocado. Hoy sale como
+  500 porque es un hueco del sistema, no un error del que llama; si algún día se decide que el cliente
+  debe verlo, basta con reparentarla a `SolicitudInvalida`.
 - **Qué pasa después del día 540** no está definido por ninguna de las fuentes consultadas.

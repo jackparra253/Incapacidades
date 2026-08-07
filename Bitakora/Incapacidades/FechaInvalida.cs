@@ -2,7 +2,7 @@ using System;
 
 namespace Bitakora.Incapacidades;
 
-public class FechaInvalida : Exception
+public class FechaInvalida : SolicitudInvalida
 {
     public int Anio { get; }
     public int Mes { get; }

@@ -22,10 +22,17 @@ function pedirJson(ruta) {
 }
 
 function exigirRespuestaExitosa(respuesta) {
-    if (!respuesta.ok)
-        throw new Error(`${respuesta.status} ${respuesta.statusText}`);
+    if (respuesta.ok)
+        return respuesta;
 
-    return respuesta;
+    return motivoDelFallo(respuesta).then(motivo => { throw new Error(motivo); });
+}
+
+function motivoDelFallo(respuesta) {
+    return respuesta.json()
+        .then(problema => problema.detail || problema.title)
+        .catch(() => null)
+        .then(motivo => motivo || `${respuesta.status} ${respuesta.statusText}`);
 }
 
 function guardarEmpleados(empleadosRecibidos) {

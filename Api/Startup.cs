@@ -27,6 +27,9 @@ public class Startup
         services.AddScoped<IEmpleadoServicio, EmpleadoServicio>();
         services.AddScoped<IResponsablePagoServicio, ResponsablePagoServicio>();
         services.AddScoped<ISalarioMinimoServicio, SalarioMinimoServicio>();
+        services.AddProblemDetails();
+        services.AddExceptionHandler<ExcepcionesDelDominioComoHttp>();
+
         services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true);
         services.AddDbContext<IncapacidadesContext>(options => options.UseSqlite(Configuration.GetConnectionString("IncapacidadesContext"), b => b.MigrationsAssembly("Api")));
 
@@ -39,6 +42,8 @@ public class Startup
         {
             app.UseDeveloperExceptionPage();
         }
+
+        app.UseExceptionHandler();
 
         app.UseDefaultFiles();
 

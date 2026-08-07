@@ -2,7 +2,7 @@ using System;
 
 namespace Bitakora.Incapacidades;
 
-public class TipoIncapacidadInvalido : Exception
+public class TipoIncapacidadInvalido : SolicitudInvalida
 {
     public int Valor { get; }
 

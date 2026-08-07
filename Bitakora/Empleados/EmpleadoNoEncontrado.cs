@@ -1,6 +1,6 @@
 namespace Bitakora.Empleados;
 
-public class EmpleadoNoEncontrado : Exception
+public class EmpleadoNoEncontrado : NoEncontrado
 {
     public int IdEmpleado { get; }
 
