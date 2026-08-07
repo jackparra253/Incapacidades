@@ -47,6 +47,27 @@ public class SolicitudIncapacidadTest
         Should.Throw<FechaInvalida>(construccion);
     }
 
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-1)]
+    [InlineData(-30)]
+    public void Debe_Construir_Fallar_Cuando_LaCantidadDeDiasNoLlegaAUno(int cantidadDias)
+    {
+        Action construccion = () => new SolicitudIncapacidad(2, 1, 2020, 06, 03, cantidadDias, "x");
+
+        CantidadDiasInvalida error = Should.Throw<CantidadDiasInvalida>(construccion);
+
+        error.Valor.ShouldBe(cantidadDias);
+    }
+
+    [Fact]
+    public void Debe_Construir_AceptarUnaIncapacidadDeUnSoloDia()
+    {
+        var solicitud = new SolicitudIncapacidad(2, 1, 2020, 06, 03, 1, "x");
+
+        solicitud.CantidadDias.ShouldBe(1);
+    }
+
     [Fact]
     public void Debe_Construir_AceptarUnAnioBisiesto()
     {

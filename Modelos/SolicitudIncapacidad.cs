@@ -20,13 +20,13 @@ public class SolicitudIncapacidad
     {
         FechaInicial = ConstruirFecha(anio, mes, dia);
         TipoDeIncapacidad = ConvertirTipoIncapacidad(tipoIncapacidad);
+        CantidadDias = ValidarCantidadDias(cantidadDias);
 
         IdEmpleado = idEmpleado;
         TipoIncapacidad = tipoIncapacidad;
         Anio = anio;
         Mes = mes;
         Dia = dia;
-        CantidadDias = cantidadDias;
         Observaciones = observaciones;
     }
 
@@ -53,5 +53,13 @@ public class SolicitudIncapacidad
             throw new TipoIncapacidadInvalido(tipoIncapacidad);
 
         return (TipoIncapacidad)tipoIncapacidad;
+    }
+
+    private static int ValidarCantidadDias(int cantidadDias)
+    {
+        if (cantidadDias < 1)
+            throw new CantidadDiasInvalida(cantidadDias);
+
+        return cantidadDias;
     }
 }

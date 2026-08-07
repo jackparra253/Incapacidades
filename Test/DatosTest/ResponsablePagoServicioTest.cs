@@ -1,6 +1,7 @@
 using Datos;
 using Modelos.Entidades;
 using Modelos.Enumeracion;
+using Modelos.Excepciones;
 using Shouldly;
 using Xunit;
 
@@ -46,5 +47,47 @@ public class ResponsablePagoServicioTest : TestBase
 
         responsablesPagos.Count.ShouldBe(4);
         responsablesPagos[3].Responsable.ShouldBe(Entidad.FONDO_PENSIONES);
+    }
+
+    [Fact]
+    public void Debe_ObtenerResponsablesPago_Fallar_Cuando_LaEnfermedadGeneralPasaElDiaQuinientosCuarenta()
+    {
+        var tipoIncapacidad = TipoIncapacidad.EnfermedadGeneral;
+        const int cantidadDias = 600;
+
+        Action consulta = () => _responsablePagoServicio.ObtenerResponsablesPago(tipoIncapacidad, cantidadDias);
+
+        DiasSinResponsableDePago error = Should.Throw<DiasSinResponsableDePago>(consulta);
+
+        error.UltimoDiaCubierto.ShouldBe(540);
+        error.CantidadDias.ShouldBe(600);
+    }
+
+    [Theory]
+    [InlineData(TipoIncapacidad.EnfermedadLaboral, 181, 180)]
+    [InlineData(TipoIncapacidad.AccidenteLaboral, 181, 180)]
+    [InlineData(TipoIncapacidad.LicenciaMaternidad, 127, 126)]
+    [InlineData(TipoIncapacidad.LicenciaPaternidad, 9, 8)]
+    public void Debe_ObtenerResponsablesPago_Fallar_Cuando_LaIncapacidadPasaElUltimoTramoDeSuTipo(
+        TipoIncapacidad tipoIncapacidad, int cantidadDias, int ultimoDiaCubierto)
+    {
+        Action consulta = () => _responsablePagoServicio.ObtenerResponsablesPago(tipoIncapacidad, cantidadDias);
+
+        DiasSinResponsableDePago error = Should.Throw<DiasSinResponsableDePago>(consulta);
+
+        error.UltimoDiaCubierto.ShouldBe(ultimoDiaCubierto);
+    }
+
+    [Theory]
+    [InlineData(TipoIncapacidad.EnfermedadGeneral, 540)]
+    [InlineData(TipoIncapacidad.EnfermedadLaboral, 180)]
+    [InlineData(TipoIncapacidad.AccidenteLaboral, 180)]
+    [InlineData(TipoIncapacidad.LicenciaMaternidad, 126)]
+    [InlineData(TipoIncapacidad.LicenciaPaternidad, 8)]
+    public void Debe_ObtenerResponsablesPago_AceptarElUltimoDiaCubierto(TipoIncapacidad tipoIncapacidad, int cantidadDias)
+    {
+        List<ResponsablePago> responsablesPagos = _responsablePagoServicio.ObtenerResponsablesPago(tipoIncapacidad, cantidadDias);
+
+        responsablesPagos[^1].DiasIncapacidadFinal.ShouldBe(cantidadDias);
     }
 }

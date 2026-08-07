@@ -4,6 +4,8 @@ using IDatos;
 using Modelos;
 using Modelos.Constantes;
 using Modelos.Entidades;
+using Modelos.Enumeracion;
+using Modelos.Excepciones;
 using Modelos.ValueObjects;
 using Shouldly;
 using Xunit;
@@ -89,5 +91,31 @@ public class CreadorIncapacidadSalarioOrdinarioTest : TestBase
         (new Dinero(800_000m, Moneda.COP) == incapacidad.ReconocimientosEconomicos[0].ValorAPagar).ShouldBeTrue();
         incapacidad.FechaIncial.ShouldBe(new DateTime(2020, 06, 03));
         incapacidad.FechaFinal.ShouldBe(new DateTime(2020, 06, 10));
+    }
+
+    [Fact]
+    public void Debe_Crear_LiquidarLosCuatroTramos_Cuando_LaEnfermedadGeneralLlegaAlFondoDePensiones()
+    {
+        var solicitudIncapacidad = new SolicitudIncapacidad(Richard, EnfermedadGeneral, 2020, 06, 03, 200, "incapacidad del Richard");
+
+        _creadorIncapacidad.Crear(solicitudIncapacidad);
+
+        Incapacidad incapacidad = IncapacidadPersistida();
+        incapacidad.ReconocimientosEconomicos.Count.ShouldBe(4);
+        incapacidad.ReconocimientosEconomicos[3].ResponsablePago.ShouldBe(Entidad.FONDO_PENSIONES);
+        incapacidad.ReconocimientosEconomicos[3].FechaInicial.ShouldBe(new DateTime(2020, 11, 30));
+        incapacidad.ReconocimientosEconomicos[3].FechaFinal.ShouldBe(new DateTime(2020, 12, 19));
+        incapacidad.FechaFinal.ShouldBe(new DateTime(2020, 12, 19));
+    }
+
+    [Fact]
+    public void Debe_Crear_NoPersistirNada_Cuando_LaIncapacidadQuedaSinResponsableDePago()
+    {
+        var solicitudIncapacidad = new SolicitudIncapacidad(Richard, EnfermedadGeneral, 2020, 06, 03, 600, "incapacidad del Richard");
+
+        Action creacion = () => _creadorIncapacidad.Crear(solicitudIncapacidad);
+
+        Should.Throw<DiasSinResponsableDePago>(creacion);
+        Contexto.Incapacidades.ShouldBeEmpty();
     }
 }

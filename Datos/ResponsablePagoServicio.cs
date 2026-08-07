@@ -1,6 +1,7 @@
 using IDatos;
 using Modelos.Entidades;
 using Modelos.Enumeracion;
+using Modelos.Excepciones;
 
 namespace Datos;
 
@@ -30,10 +31,19 @@ public class ResponsablePagoServicio : IResponsablePagoServicio
 
     public List<ResponsablePago> ObtenerResponsablesPago(TipoIncapacidad tipoIncapacidad, int cantidadDias)
     {
-        return ObtenerResponsablesPago()
-            .Where(responsablePago => responsablePago.TipoIncapacidad == tipoIncapacidad 
+        List<ResponsablePago> responsablesPagos = ObtenerResponsablesPago()
+            .Where(responsablePago => responsablePago.TipoIncapacidad == tipoIncapacidad
                                       && responsablePago.DiasIncapacidadInicial <= cantidadDias)
-            .OrderBy(rp => rp.DiasIncapacidadInicial)
+            .OrderBy(responsablePago => responsablePago.DiasIncapacidadInicial)
             .ToList();
+
+        int ultimoDiaCubierto = responsablesPagos.Count == 0
+            ? 0
+            : responsablesPagos[^1].DiasIncapacidadFinal;
+
+        if (ultimoDiaCubierto < cantidadDias)
+            throw new DiasSinResponsableDePago(tipoIncapacidad, cantidadDias, ultimoDiaCubierto);
+
+        return responsablesPagos;
     }
 }
