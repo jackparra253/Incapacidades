@@ -1,6 +1,6 @@
+using Bitakora.Empleados;
 using Microsoft.AspNetCore.Mvc;
-using Modelos.Entidades;
-using IAplicacion;
+
 namespace Api.Controllers;
 
 [ApiController]
