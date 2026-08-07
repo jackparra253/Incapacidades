@@ -169,6 +169,7 @@ function filaDeIncapacidad(incapacidad) {
         incapacidad.fechaInicial,
         incapacidad.fechaFinal,
         incapacidad.cantidadDias,
+        formatearDinero(incapacidad.totalAPagar),
         botonDeProrroga(incapacidad.id)
     ];
 }

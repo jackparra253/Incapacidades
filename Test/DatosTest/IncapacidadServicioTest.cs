@@ -38,6 +38,16 @@ public class IncapacidadServicioTest : TestBase
     }
 
     [Fact]
+    public void Debe_ObtenerIncapacidadesDetalle_LlevarElTotalAPagar_Cuando_SeLeeDesdeLaBase()
+    {
+        Contexto.ChangeTracker.Clear();
+
+        List<DetalleIncapacidad> incapacidadesDetalle = _incapacidadServicio.ObtenerIncapacidadesDetalle(Alan);
+
+        incapacidadesDetalle[0].TotalAPagar.ShouldBe(new Dinero(1_000_000m, Moneda.COP));
+    }
+
+    [Fact]
     public void Debe_ObtenerReconocimientosEconomicosDetalle_TraducirElResponsableYConservarElValor()
     {
         List<DetalleReconocimientoEconomico> reconocimientosEconomicosDetalle = _incapacidadServicio.ObtenerReconocimientosEconomicosDetalle(Alan);

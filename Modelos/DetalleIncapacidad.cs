@@ -1,3 +1,5 @@
+using Modelos.ValueObjects;
+
 namespace Modelos;
 
 public class DetalleIncapacidad
@@ -7,14 +9,16 @@ public class DetalleIncapacidad
     public string FechaInicial { get; private set; } = string.Empty;
     public string FechaFinal { get; private set; } = string.Empty;
     public int CantidadDias { get; private set; }
+    public Dinero TotalAPagar { get; private set; } = null!;
 
-    public DetalleIncapacidad(int id,string tipo,string fechaInicial, string fechaFinal, int cantidadDias)
+    public DetalleIncapacidad(int id,string tipo,string fechaInicial, string fechaFinal, int cantidadDias, Dinero totalAPagar)
     {
         Id = id;
         Tipo = tipo;
         FechaInicial = fechaInicial;
         FechaFinal = fechaFinal;
         CantidadDias = cantidadDias;
+        TotalAPagar = totalAPagar;
     }
 
 }

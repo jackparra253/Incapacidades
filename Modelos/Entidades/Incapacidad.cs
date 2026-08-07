@@ -1,4 +1,6 @@
 using Modelos.Enumeracion;
+using Modelos.Excepciones;
+using Modelos.ValueObjects;
 
 namespace Modelos.Entidades;
 
@@ -15,6 +17,9 @@ public class Incapacidad
     public IReadOnlyList<ReconocimientoEconomico> ReconocimientosEconomicos => _reconocimientosEconomicos;
     public Incapacidad(int idEmpleado, TipoIncapacidad tipoIncapacidad, DateTime fechaInicial, int cantidadDias, string observaciones,List<ReconocimientoEconomico> reconocimientosEconomicos)
     {
+        if (reconocimientosEconomicos.Count == 0)
+            throw new IncapacidadSinReconocimientos(idEmpleado, fechaInicial);
+
         IdEmpleado = idEmpleado;
         TipoIncapacidad = tipoIncapacidad;
         FechaIncial = fechaInicial;
@@ -22,6 +27,16 @@ public class Incapacidad
         CantidadDias = cantidadDias;
         Observaciones = observaciones;
         _reconocimientosEconomicos.AddRange(reconocimientosEconomicos);
+    }
+
+    public Dinero TotalAPagar()
+    {
+        if (_reconocimientosEconomicos.Count == 0)
+            throw new IncapacidadSinReconocimientos(IdEmpleado, FechaIncial);
+
+        return _reconocimientosEconomicos
+            .Select(reconocimientoEconomico => reconocimientoEconomico.ValorAPagar)
+            .Aggregate((total, valorAPagar) => total.Mas(valorAPagar));
     }
 
     private Incapacidad(){}

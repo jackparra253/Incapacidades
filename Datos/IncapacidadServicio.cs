@@ -1,4 +1,5 @@
 using IDatos;
+using Microsoft.EntityFrameworkCore;
 using Modelos.Entidades;
 using Modelos;
 using Modelos.Enumeracion;
@@ -24,13 +25,18 @@ public class IncapacidadServicio : IIncapacidadServicio
 
     public List<DetalleIncapacidad> ObtenerIncapacidadesDetalle(int idEmpleado)
     {
-        List<DetalleIncapacidad> incapacidadesDetalle = _contexto.Incapacidades
-            .Where(i => i.IdEmpleado == idEmpleado)
-            .Select(i => new DetalleIncapacidad(i.IncapacidadId,
-                (TransformarATextoTipoIncapacida(i.TipoIncapacidad)),
-                i.FechaIncial.ToShortDateString(),
-                i.FechaFinal.ToShortDateString(),
-                i.CantidadDias))
+        List<Incapacidad> incapacidades = _contexto.Incapacidades
+            .Include(incapacidad => incapacidad.ReconocimientosEconomicos)
+            .Where(incapacidad => incapacidad.IdEmpleado == idEmpleado)
+            .ToList();
+
+        List<DetalleIncapacidad> incapacidadesDetalle = incapacidades
+            .Select(incapacidad => new DetalleIncapacidad(incapacidad.IncapacidadId,
+                TransformarATextoTipoIncapacida(incapacidad.TipoIncapacidad),
+                incapacidad.FechaIncial.ToShortDateString(),
+                incapacidad.FechaFinal.ToShortDateString(),
+                incapacidad.CantidadDias,
+                incapacidad.TotalAPagar()))
             .ToList();
 
         return incapacidadesDetalle;
