@@ -1,6 +1,7 @@
 using Api.Empleados;
 using Api.Incapacidades;
 using Api.Liquidacion;
+using Scalar.AspNetCore;
 
 namespace Api;
 
@@ -28,6 +29,9 @@ public class Program
         app.MapearEmpleados();
         app.MapearIncapacidades();
         app.MapearLiquidacion();
+
+        app.MapOpenApi();
+        app.MapScalarApiReference();
 
         app.Run();
     }
