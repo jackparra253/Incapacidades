@@ -1,10 +1,6 @@
-using System;
+namespace IAplicacion;
 
-namespace IAplicacion
+public interface ICalcularFechas
 {
-    public interface ICalcularFechas
-    {
-        DateTime CalcularSiguienteFecha(DateTime fechaInicial, int cantidadDias);
-    }
-
+    DateTime CalcularSiguienteFecha(DateTime fechaInicial, int cantidadDias);
 }

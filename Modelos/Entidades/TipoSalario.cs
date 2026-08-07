@@ -1,30 +1,24 @@
-
 using Modelos.Enumeracion;
 
-namespace Modelos.Entidades
+namespace Modelos.Entidades;
+
+public abstract class TipoSalario
 {
-    public class TipoSalario
-    {
-        public Tipo Tipo { get; private set; }
+    public abstract Tipo Tipo { get; }
+    public abstract decimal PorcentajeSalario { get; }
+    public abstract decimal PorcentajeCompensacion { get; }
+}
 
-        public decimal PorcentajeSalario { get; private set; }
-        public decimal PorcentajeCompensacion { get; private set; }
+public class SalarioLey50 : TipoSalario
+{
+    public override Tipo Tipo => Tipo.Ley50;
+    public override decimal PorcentajeSalario => 1m;
+    public override decimal PorcentajeCompensacion => 0m;
+}
 
-        public TipoSalario(Tipo tipo)
-        {
-            Tipo = tipo;
-
-            if (tipo == Tipo.Ley50)
-                AsignarPorcentajeSalarioYPorcentajeCompesacion(1, 0);
-
-            if (tipo == Tipo.Integral)
-                AsignarPorcentajeSalarioYPorcentajeCompesacion(0.7m, 0.3m);
-        }
-
-        private void AsignarPorcentajeSalarioYPorcentajeCompesacion(decimal porcentajeSalario, decimal porcentajeCompensacion)
-        {
-            PorcentajeSalario = porcentajeSalario;
-            PorcentajeCompensacion = porcentajeCompensacion;
-        }
-    }
+public class SalarioIntegral : TipoSalario
+{
+    public override Tipo Tipo => Tipo.Integral;
+    public override decimal PorcentajeSalario => 0.7m;
+    public override decimal PorcentajeCompensacion => 0.3m;
 }

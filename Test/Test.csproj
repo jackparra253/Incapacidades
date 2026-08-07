@@ -16,7 +16,8 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageReference Include="Shouldly" Version="4.2.1" />
     <PackageReference Include="NSubstitute" Version="5.3.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.10" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.5" />
     <PackageReference Include="coverlet.collector" Version="6.0.2">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -26,11 +27,9 @@
     <ProjectReference Include="..\Datos\Datos.csproj" />
     <ProjectReference Include="..\Modelos\Modelos.csproj" />
     <ProjectReference Include="..\IDatos\IDatos.csproj" />
-    <ProjectReference Include="..\Dominio\Dominio.csproj" />
     <ProjectReference Include="..\IAplicacion\IAplicacion.csproj" />
     <ProjectReference Include="..\Aplicacion\Aplicacion.csproj" />
     <ProjectReference Include="..\Api\Api.csproj" />
-    <ProjectReference Include="..\IDominio\IDominio.csproj" />
   </ItemGroup>
 
 </Project>
