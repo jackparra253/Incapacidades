@@ -57,8 +57,22 @@ proyectos es `Api → Bitakora`.
 | `Bitakora/Liquidacion` | `ReconocimientoEconomico`, `ResponsablePago`, `ResponsablePagoServicio` |
 | `Bitakora/Salarios` | `Dinero`, `ValueObject`, `SalarioMinimoServicio` |
 | `Bitakora/Persistencia` | `IncapacidadesContext` — lo único que sabe de EF Core |
-| `Api/` | Controllers, `Startup`, migraciones y el front estático en `wwwroot/` |
+| `Api/` | Minimal API: los endpoints, agrupados igual que el dominio |
 | `Test/` | Espeja las carpetas del dominio |
+
+La `Api` usa **Minimal API**, con los endpoints repartidos en archivos por concepto del negocio en
+vez de en controllers. `Program.cs` solo arma el pipeline y llama a los tres mapeos:
+
+| Archivo | Endpoints |
+| --- | --- |
+| `Api/Empleados/EmpleadosEnHttp.cs` | `GET /Empleado` |
+| `Api/Incapacidades/IncapacidadesEnHttp.cs` | `POST /Incapacidad`, `GET /IncapacidadConsulta/{id}`, `GET /CalcularFechas` |
+| `Api/Liquidacion/LiquidacionEnHttp.cs` | `GET /ReconocimientoEconomico/{id}` |
+| `Api/ServiciosDeBitakora.cs` | Las registraciones del contenedor |
+
+Son clases estáticas con métodos de extensión: no son objetos del dominio, son cableado. A
+propósito **no** hay un `IEndpointDefinition` con auto-registro por reflexión — con 5 endpoints ese
+patrón resolvería un problema que acá no existe, y cambiaría tres llamadas legibles por magia.
 
 La carpeta del dinero se llama `Salarios` por una restricción del compilador, no de diseño: un
 namespace `Bitakora.Dinero` que contenga la clase `Dinero` haría que cualquier `Dinero` sin calificar
