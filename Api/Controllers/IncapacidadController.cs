@@ -1,6 +1,5 @@
-using IAplicacion;
+using Bitakora.Incapacidades;
 using Microsoft.AspNetCore.Mvc;
-using Modelos;
 
 namespace Api.Controllers;
 

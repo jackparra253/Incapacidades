@@ -1,6 +1,6 @@
+using Bitakora.Incapacidades;
+using Bitakora.Liquidacion;
 using Microsoft.AspNetCore.Mvc;
-using Modelos;
-using IDatos;
 
 namespace Api.Controllers;
 

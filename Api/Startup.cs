@@ -1,8 +1,9 @@
+using Bitakora.Empleados;
+using Bitakora.Incapacidades;
+using Bitakora.Liquidacion;
+using Bitakora.Persistencia;
+using Bitakora.Salarios;
 using Microsoft.EntityFrameworkCore;
-using Datos;
-using IDatos;
-using IAplicacion;
-using Aplicacion;
 
 namespace Api;
 
