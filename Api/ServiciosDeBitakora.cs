@@ -4,6 +4,7 @@ using Bitakora.Liquidacion;
 using Bitakora.Persistencia;
 using Bitakora.Salarios;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi;
 
 namespace Api;
 
@@ -22,6 +23,19 @@ public static class ServiciosDeBitakora
 
         servicios.AddProblemDetails();
         servicios.AddExceptionHandler<ExcepcionesDelDominioComoHttp>();
+
+        servicios.AddOpenApi(opciones => opciones.AddDocumentTransformer(
+            (documento, _, _) =>
+            {
+                documento.Info = new OpenApiInfo
+                {
+                    Title = "Bitákora — Incapacidades",
+                    Version = "v1",
+                    Description = "Liquidación de incapacidades laborales según la normativa colombiana."
+                };
+
+                return Task.CompletedTask;
+            }));
 
         servicios.ConfigureHttpJsonOptions(opciones => opciones.SerializerOptions.WriteIndented = true);
 

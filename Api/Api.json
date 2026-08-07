@@ -1,0 +1,561 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "Bitákora — Incapacidades",
+    "description": "Liquidación de incapacidades laborales según la normativa colombiana.",
+    "version": "v1"
+  },
+  "paths": {
+    "/Empleado": {
+      "get": {
+        "tags": [
+          "Api"
+        ],
+        "summary": "Lista los empleados con su salario ya desagregado",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Empleado"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Incapacidad": {
+      "post": {
+        "tags": [
+          "Api"
+        ],
+        "summary": "Liquida una incapacidad y la guarda con sus reconocimientos económicos",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudIncapacidad"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IncapacidadConsulta/{idEmpleado}": {
+      "get": {
+        "tags": [
+          "Api"
+        ],
+        "summary": "Incapacidades de un empleado, con el total a pagar de cada una",
+        "parameters": [
+          {
+            "name": "idEmpleado",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DetalleIncapacidad"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/CalcularFechas": {
+      "get": {
+        "tags": [
+          "Api"
+        ],
+        "summary": "Fecha en que termina un período que empieza en la fecha dada",
+        "parameters": [
+          {
+            "name": "anio",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          },
+          {
+            "name": "mes",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          },
+          {
+            "name": "dia",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          },
+          {
+            "name": "cantidadDias",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ReconocimientoEconomico/{idEmpleado}": {
+      "get": {
+        "tags": [
+          "Api"
+        ],
+        "summary": "Reconocimientos económicos de un empleado, con su responsable de pago",
+        "parameters": [
+          {
+            "name": "idEmpleado",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DetalleReconocimientoEconomico"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DetalleIncapacidad": {
+        "required": [
+          "id",
+          "tipo",
+          "fechaInicial",
+          "fechaFinal",
+          "cantidadDias",
+          "totalAPagar"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "tipo": {
+            "type": "string"
+          },
+          "fechaInicial": {
+            "type": "string"
+          },
+          "fechaFinal": {
+            "type": "string"
+          },
+          "cantidadDias": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "totalAPagar": {
+            "$ref": "#/components/schemas/Dinero"
+          }
+        }
+      },
+      "DetalleReconocimientoEconomico": {
+        "required": [
+          "idIncapacidad",
+          "fechaInicial",
+          "fechaFinal",
+          "valorAPagar",
+          "responsablePago"
+        ],
+        "type": "object",
+        "properties": {
+          "idIncapacidad": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "fechaInicial": {
+            "type": "string"
+          },
+          "fechaFinal": {
+            "type": "string"
+          },
+          "valorAPagar": {
+            "$ref": "#/components/schemas/Dinero"
+          },
+          "responsablePago": {
+            "type": "string"
+          }
+        }
+      },
+      "Dinero": {
+        "required": [
+          "cantidad",
+          "moneda"
+        ],
+        "type": "object",
+        "properties": {
+          "cantidad": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "moneda": {
+            "type": "string"
+          }
+        }
+      },
+      "Empleado": {
+        "required": [
+          "id",
+          "nombres",
+          "apellidos",
+          "salario",
+          "tipoSalario"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "nombres": {
+            "type": "string"
+          },
+          "apellidos": {
+            "type": "string"
+          },
+          "salario": {
+            "$ref": "#/components/schemas/Dinero"
+          },
+          "salarioDiario": {
+            "$ref": "#/components/schemas/Dinero"
+          },
+          "salarioDiarioPorPorcentajeSalario": {
+            "$ref": "#/components/schemas/Dinero"
+          },
+          "salarioDiarioPorPorcentajeCompensacion": {
+            "$ref": "#/components/schemas/Dinero"
+          },
+          "tipoSalario": {
+            "$ref": "#/components/schemas/TipoSalario"
+          }
+        }
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "title": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "status": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "detail": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "instance": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "SolicitudIncapacidad": {
+        "required": [
+          "idEmpleado",
+          "tipoIncapacidad",
+          "anio",
+          "mes",
+          "dia",
+          "cantidadDias",
+          "observaciones"
+        ],
+        "type": "object",
+        "properties": {
+          "idEmpleado": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "tipoIncapacidad": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "anio": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "mes": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "dia": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "cantidadDias": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "observaciones": {
+            "type": "string"
+          },
+          "fechaInicial": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "tipoDeIncapacidad": {
+            "$ref": "#/components/schemas/TipoIncapacidad"
+          }
+        }
+      },
+      "Tipo": {
+        "type": "integer"
+      },
+      "TipoIncapacidad": {
+        "type": "integer"
+      },
+      "TipoSalario": {
+        "type": "object",
+        "properties": {
+          "tipo": {
+            "$ref": "#/components/schemas/Tipo"
+          },
+          "porcentajeSalario": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "porcentajeCompensacion": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Api"
+    }
+  ]
+}
