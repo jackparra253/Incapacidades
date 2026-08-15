@@ -59,6 +59,10 @@ con `signal<Order | null>(null)` y setters · `TestBed` en casi todos los tests 
 
 ## Ver también
 
+- `references/angular-best-practices.md` — checklist de idiomas del framework, del equipo de Angular:
+  `input()`/`output()`, objeto `host`, `@if`/`@for`, `inject()`, `strict`, a11y. Responde *cómo* se
+  escribe la capa Angular, no *dónde* vive el modelo. Único roce: recomienda el async pipe, que empuja
+  el estado al template — ahí gana la conversión en la frontera (H4).
 - `tdd` — el ciclo; `naming` — nombrar en el refactor.
 - `h1-object-per-entity`, `h3-valid-objects`, `h4-no-null`, `h5-immutable-objects`, `h6-encapsulation`.
 - `why-heuristics` — en una app chica, colapsar `application/` es un trade-off legítimo.
