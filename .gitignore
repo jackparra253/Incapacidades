@@ -22,7 +22,8 @@ bld/
 .idea/
 
 # Claude Code
-.claude/
+.claude/*
+!.claude/skills/
 
 # User-specific files
 *.rsuser
