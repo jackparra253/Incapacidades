@@ -1,0 +1,33 @@
+.pantalla {
+  display: grid;
+  grid-template-columns: minmax(16rem, 1fr) 2fr;
+  gap: 1rem;
+  padding: 1rem;
+  align-items: start;
+}
+
+.error {
+  color: var(--mat-sys-error);
+}
+
+dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 1rem;
+  margin: 0;
+}
+
+dt {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+dd {
+  margin: 0;
+  font: var(--mat-sys-body-large);
+}
+
+@media (max-width: 40rem) {
+  .pantalla {
+    grid-template-columns: 1fr;
+  }
+}

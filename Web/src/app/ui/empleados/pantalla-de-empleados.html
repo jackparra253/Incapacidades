@@ -1,0 +1,48 @@
+<div class="pantalla">
+  <mat-card class="listado">
+    <mat-card-header>
+      <mat-card-title>Empleados</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      @if (listado().estaCargando()) {
+        <mat-progress-bar mode="indeterminate" aria-label="Consultando los empleados"></mat-progress-bar>
+      } @else if (listado().fallo()) {
+        <p class="error" role="alert">No se pudo consultar los empleados: {{ listado().motivoDelError() }}</p>
+      } @else if (listado().hayEmpleados()) {
+        <mat-selection-list [multiple]="false">
+          @for (empleado of listado().empleadosAMostrar(); track empleado) {
+            <mat-list-option
+              [selected]="seleccion().esElElegido(empleado)"
+              (click)="elegir(empleado)"
+            >
+              {{ empleado.nombreCompleto() }}
+            </mat-list-option>
+          }
+        </mat-selection-list>
+      } @else {
+        <p>Todavía no hay empleados registrados.</p>
+      }
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="detalle">
+    <mat-card-header>
+      <mat-card-title>Detalle</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      @if (seleccion().hayEmpleadoElegido()) {
+        <h2>{{ seleccion().nombre() }}</h2>
+        <dl>
+          <dt>Salario mensual</dt>
+          <dd>{{ seleccion().salarioMensual() }}</dd>
+          <dt>Salario diario</dt>
+          <dd>{{ seleccion().salarioDiario() }}</dd>
+          <dt>Tipo de salario</dt>
+          <dd>{{ seleccion().tipoDeSalario() }}</dd>
+        </dl>
+      } @else {
+        <p>Elegí un empleado para ver su salario desagregado.</p>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>
